@@ -1,0 +1,449 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>智能超市终端</title>
+        <meta name="keywords" content="index">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="renderer" content="webkit">
+        <meta http-equiv="Cache-Control" content="no-siteapp" />
+        <meta name="toTop" content="true">
+        <link rel="icon" type="image/png" href="assets/i/favicon.png">
+        <link rel="apple-touch-icon-precomposed" href="assets/i/app-icon72x72@2x.png">
+        <meta name="apple-mobile-web-app-title" content="Amaze UI" />
+        <link rel="stylesheet" href="assets/css/amazeui.min.css" />
+        <link rel="stylesheet" href="assets/css/admin.css">
+        <link rel="stylesheet" href="assets/css/app.css">
+        <link rel="stylesheet" href="assets/css/centermenu.css">
+        <link rel="stylesheet" href="assets/css/loading.css"/>
+		<link rel="stylesheet" href="assets/css/my_cart.css">
+        <script src="assets/js/echarts.min.js"></script>
+        <style>
+            body {
+                font-family: 'YouYuan';
+            }
+            .tpl-page-header-fixed {
+                margin-top: 150px;
+            }
+            .titleBox {
+                float:left;
+                position:relative;
+                left:35%;
+                height: 130px;
+                line-height: 130px;
+            }
+            .titleBox p {
+                float:left;
+                position:relative;
+                right:50%;
+                color: black;
+            }
+            .selectBtn {
+                background-color: #fff;
+                border-radius: 5px;
+                width: 250px;
+                height: 50px;
+                font-size: 22px;
+            }
+            .returnDiv {
+                font-family: Arial,'Times New Roman','Microsoft YaHei',SimHei;
+                width: 120px;
+                top:20px;
+                right:50px;
+                position:fixed;
+                cursor:pointer;
+            }
+            .selectType {
+                width: 250px;
+                height: 50px;
+                border-radius: 5px;
+                border-color: #e6e6e6;
+                padding-left:20px;
+                font-size: 22px;
+            }
+        </style>
+    </head>
+
+    <body data-type="index">
+        <header class="am-topbar am-topbar-inverse admin-header">
+            <div class="am-topbar-brand" style="height: 130px;line-height: 130px;">
+                <a href="index.html" class="tpl-logo">
+                    <img src="assets/img/logo.png">
+                </a>
+            </div>
+
+            <div class="titleBox">
+                <p class="am-text-xxxl">智能超市终端</p>
+            </div>
+
+            <div class="returnDiv">
+                <a style="color: black;" href="javascript:history.back(-1)">
+                    <span class="am-icon-arrow-left" style="font-size: 30px; margin-top: 10px;"></span>
+                    <span style="font-size: 28px;">Return</span>
+                </a>
+            </div>
+        </header>
+
+        <div class="tpl-page-container tpl-page-header-fixed">
+            <div class="tpl-portlet-components" style="margin-top: -20px;">
+                <!--<div class="am-u-sm-12 am-u-md-3">-->
+                    <!--<div class="am-form-group">-->
+                        <!--<button id="firstCategoryBtn" class="am-btn am-btn-default selectBtn" onclick="firstCategoryMenu()">选择大类</button>-->
+                    <!--</div>-->
+                <!--</div>-->
+                <div id="city" class="am-u-sm-12 am-u-md-3">
+                    <select class="prov selectType">
+                        <option>商品分类</option>
+                    </select>
+                    <select class="city selectType" style="display: none;margin-top: 20px;margin-bottom: 20px;"></select>
+                </div>
+                <div class="am-u-sm-12 am-u-md-3">
+                    <div class="am-form-group">
+                        <button id="moneyIntervalBtn" class="am-btn am-btn-default selectBtn" onclick="moneyIntervalMenu()">价格区间</button>
+                    </div>
+                </div>
+                <div class="am-u-sm-12 am-u-md-3">
+                    <div class="am-form-group">
+                        <button id="priceOrderBtn" class="am-btn am-btn-default selectBtn">
+                            价格
+                            <span class="am-icon-sort-alpha-asc"></span>
+                        </button>
+                    </div>
+                </div>
+                <div class="am-u-sm-12 am-u-md-3">
+                    <div class="am-form-group">
+                        <button id="salesOrderBtn" class="am-btn am-btn-default selectBtn">
+                            销量
+                            <span class="am-icon-sort-amount-desc"></span>
+                        </button>
+                    </div>
+                </div>
+                <!--<div class="am-u-sm-12 am-u-md-3" style="float: left;">-->
+                    <!--<div class="am-form-group">-->
+                        <!--<button id="secondCategoryBtn" class="am-btn am-btn-default selectBtn" onclick="scecondCategoryMenu()">选择小类</button>-->
+                    <!--</div>-->
+                <!--</div>-->
+
+                <hr data-am-widget="divider" style="" class="am-divider am-divider-dotted" />
+                <div class="am-u-sm-12 am-u-md-6">
+                    <div class="tpl-table-images-content">
+                        <a href="javascript:;" class="tpl-table-images-content-i" style="float: left;width: 100px;margin-right: 10px;margin-bottom: 10px;">
+                            <img src="assets/img/product01-1.jpeg" style="width: 100px">
+                        </a>
+                        <div class="tpl-table-images-content-block">
+                            <div id="productTitle" class="tpl-i-font" style="margin-top: -12px; font-size: 18px;">
+                                2018夏季新款女装时尚长裙学生条纹
+                            </div>
+                            <div id="productSubTitle" class="tpl-i-font" style="padding-left: 10px;font-size: 14px;height: 50px;width: 430px;">
+                                夏装圆领韩版修身T恤短袖衫，包邮，白色
+                                夏装圆领韩版修身T恤短袖衫，包邮，白色
+                                
+                            </div>
+                            <div id="productPrice" class="tpl-i-font" style="padding-left: 10px;font-size: 18px;color: red;">
+                                ￥240
+                            </div>
+                            <hr style="width: 100%; padding: 0px;" />
+                            <div class="tpl-i-more" style="">
+                                    <span class="am-text-warning">累计销量：</span>
+                                    <span class="am-text-warning"> 100+</span>
+                                    <a href="productDetail.html" class="am-btn am-btn-secondary am-round" style="height: 40px;float: right;width: 140px;margin-left: 10px;">
+                                        <span class="am-icon-yelp"></span>
+                                        查看详情
+                                    </a>
+                                    <a href="#0" data-price="240" data-img="assets/img/product01-1.jpeg" data-name="2018夏季新款女装时尚长裙学生条纹" class="am-btn am-btn-success am-round cd-add-to-cart" style="height: 40px;float: right;width: 140px;">
+                                        <span class="am-icon-shopping-cart"></span>
+                                        购买
+                                    </a>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="am-u-sm-12 am-u-md-6">
+                    <div class="tpl-table-images-content">
+                        <a href="javascript:;" class="tpl-table-images-content-i" style="float: left;width: 100px;margin-right: 10px;margin-bottom: 10px;">
+                            <img src="assets/img/product01-2.jpg" style="width: 100px">
+                        </a>
+                        <div class="tpl-table-images-content-block">
+                            <div id="productTitle" class="tpl-i-font" style="margin-top: -12px; font-size: 18px;">
+                                2018夏季新款女装时尚长裙学生条纹
+                            </div>
+                            <div id="productSubTitle" class="tpl-i-font" style="padding-left: 10px;font-size: 14px;height: 50px;width: 430px;">
+                                夏装圆领韩版修身T恤短袖衫，包邮，白色
+                                夏装圆领韩版修身T恤短袖衫，包邮，白色
+                                
+                            </div>
+                            <div id="productPrice" class="tpl-i-font" style="padding-left: 10px;font-size: 18px;color: red;">
+                                ￥150
+                            </div>
+                            <hr style="width: 100%; padding: 0px;" />
+                            <div class="tpl-i-more" style="">
+                                    <span class="am-text-warning">累计销量：</span>
+                                    <span class="am-text-warning"> 100+</span>
+                                    <a class="am-btn am-btn-secondary am-round" style="height: 40px;float: right;width: 140px;margin-left: 10px;">
+                                        <span class="am-icon-yelp"></span>
+                                        查看详情
+                                    </a>
+                                    <a href="#0" data-price="150" data-img="assets/img/product01-2.jpg" data-name="2018夏季新款女装时尚长裙学生条纹" class="am-btn am-btn-success am-round cd-add-to-cart" style="height: 40px;float: right;width: 140px;">
+                                        <span class="am-icon-shopping-cart"></span>
+                                        购买
+                                    </a>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="am-u-sm-12 am-u-md-6">
+                    <div class="tpl-table-images-content">
+                        <a href="javascript:;" class="tpl-table-images-content-i" style="float: left;width: 100px;margin-right: 10px;margin-bottom: 10px;">
+                            <img src="assets/img/product01-1.jpeg" style="width: 100px">
+                        </a>
+                        <div class="tpl-table-images-content-block">
+                            <div id="productTitle" class="tpl-i-font" style="margin-top: -12px; font-size: 18px;">
+                                2018夏季新款女装时尚长裙学生条纹
+                            </div>
+                            <div id="productSubTitle" class="tpl-i-font" style="padding-left: 10px;font-size: 14px;height: 50px;width: 430px;">
+                                夏装圆领韩版修身T恤短袖衫，包邮，白色
+                                夏装圆领韩版修身T恤短袖衫，包邮，白色
+                                
+                            </div>
+                            <div id="productPrice" class="tpl-i-font" style="padding-left: 10px;font-size: 18px;color: red;">
+                                ￥240
+                            </div>
+                            <hr style="width: 100%; padding: 0px;" />
+                            <div class="tpl-i-more" style="">
+                                    <span class="am-text-warning">累计销量：</span>
+                                    <span class="am-text-warning"> 100+</span>
+                                    <button class="am-btn am-btn-secondary am-round" style="height: 40px;float: right;width: 140px;margin-left: 10px;">
+                                        <span class="am-icon-yelp"></span>
+                                        查看详情
+                                    </button>
+                                    <button class="am-btn am-btn-success am-round" style="height: 40px;float: right;width: 140px;">
+                                        <span class="am-icon-shopping-cart"></span>
+                                        购买
+                                    </button>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="am-u-sm-12 am-u-md-6">
+                    <div class="tpl-table-images-content">
+                        <a href="javascript:;" class="tpl-table-images-content-i" style="float: left;width: 100px;margin-right: 10px;margin-bottom: 10px;">
+                            <img src="assets/img/product01-1.jpeg" style="width: 100px">
+                        </a>
+                        <div class="tpl-table-images-content-block">
+                            <div id="productTitle" class="tpl-i-font" style="margin-top: -12px; font-size: 18px;">
+                                2018夏季新款女装时尚长裙学生条纹
+                            </div>
+                            <div id="productSubTitle" class="tpl-i-font" style="padding-left: 10px;font-size: 14px;height: 50px;width: 430px;">
+                                夏装圆领韩版修身T恤短袖衫，包邮，白色
+                                夏装圆领韩版修身T恤短袖衫，包邮，白色
+                                
+                            </div>
+                            <div id="productPrice" class="tpl-i-font" style="padding-left: 10px;font-size: 18px;color: red;">
+                                ￥240
+                            </div>
+                            <hr style="width: 100%; padding: 0px;" />
+                            <div class="tpl-i-more" style="">
+                                    <span class="am-text-warning">累计销量：</span>
+                                    <span class="am-text-warning"> 100+</span>
+                                    <button class="am-btn am-btn-secondary am-round" style="height: 40px;float: right;width: 140px;margin-left: 10px;">
+                                        <span class="am-icon-yelp"></span>
+                                        查看详情
+                                    </button>
+                                    <button class="am-btn am-btn-success am-round" style="height: 40px;float: right;width: 140px;">
+                                        <span class="am-icon-shopping-cart"></span>
+                                        购买
+                                    </button>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--购物车-->
+				<div class="cd-cart-container empty">
+					<a href="#0" class="cd-cart-trigger">
+						Cart
+						<ul class="count"> <!-- cart items count -->
+							<li>0</li>
+							<li>0</li>
+						</ul> <!-- .count -->
+					</a>
+					
+					<div class="cd-cart">
+						<div class="wrapper">
+							<header>
+								<h2>购物车</h2>
+								<span class="undo">Item removed. <a href="#0">撤回</a></span>
+							</header>
+							
+							<div class="body">
+								<ul>
+									<!-- products added to the cart will be inserted here using JavaScript -->
+								</ul>
+							</div>
+
+							<footer>
+								<a href="#0" class="checkout btn">清空购物车</a>
+								<a href="#0" class="checkout btn"><em>结算 - $<span>0</span></em></a>
+							</footer>
+						</div>
+					</div> <!-- .cd-cart -->
+				</div> <!-- cd-cart-container -->
+                <!--分页-->
+                <div class="am-u-lg-12">
+                    <div class="am-cf">
+                        <div class="am-fr">
+                            <ul class="am-pagination tpl-pagination">
+                                <li class="am-disabled"><a href="#">«</a></li>
+                                <li class="am-active"><a href="#">1</a></li>
+                                <li><a href="#">2</a></li>
+                                <li><a href="#">3</a></li>
+                                <li><a href="#">4</a></li>
+                                <li><a href="#">5</a></li>
+                                <li><a href="#">»</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <hr>
+                </div>
+
+            </div>
+        </div>
+        <script src="assets/js/jquery.min.js"></script>
+        <script src="assets/js/amazeui.min.js"></script>
+        <script src="assets/js/toast.js"></script>
+        <script src="assets/js/centermenu.js"></script>
+        <script src="assets/js/toTop.js"></script>
+        <script src="assets/js/jquery.cityselect.js"></script>
+		<script src="assets/js/my_cart.js"></script>
+        <script>
+            var progress = $.AMUI.progress;
+            $(function() {
+                onLoad();
+                bindEvent();
+            });
+            function onLoad() {
+                initPage();
+            }
+            function initPage() {
+                progress.start();
+                // 请求后台获取商品类别
+                $.ajax({
+                    url : '/sys/productType/getProductTypeFe',
+                    type : 'POST',
+                    dataType:'json',
+                    success : function(res) {
+                        progress.done();
+
+                        // 数据组装
+                        var keyList = Object.keys(res)
+                        var citylist = []
+                        for(key in res){
+                            var item = res[key]
+                            citylist.push({
+                                "p":key,
+                                "c":valueList(item)
+                            })
+                        }
+                        // 初始化二级联动
+                        $("#city").citySelect({
+                            data:{
+                                "citylist":citylist
+                            },
+                            prov:"",
+                            city:"",
+                            dist:"",
+                            nodata:"none"
+                        });
+                    },
+                    error : function(err) {
+                        showMessage("系统正在升级，请稍后重试");
+                        console.log(err);
+                    }
+                });
+            }
+            function bindEvent() {
+                // 价格筛选
+                $('#priceOrderBtn').on('click', function() {
+                    var spanClass = $(this).children('span');
+                    if (spanClass.attr('class') === 'am-icon-sort-alpha-desc') {
+                        spanClass.attr('class', 'am-icon-sort-alpha-asc')
+                    } else {
+                        spanClass.attr('class', 'am-icon-sort-alpha-desc')
+                    }
+                });
+                // 销量筛选
+                $('#salesOrderBtn').on('click', function() {
+                    var spanClass = $(this).children('span');
+                    if (spanClass.attr('class') === 'am-icon-sort-amount-desc') {
+                        spanClass.attr('class', 'am-icon-sort-amount-asc')
+                    } else {
+                        spanClass.attr('class', 'am-icon-sort-amount-desc')
+                    }
+                });
+            }
+//            // 创建大类（与小类创建成二级联动）
+//            function firstCategoryMenu(){
+//                // 显示弹窗
+//                $('body').centermenu({
+//                    animateIn:'fadeInDownBig-hastrans',
+//                    animateOut:'fadeOutDownBig-hastrans',
+//                    hasLineBorder:true,
+//                    duration:600,
+//                    source:global.parentType,
+//                    liWidth:300,
+//                    liHeight:50,
+//                    click:function(ret){
+//                        $('#firstCategoryBtn').html(ret.text);
+//                        $('#secondCategoryBtn').html('所有');
+//                    }
+//                });
+//            }
+//            // 创建小类
+//            function scecondCategoryMenu(){
+//                $('body').centermenu({
+//                    animateIn:'fadeInDownBig-hastrans',
+//                    animateOut:'fadeOutDownBig-hastrans',
+//                    hasLineBorder:true,
+//                    duration:600,
+//                    source:['所有', '面膜','洗面奶','卸妆水','口红','补水仪','洁面仪'],
+//                    liWidth:300,
+//                    liHeight:50,
+//                    click:function(ret){
+//                        $('#secondCategoryBtn').html(ret.text);
+//                        showMessage(ret.text);
+//                    }
+//                });
+//            }
+            // 价格区间
+            function moneyIntervalMenu(){
+                $('body').centermenu({
+                    animateIn:'fadeInDownBig-hastrans',
+                    animateOut:'fadeOutDownBig-hastrans',
+                    hasLineBorder:true,
+                    duration:600,
+                    source:['不限', '1-100','100-500','500-1000','1000-5000','5000元以上'],
+                    liWidth:300,
+                    liHeight:50,
+                    click:function(ret){
+                        $('#moneyIntervalBtn').html(ret.text);
+                        showMessage(ret.text);
+                    }
+                });
+            }
+            function valueList(list) {
+                var arr = []
+                for(var i=0;i<list.length;i++){
+                    arr.push({
+                        'n':list[i].typeValue
+                    })
+                }
+                return arr
+            }
+            
+        </script>
+    </body>
+</html>

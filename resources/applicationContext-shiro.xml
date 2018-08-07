@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans classpath:/org/springframework/beans/factory/xml/spring-beans-4.0.xsd
+				http://www.springframework.org/schema/context classpath:/org/springframework/context/config/spring-context-4.0.xsd
+				http://www.springframework.org/schema/aop classpath:/org/springframework/aop/config/spring-aop-4.0.xsd
+				http://www.springframework.org/schema/tx classpath:/org/springframework/transaction/config/spring-tx-4.0.xsd
+				http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+
+	<bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+		<property name="realm" ref="shiroSecurityRealm" />
+	</bean>
+    
+    <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+        <property name="securityManager" ref="securityManager"/>
+        <property name="loginUrl" value="/login.jsp"/>
+        <property name="successUrl" value="/sys/sysuser/home"/>
+        <property name="unauthorizedUrl" value="/login.jsp"/>
+        <property name="filters">
+            <util:map>
+                <entry key="authc">
+                    <bean class="org.apache.shiro.web.filter.authc.PassThruAuthenticationFilter"/>
+                </entry>
+            </util:map>
+        </property>
+        <property name="filterChainDefinitions">
+            <value>
+				/* = anon
+				<!--/uploadimage=anon-->
+				<!--/listimage = anon-->
+				<!--/listfile = anon-->
+				<!--/uploadscrawl = anon-->
+				<!--/uploadimage = anon-->
+				<!--/catchimage = anon-->
+				<!--/uploadvideo = anon-->
+				<!--/uploadfile= anon-->
+				<!--/static/** = anon-->
+				<!--/jsp/** = anon -->
+				<!--/test/** = anon -->
+				<!--/wx/** = anon -->
+				<!--/VerifyCodeServlet=anon-->
+				<!--/FileUpload=anon-->
+				<!--/GetProcess=anon-->
+				<!--/top/** = anon-->
+				<!--/index.jsp = anon-->
+				<!--/login.jsp = anon-->
+				<!--/600.jsp = anon-->
+				<!--/sys/sysuser/login = anon -->
+				<!--/sys/sysuser/register = anon-->
+				<!--/sys/sysuser/retrievePassword = anon-->
+				<!--/sys/sysuser/weixinbind = anon-->
+				<!--/sys/sysuser/weixinSysUser = anon-->
+				<!--/client/face = anon-->
+				<!--/sys/sysuser/logout = logout-->
+				<!--/** = authc-->
+            	<!--/fe/** = anon-->
+            </value>
+        </property>
+    </bean>
+    
+    <!-- Post processor that automatically invokes init() and destroy() methods -->
+    <bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor"/>
+    
+</beans>

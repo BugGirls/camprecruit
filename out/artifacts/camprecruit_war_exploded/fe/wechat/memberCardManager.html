@@ -1,0 +1,334 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>会员卡管理</title>
+        <meta name="keywords" content="index">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="renderer" content="webkit">
+        <meta http-equiv="Cache-Control" content="no-siteapp" />
+        <meta name="apple-mobile-web-app-title" content="Amaze UI" />
+        <link rel="stylesheet" href="../assets/css/amazeui.min.css" />
+        <link rel="stylesheet" href="../assets/css/admin.css">
+        <link rel="stylesheet" href="../assets/css/app.css">
+        <style>
+            .tpl-portlet-components {
+                margin-top: -12px;
+                border-radius: 10px;
+            }
+            .tpl-logo img {
+                display: block;
+                height: 78px;
+                width: auto;
+            }
+            .am-popup-bd img {
+                cursor: pointer;
+                width: 100px;
+                border-radius: 10px;
+                margin: 5px;
+            }
+            .am-dropdown {
+                float: left;
+            }
+            .create-card {
+                width: 120px;
+                height: 40px;
+                border-radius: 7px;
+                text-align: center;
+                line-height: 40px;
+                background-color: #23abf0;
+                cursor: pointer;
+                color: white;
+                display: block;
+            }
+        </style>
+    </head>
+
+    <body data-type="generalComponents">
+        <header class="am-topbar am-topbar-inverse admin-header">
+            <div class="am-topbar-brand">
+                <a href="javascript:;" class="tpl-logo">
+                    <img src="../assets/img/logo.png">
+                </a>
+            </div>
+
+            <div class="am-collapse am-topbar-collapse" id="topbar-collapse">
+                <ul class="am-nav am-nav-pills am-topbar-nav am-topbar-right admin-header-list tpl-header-list">
+                    <li class="am-hide-sm-only">
+                        <a href="javascript:;" id="admin-fullscreen" class="tpl-header-list-link">
+                            <span class="am-icon-arrows-alt"></span>
+                            <span class="admin-fullText">开启全屏</span>
+                        </a>
+                    </li>
+                    <li class="am-dropdown" data-am-dropdown data-am-dropdown-toggle>
+                        <a class="am-dropdown-toggle tpl-header-list-link" href="javascript:;">
+                            <span class="tpl-header-list-user-nick">禁言小张</span><span class="tpl-header-list-user-ico"> <img src="../assets/img/img1.png"></span>
+                        </a>
+                        <ul class="am-dropdown-content">
+                            <li><a href="#"><span class="am-icon-power-off"></span> 退出</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </header>
+
+        <div class="tpl-page-container tpl-page-header-fixed">
+            <div class="tpl-left-nav tpl-left-nav-hover">
+                <div class="tpl-left-nav-title">
+                    Amaze UI 列表
+                </div>
+                <div class="tpl-left-nav-list">
+                    <ul class="tpl-left-nav-menu">
+                        <li class="tpl-left-nav-item">
+                            <a href="materialImage.html" class="nav-link">
+                                <i class="am-icon-home"></i>
+                                <span>素材管理</span>
+                            </a>
+                        </li>
+                        <li class="tpl-left-nav-item">
+                            <a href="poiManager.html" class="nav-link ">
+                                <i class="am-icon-home"></i>
+                                <span>门店管理</span>
+                            </a>
+                        </li>
+                        <li class="tpl-left-nav-item">
+                            <a href="cardManager.html" class="nav-link tpl-left-nav-link-list ">
+                                <i class="am-icon-bar-chart"></i>
+                                <span>卡券管理</span>
+                            </a>
+                        </li>
+                        <li class="tpl-left-nav-item">
+                            <a href="memberCardManager.html" class="nav-link tpl-left-nav-link-list active">
+                                <i class="am-icon-bar-chart"></i>
+                                <span>会员卡管理</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="tpl-content-wrapper">
+                <div class="tpl-portlet-components">
+                    <div class="tpl-block">
+                        <div class="am-g">
+                            <div class="am-u-sm-12 am-u-md-3">
+                                <div class="am-input-group am-input-group-sm">
+                                    <input id="searchKey" type="text" class="am-form-field">
+                                    <span class="am-input-group-btn">
+                                        <button id="searchBtn" class="am-btn am-btn-default am-btn-success tpl-am-btn-success am-icon-search" type="button"></button>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="am-u-sm-12 am-u-md-3">
+                                <div class="am-input-group am-input-group-sm">
+                                    <a href="createMemberCard.html" class="create-card">新建会员卡</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="am-g">
+                            <div class="am-u-sm-12">
+                                <form class="am-form">
+                                    <table class="am-table am-table-striped am-table-hover table-main">
+                                        <thead>
+                                        <tr>
+                                            <th class="table-title">会员卡名称</th>
+                                            <th class="table-title">有效期</th>
+                                            <th class="table-type">卡券状态</th>
+                                            <th class="table-author am-hide-sm-only">库存</th>
+                                            <th class="table-set">操作</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody id="showMemberCard">
+
+                                        </tbody>
+                                    </table>
+                                    <div class="am-cf">
+                                        <div class="am-fr" style="font-size: 14px;">
+                                            <ul class="am-pagination tpl-pagination" id="pagination"></ul>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                </form>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script src="../assets/js/jquery.min.js"></script>
+        <script src="../assets/js/amazeui.min.js"></script>
+        <script src="../assets/js/app.js"></script>
+        <script src="../assets/js/toast.js"></script>
+        <script src="../assets/js/jqPaginator.min.js"></script>
+        <script src="../assets/js/mytime.js"></script>
+        <script type="text/javascript">
+            var data = {
+                pageNum: 1,// 当前页
+                pageSize: 10,// 每页显示多少数据
+                title : ''
+            }
+
+            $(function() {
+                addItems(data.pageNum, data.pageSize)
+                bindEvent()
+            })
+            function addItems(pageNum, pageSize) {
+                var formData = new FormData();
+                formData.append("pageNum", pageNum);
+                formData.append("pageSize", pageSize);
+                if (data.title != '') {
+                    formData.append("title", data.title)
+                }
+
+                $.ajax({
+                    url : '/wechat/manager/get_wechat_member_card_list_page',
+                    data : formData,
+                    type : 'POST',
+                    dataType:'json',
+                    contentType : false,
+                    processData : false,
+                    cache : false,
+                    success : function(res) {
+                        var memberCardHtml = ''
+                        console.log(res)
+                        $.each(res.data, function(index, item) {
+                            var dateTypeHtml = ''
+                            var cardStatusHtml = ''
+                            var operationBtn = ''
+
+                            // 时间类型
+                            if (item.dateType === 'DATE_TYPE_PERMANENT') {
+                                dateTypeHtml = '永久有效'
+                            } else if (item.dateType === 'DATE_TYPE_FIX_TIME_RANGE') {
+                                dateTypeHtml = $.myTime.UnixToDate(item.beginTimestamp) + '到' + $.myTime.UnixToDate(item.endTimestamp) + '有效'
+                            } else if (item.dateType === 'DATE_TYPE_FIX_TERM') {
+                                dateTypeHtml = '领取后' + item.fixedBeginTerm + '天生效' + item.fixedTerm + '天有效'
+                            }
+
+                            // 卡券状态
+                            if (item.cardStatus == 0) {
+                                cardStatusHtml = '待投放'
+                            } else if (item.cardStatus == 1) {
+                                cardStatusHtml = '已投放'
+                            } else {
+                                cardStatusHtml = '未知状态'
+                            }
+
+                            if (item.cardStatus == 1) {
+                                operationBtn = '<a id="puttingMemberCardBtn" data-cardid="' + item.id + '" data-wechatcardid="' + item.cardId + '" class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-pencil-square-o"></span> 投放</a>'
+                            } else {
+                                operationBtn = '<a id="puttingMemberCardBtn" data-cardid="' + item.id + '" data-wechatcardid="' + item.cardId + '" class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-pencil-square-o"></span> 投放</a>' +
+                                                '<a id="deleteMemberCardBtn" data-wechatcardid="' + item.cardId + '" class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-pencil-square-o"></span> 删除</a>'
+                            }
+
+                            memberCardHtml += '<tr>'+
+                                    '<td>' + item.title + '</td>'+
+                                    '<td>' + dateTypeHtml + '</td>'+
+                                    '<td>' + cardStatusHtml + '</td>'+
+                                    '<td class="am-hide-sm-only">' + item.quantity + '</td>'+
+                                    '<td>'+
+                                    '<div class="am-btn-toolbar">'+
+                                    '<div class="am-btn-group am-btn-group-xs">' + operationBtn + '</div>'+
+                                    '</div>'+
+                                    '</td>'+
+                                    '</tr>'
+                        })
+                        $('#showMemberCard').html(memberCardHtml)
+
+                        loadPage(res.totalPage, res.pageNum, res.totalCount)
+                    },
+                    error : function(err) {
+                        console.log(err);
+                    }
+                })
+            }
+            // 加载分页信息（使用分页插件）
+            function loadPage(pages, pageNum, total) {
+                $.jqPaginator('#pagination', {
+                    totalPages: pages,
+                    visiblePages: 5,
+                    currentPage: pageNum,
+                    first: '<li class="first"><a href="javascript:;">首页</a></li>',
+                    prev: '<li class="prev"><a href="javascript:;">上一页</a></li>',
+                    next: '<li class="next"><a href="javascript:;">下一页</a></li>',
+                    last: '<li class="last"><a href="javascript:;">末页</a></li>',
+                    page: '<li class="page"><a href="javascript:;">{{page}}</a></li>',
+                    onPageChange: function (num, type) {
+                        $('#pagination').prepend('<li style="margin-right:20px;margin-left:20px;">总页数：' + pages + ' 页</li>');
+                        $('#pagination').prepend('<li>总条数：' + total + ' 条</li>');
+                        if (type == "change") {
+                            data.pageNum = num;
+                            addItems(num, data.pageSize);
+                            loadPage(pages);
+                        }
+                    }
+                });
+            }
+            function bindEvent() {
+                // 投放二维码
+                $('body').on('click','#puttingMemberCardBtn',function() {
+                    var qrcodePuttingCard = {
+                        wechatCardId : $(this).data('wechatcardid'),
+                        cardId : $(this).data('cardid'),
+                        actionName: 'QR_CARD'
+                    }
+                    $.ajax({
+                        url : '/wechat/manager/qrcode_putting_member_card',
+                        data : JSON.stringify(qrcodePuttingCard),
+                        type : 'POST',
+                        dataType:'json',
+                        contentType:"application/json",
+                        success : function(res) {
+                            if (res.success) {
+                                var wechatQrcodePuttingCard = res.wechatQrcodePuttingCard
+                                window.location.href = '/wechat/manager/download_qrcode?url=' + wechatQrcodePuttingCard.showQrcodeUrl
+                                addItems(data.pageNum, data.pageSize)
+                            } else {
+                                console.log(res.msg)
+                                showMessage('会员卡投放失败')
+                            }
+                        },
+                        error : function(err) {
+                            console.log(err);
+                            showMessage('系统错误')
+                        }
+                    })
+                })
+                // 删除会员卡
+                $('body').on('click','#deleteMemberCardBtn',function() {
+                    $.ajax({
+                        url : '/wechat/manager/delete_card',
+                        data : {
+                            cardId: $(this).data('wechatcardid')
+                        },
+                        type : 'POST',
+                        dataType:'json',
+                        success : function(res) {
+                            if (res.success) {
+                                showMessage('会员卡删除成功')
+                                addItems(data.pageNum, data.pageSize)
+                            } else {
+                                showMessage('会员卡删除失败：' + res.msg)
+                            }
+                        },
+                        error : function(err) {
+                            console.log(err);
+                            showMessage('系统错误')
+                        }
+                    })
+                })
+                // 筛选
+                $('#searchBtn').click(function() {
+                    data.title = $('#searchKey').val()
+                    console.log(data.title)
+                    addItems(data.pageNum, data.pageSize)
+                })
+            }
+        </script>
+    </body>
+</html>

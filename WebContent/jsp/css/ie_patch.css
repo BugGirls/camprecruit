@@ -1,0 +1,12 @@
+@CHARSET "UTF-8";
+body,h1,h2,h3,h4,h5,h6,div,p,span,a,ul,li,section,img,b,i,table,form,button,input,br{ 
+	max-width:640px;
+} 
+body{min-width:320px;}
+.weui_cell .weui_cell_hd{width:15%;float:left;clear:left;}
+.weui_cell .weui_cell_bd{width:75%;float:left;}
+.weui_cell .weui_cell_ft{float: right;clear:right;}
+.weui_navbar{clear:both;}
+.weui_navbar_item{padding: 0; width:25%;float:left;}
+.weui_media_box {clear:both;}
+a[class~=weui_cell]{width:90%;display:inline-block;}

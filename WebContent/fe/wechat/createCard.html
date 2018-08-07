@@ -1,0 +1,824 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>创建卡券</title>
+        <meta name="keywords" content="index">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="renderer" content="webkit">
+        <meta http-equiv="Cache-Control" content="no-siteapp" />
+        <meta name="apple-mobile-web-app-title" content="Amaze UI" />
+        <link rel="stylesheet" href="../assets/css/amazeui.min.css" />
+        <link rel="stylesheet" href="../assets/css/admin.css">
+        <link rel="stylesheet" href="../assets/css/app.css">
+        <style>
+        	.tpl-portlet-components {
+        		margin-top: -12px;
+        		border-radius: 10px;
+        	}
+
+            .tpl-logo img {
+                display: block;
+                height: 78px;
+                width: auto;
+            }
+            .showMaterialImage {
+                width: 100px;
+                cursor: pointer;
+                border: 1px solid #eee;
+                height: 100px;
+                border-radius: 10px;
+            }
+            .am-popup-bd img {
+                cursor: pointer;
+                width: 100px;
+                border-radius: 10px;
+                margin: 5px;
+            }
+            .am-popup-bd {
+                background-color: #fff;
+                text-align: center;
+            }
+            .am-dropdown {
+                float: left;
+            }
+            #initCardColor {
+                width: 20px;
+                height: 20px;
+                float: left;
+                margin-left: 20px;
+                margin-top: 7px;
+            }
+        </style>
+    </head>
+
+    <body data-type="generalComponents">
+        <header class="am-topbar am-topbar-inverse admin-header">
+            <div class="am-topbar-brand">
+                <a href="javascript:;" class="tpl-logo">
+                    <img src="../assets/img/logo.png">
+                </a>
+            </div>
+
+            <div class="am-collapse am-topbar-collapse" id="topbar-collapse">
+                <ul class="am-nav am-nav-pills am-topbar-nav am-topbar-right admin-header-list tpl-header-list">
+                    <li class="am-hide-sm-only">
+                        <a href="javascript:;" id="admin-fullscreen" class="tpl-header-list-link">
+                            <span class="am-icon-arrows-alt"></span>
+                            <span class="admin-fullText">开启全屏</span>
+                        </a>
+                    </li>
+                    <li class="am-dropdown" data-am-dropdown data-am-dropdown-toggle>
+                        <a class="am-dropdown-toggle tpl-header-list-link" href="javascript:;">
+                            <span class="tpl-header-list-user-nick">禁言小张</span><span class="tpl-header-list-user-ico"> <img src="../assets/img/img1.png"></span>
+                        </a>
+                        <ul class="am-dropdown-content">
+                            <li><a href="#"><span class="am-icon-bell-o"></span> 资料</a></li>
+                            <li><a href="#"><span class="am-icon-cog"></span> 设置</a></li>
+                            <li><a href="#"><span class="am-icon-power-off"></span> 退出</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </header>
+
+        <div class="tpl-page-container tpl-page-header-fixed">
+            <div class="tpl-left-nav tpl-left-nav-hover">
+                <div class="tpl-left-nav-title">
+                    Amaze UI 列表
+                </div>
+                <div class="tpl-left-nav-list">
+                    <ul class="tpl-left-nav-menu">
+                        <li class="tpl-left-nav-item">
+                            <a href="materialImage.html" class="nav-link">
+                                <i class="am-icon-home"></i>
+                                <span>素材管理</span>
+                            </a>
+                        </li>
+                        <li class="tpl-left-nav-item">
+                            <a href="poiManager.html" class="nav-link ">
+                                <i class="am-icon-home"></i>
+                                <span>门店管理</span>
+                            </a>
+                        </li>
+                        <li class="tpl-left-nav-item">
+                            <a href="cardManager.html" class="nav-link tpl-left-nav-link-list active">
+                                <i class="am-icon-bar-chart"></i>
+                                <span>卡券管理</span>
+                            </a>
+                        </li>
+                        <li class="tpl-left-nav-item">
+                            <a href="cardManager.html" class="nav-link tpl-left-nav-link-list ">
+                                <i class="am-icon-bar-chart"></i>
+                                <span>会员卡管理</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="tpl-content-wrapper">
+                <div class="tpl-portlet-components">
+                    <div class="tpl-block">
+                        <div class="am-g">
+                            <div class="tpl-form-body tpl-form-line">
+                                <form class="am-form tpl-form-line-form">
+                                	<div>必填字段</div>
+                                    <div class="am-form-group">
+                                        <label class="am-u-sm-3 am-form-label">卡券类型 <span class="tpl-form-line-small-title">cardType</span></label>
+                                        <div class="am-u-sm-9">
+                                            <select id="selectCardType" data-am-selected="{searchBox: 1}">
+
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="am-form-group">
+                                        <label class="am-u-sm-3 am-form-label">商户图片 <span class="tpl-form-line-small-title">Logo</span></label>
+                                        <div class="am-u-sm-9">
+                                            <div id="showMaterialImage" class="showMaterialImage">
+                                                <img id="materialImg" src="" style="width: 100px; border-radius: 10px;" data-am-modal="{target: '#showImagePopup'}" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="am-form-group">
+                                        <label class="am-u-sm-3 am-form-label">卡券码型 <span class="tpl-form-line-small-title">codeType</span></label>
+                                        <div class="am-u-sm-9">
+                                            <select id="selectCodeType" data-am-selected="{searchBox: 1}">
+
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="am-form-group">
+                                        <label class="am-u-sm-3 am-form-label">商户名称 <span class="tpl-form-line-small-title">brandName</span></label>
+                                        <div class="am-u-sm-9">
+                                            <input id="brandName" type="text" placeholder="输入商户名称">
+                                            <small>例如：海底捞 （字数上限为12个汉字）</small>
+                                        </div>
+                                    </div>
+                                    <div class="am-form-group">
+                                        <label class="am-u-sm-3 am-form-label">卡券名 <span class="tpl-form-line-small-title">title</span></label>
+                                        <div class="am-u-sm-9">
+                                            <input id="title" type="text" placeholder="输入卡券名称">
+                                            <small>例如：情侣套餐100元优惠券 （字数上限为9个汉字）</small>
+                                        </div>
+                                    </div>
+                                    <div class="am-form-group">
+                                        <label class="am-u-sm-3 am-form-label">卡券颜色 <span class="tpl-form-line-small-title">color</span></label>
+                                        <div class="am-u-sm-9">
+                                            <select id="selectCardColor" data-am-selected="{searchBox: 1}">
+
+                                            </select>
+                                            <div id="initCardColor"></div>
+                                        </div>
+                                    </div>
+                                    <div class="am-form-group">
+                                        <label class="am-u-sm-3 am-form-label">使用提醒 <span class="tpl-form-line-small-title">notice</span></label>
+                                        <div class="am-u-sm-9">
+                                            <input id="notice" type="text" placeholder="输入使用提醒">
+                                            <small>例如：使用时向服务员出示此券 （字数上限为16个汉字）</small>
+                                        </div>
+                                    </div>
+                                    <div class="am-form-group">
+	                                    <label class="am-u-sm-3 am-form-label">卡券使用说明</label>
+	                                    <div class="am-u-sm-9">
+	                                        <textarea id="description" class="" rows="10" placeholder="请输入卡券使用说明"></textarea>
+	                                        <small>例如：不可与其他优惠同享 （字数上限为1024个汉字）</small>
+	                                    </div>
+	                                </div>
+                                    <div class="am-form-group">
+	                                    <label class="am-u-sm-3 am-form-label">库存数量 <span class="tpl-form-line-small-title">quantity</span></label>
+	                                    <div class="am-u-sm-9">
+	                                        <input id="quantity" type="text" placeholder="输入库存数量">
+	                                    </div>
+	                                </div>
+									<div class="am-form-group">
+                                        <label class="am-u-sm-3 am-form-label">有效时间类型 <span class="tpl-form-line-small-title">dateType</span></label>
+                                        <div class="am-u-sm-9">
+                                            <select id="selectDateType" data-am-selected="{searchBox: 1}">
+
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div id="timeDiv">
+    									<div class="am-form-group" id="beginTimeDiv">
+    	                                    <label class="am-u-sm-3 am-form-label">起用时间 <span class="tpl-form-line-small-title">beginTime</span></label>
+    	                                    <div class="am-u-sm-9">
+    	                                        <input type="text" class="am-form-field tpl-form-no-bg" placeholder="起用时间" id="my-start-2" readonly/>
+    	                                    </div>
+    	                                </div>
+    	                                <div class="am-form-group" id="endTimeDiv">
+    	                                    <label class="am-u-sm-3 am-form-label">结束时间 <span class="tpl-form-line-small-title">endTime</span></label>
+    	                                    <div class="am-u-sm-9">
+    	                                        <input type="text" class="am-form-field tpl-form-no-bg" placeholder="结束时间" id="my-end-2" readonly/>
+    	                                        <small>截止时间为日期的23:59:59过期</small>
+    	                                    </div>
+    	                                </div>
+                                    </div>
+                                    <div id="termDiv">
+    	                                <div class="am-form-group" id="beginTermDiv">
+    	                                    <label class="am-u-sm-3 am-form-label">生效时间 <span class="tpl-form-line-small-title">beginTerm</span></label>
+    	                                    <div class="am-u-sm-9">
+    	                                        <input id="beginTerm" type="number" placeholder="输入开始生效时间">
+    	                                        <small>表示自领取后多少天开始生效，领取后当天生效填写0。（单位为天）</small>
+    	                                    </div>
+    	                                </div>
+    	                                <div class="am-form-group" id="fixedTermDiv">
+    	                                    <label class="am-u-sm-3 am-form-label">有效期 <span class="tpl-form-line-small-title">fixedTerm</span></label>
+    	                                    <div class="am-u-sm-9">
+    	                                        <input id="fixedTerm" type="number" placeholder="输入有效期">
+    	                                        <small>表示自领取后多少天内有效，不支持填写0。（单位为天）</small>
+    	                                    </div>
+    	                                </div>
+                                    </div>
+                                    <!-- 代金券专用 -->
+                                    <div id="cashDiv">
+                                        <div class="am-form-group">
+                                            <label class="am-u-sm-3 am-form-label">减免金额（代金券专用） </label>
+                                            <div class="am-u-sm-9">
+                                                <input id="reduceCost" type="text" placeholder="输入减免金额">
+                                                <small>表示减免金额（单位为分）</small>
+                                            </div>
+                                        </div>
+                                        <div class="am-form-group">
+                                            <label class="am-u-sm-3 am-form-label">起用金额（代金券专用） </label>
+                                            <div class="am-u-sm-9">
+                                                <input id="leastCost" type="text" placeholder="输入起用金额">
+                                                <small>表示起用金额（单位为分），如果无起用门槛则填0。</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- 折扣券专用 -->
+                                    <div id="discountDiv">
+                                        <div class="am-form-group" >
+                                            <label class="am-u-sm-3 am-form-label">打折额度（折扣券专用） </label>
+                                            <div class="am-u-sm-9">
+                                                <input id="discount" type="text" placeholder="输入打折额度">
+                                                <small>表示打折额度（百分比）。填30就是七折。</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- 兑换券专用 -->
+                                    <div id="giftDiv">
+                                        <div class="am-form-group">
+                                            <label class="am-u-sm-3 am-form-label">兑换内容（兑换券专用） </label>
+                                            <div class="am-u-sm-9">
+                                                <textarea id="gift" class="" rows="10" placeholder="输入兑换内容"></textarea>
+                                                <small>填写兑换内容的名称。（字数上限为1024个汉字）</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- 优惠券专用 -->
+                                    <div id="generalCouponDiv">
+                                        <div class="am-form-group">
+                                            <label class="am-u-sm-3 am-form-label">优惠详情（优惠券专用） </label>
+                                            <div class="am-u-sm-9">
+                                                <textarea id="defaultDetail" class="" rows="10" placeholder="输入优惠详情"></textarea>
+                                                <small>填写优惠详情（字数上限为1024个汉字）</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- 团购券专用 -->
+                                    <div id="groupOnDiv">
+                                        <div class="am-form-group">
+                                            <labe class="am-u-sm-3 am-form-label">团购详情（团购券专用） </labe>
+                                            <div class="am-u-sm-9">
+                                                <textarea id="dealDetail" class="" rows="10" placeholder="输入团购内容"></textarea>
+                                                <small>填写团购详情（字数上限为1024个汉字）</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- 非必填字段 -->
+	                                <div style="border-top: 1px solid #eee;padding-top: 20px;">非必填字段</div>
+                                    <div class="am-form-group">
+                                        <label class="am-u-sm-3 am-form-label">客服电话 <span class="tpl-form-line-small-title">servicePhone</span></label>
+                                        <div class="am-u-sm-9">
+                                            <input id="servicePhone" type="text" placeholder="输入客服电话">
+                                            <small>字数上限为24个字符</small>
+                                        </div>
+                                    </div>
+                                    <div class="am-form-group">
+                                        <label class="am-u-sm-3 am-form-label">使用场景入口按钮</label>
+                                        <div class="am-u-sm-9">
+                                            <input id="centerTitle" type="text" placeholder="输入按钮文字">
+                                            <small>例如：立即使用（字数上限为6个汉字）</small>
+                                        </div>
+                                    </div>
+                                    <div class="am-form-group">
+                                        <label class="am-u-sm-3 am-form-label">使用场景提示 </label>
+                                        <div class="am-u-sm-9">
+                                            <input id="centerSubTitle" type="text" placeholder="输入场景提示">
+                                            <small>例如：鸳鸯锅底+牛肉一份+土豆一份（字数上限为8个汉字）</small>
+                                        </div>
+                                    </div>
+                                    <div class="am-form-group">
+                                        <label class="am-u-sm-3 am-form-label">使用场景入口URL </label>
+                                        <div class="am-u-sm-9">
+                                            <input id="centerUrl" type="text" placeholder="输入入口URL">
+                                            <small>例如：http://www.qq.com（URL上限为128个字符）</small>
+                                        </div>
+                                    </div>
+                                    <div class="am-form-group">
+                                        <label class="am-u-sm-3 am-form-label">服务场景入口按钮</label>
+                                        <div class="am-u-sm-9">
+                                            <input id="customUrlName" type="text" placeholder="输入按钮文字">
+                                            <small>例如：团购券详情（字数上限为5个汉字）</small>
+                                        </div>
+                                    </div>
+                                    <div class="am-form-group">
+                                        <label class="am-u-sm-3 am-form-label">服务场景提示 </label>
+                                        <div class="am-u-sm-9">
+                                            <input id="customUrlSubTitle" type="text" placeholder="输入场景提示">
+                                            <small>6个汉字的提示（字数上限为6个汉字）</small>
+                                        </div>
+                                    </div>
+                                    <div class="am-form-group">
+                                        <label class="am-u-sm-3 am-form-label">服务场景入口URL </label>
+                                        <div class="am-u-sm-9">
+                                            <input id="customUrl" type="text" placeholder="输入入口URL">
+                                            <small>例如：http://www.qq.com（URL上限为128个字符）</small>
+                                        </div>
+                                    </div>
+                                    <div class="am-form-group">
+                                        <label class="am-u-sm-3 am-form-label">营销场景入口按钮</label>
+                                        <div class="am-u-sm-9">
+                                            <input id="promotionUrlName" type="text" placeholder="输入按钮文字">
+                                            <small>例如：更多优惠（字数上限为5个汉字）</small>
+                                        </div>
+                                    </div>
+                                    <div class="am-form-group">
+                                        <label class="am-u-sm-3 am-form-label">营销场景提示 </label>
+                                        <div class="am-u-sm-9">
+                                            <input id="promotionUrlSubTitle" type="text" placeholder="输入场景提示">
+                                            <small>6个汉字的提示（字数上限为6个汉字）</small>
+                                        </div>
+                                    </div>
+                                    <div class="am-form-group">
+                                        <label class="am-u-sm-3 am-form-label">营销场景入口URL </label>
+                                        <div class="am-u-sm-9">
+                                            <input id="promotionUrl" type="text" placeholder="输入入口URL">
+                                            <small>例如：http://www.qq.com（URL上限为128个字符）</small>
+                                        </div>
+                                    </div>
+                                    <div class="am-form-group">
+                                        <label class="am-u-sm-3 am-form-label">单人领券数量 <span class="tpl-form-line-small-title">getLimit</span></label>
+                                        <div class="am-u-sm-9">
+                                            <input id="getLimit" type="number" placeholder="输入领券数量">
+                                            <small>每人可领券的数量限制,不填写默认为50。</small>
+                                        </div>
+                                    </div>
+                                    <div class="am-form-group">
+                                        <label class="am-u-sm-3 am-form-label">单人核销数量 <span class="tpl-form-line-small-title">useLimit</span></label>
+                                        <div class="am-u-sm-9">
+                                            <input id="useLimit" type="number" placeholder="输入核销数量">
+                                            <small>每人可核销的数量限制,不填写默认为50。</small>
+                                        </div>
+                                    </div>
+                                    <!-- 卡券高级信息字段 -->
+                                    <div style="border-top: 1px solid #eee;padding-top: 20px;">高级信息字段</div>
+                                    <div class="am-form-group">
+                                        <label class="am-u-sm-3 am-form-label">商家服务类型 <span class="tpl-form-line-small-title">businessService</span></label>
+                                        <div class="am-u-sm-9" id="selectBusinessService">
+
+                                        </div>
+                                    </div>
+                                    <div class="am-form-group">
+                                        <label class="am-u-sm-3 am-form-label">使用日期 <span class="tpl-form-line-small-title">advancedType</span></label>
+                                        <div class="am-u-sm-9">
+                                            <select id="selectAdvancedInfoType" data-am-selected="{searchBox: 1}">
+                                                <option></option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="am-form-group">
+                                        <label class="am-u-sm-3 am-form-label">起始时间（小时） <span class="tpl-form-line-small-title">beginHour</span></label>
+                                        <div class="am-u-sm-9">
+                                            <input id="beginHour" type="text" placeholder="输入起始时间">
+                                            <small>当前type类型下的起始时间（小时），如当前结构体内填写了MONDAY， 此处填写了10，则此处表示周一 10:00可用</small>
+                                        </div>
+                                    </div>
+                                    <div class="am-form-group">
+                                        <label class="am-u-sm-3 am-form-label">起始时间（分钟） <span class="tpl-form-line-small-title">beginMinute</span></label>
+                                        <div class="am-u-sm-9">
+                                            <input id="beginMinute" type="text" placeholder="输入起始时间">
+                                            <small>当前type类型下的起始时间（分钟），如当前结构体内填写了MONDAY， begin_hour填写10，此处填写了59， 则此处表示周一 10:59可用</small>
+                                        </div>
+                                    </div>
+                                    <div class="am-form-group">
+                                        <label class="am-u-sm-3 am-form-label">结束时间（小时） <span class="tpl-form-line-small-title">endHour</span></label>
+                                        <div class="am-u-sm-9">
+                                            <input id="endHour" type="text" placeholder="输入结束时间">
+                                            <small>当前type类型下的结束时间（小时） ，如当前结构体内填写了MONDAY， 此处填写了20， 则此处表示周一 10:00-20:00可用</small>
+                                        </div>
+                                    </div>
+                                    <div class="am-form-group">
+                                        <label class="am-u-sm-3 am-form-label">结束时间（分钟） <span class="tpl-form-line-small-title">endMinute</span></label>
+                                        <div class="am-u-sm-9">
+                                            <input id="endMinute" type="text" placeholder="输入结束时间">
+                                            <small>当前type类型下的结束时间（分钟） ，如当前结构体内填写了MONDAY， begin_hour填写10，此处填写了59， 则此处表示周一 10:59-00:59可用</small>
+                                        </div>
+                                    </div>
+                                    <div class="am-form-group">
+                                        <div class="am-u-sm-9 am-u-sm-push-3">
+                                            <button id="submitBtn" type="button" class="am-btn am-btn-primary tpl-btn-bg-color-success ">提交</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 模态弹出框 -->
+        <div class="am-popup" id="showImagePopup">
+            <div class="am-popup-inner">
+                <div class="am-popup-hd">
+                    <h4 class="am-popup-title">选择一张素材图片</h4>
+                    <span data-am-modal-close class="am-close">&times;</span>
+                </div>
+                <div class="am-popup-bd" id="selectMaterialImage">
+
+                </div>
+            </div>
+        </div>
+
+        <script src="../assets/js/jquery.min.js"></script>
+        <script src="../assets/js/amazeui.min.js"></script>
+        <script src="../assets/js/amazeui.switch.min.js" ></script>
+        <script src="../assets/js/app.js"></script>
+        <script src="../assets/js/selectdate.js"></script>
+        <script src="../assets/js/toast.js"></script>
+        <script src="../assets/js/mytime.js"></script>
+        <script type="text/javascript">
+            $(function() {
+                onLoad();
+                bindEvent();
+            });
+            function onLoad() {
+                // 初始化页面
+                initPage()
+                // 隐藏时间类型选项
+                setDateType('time', 'hide')
+                // 初始化卡券Div颜色
+                setDivColor()
+                // 初始化卡券专用类型
+                setCardType('generalCouponDiv')
+            }
+            function initPage() {
+                  $.ajax({
+                     url : '/wechat/manager/init_create_card_page',
+                     type : 'POST',
+                     dataType:'json',
+                     success : function(res) {
+                         var materialImageHtml = ''
+                         var cardTypeHtml = ''
+                         var codeTypeHtml = ''
+                         var cardColorHtml =''
+                         var dateInfoTypeHtml = ''
+                         var advancedInfoTypeHtml = ''
+                         var businessServiceHtml = ''
+                         $.each(res, function(key, value) {
+                             var $key = key;
+                             if ($key === 'wechatMaterialImageList') {
+                                 $.each(value, function(index, item) {
+                                     materialImageHtml += '<img src="' + item.localImgUrl + '" data-wechatimgurl="' + item.wechatImgUrl + '"/>';
+                                 })
+                             } else if ($key === 'cardTypeMap') {
+                                 $.each(value, function(key2, value2) {
+                                     cardTypeHtml += '<option value="' + key2 + '">' + value2 + '</option>';
+                                 })
+                             } else if ($key === 'codeTypeMap') {
+                                 $.each(value, function(key2, value2) {
+                                     codeTypeHtml += '<option value="' + key2 + '">' + value2 + '</option>'
+                                 })
+                             } else if ($key === 'cardColorMap') {
+                                 $.each(value, function(key2, value2) {
+                                     cardColorHtml += '<option value="' + key2 + '">' + value2 + '</option>'
+                                 })
+                             } else if ($key === 'dateInfoTypeMap') {
+                                 $.each(value, function(key2, value2) {
+                                     dateInfoTypeHtml += '<option value="' + key2 + '">' + value2 + '</option>'
+                                 })
+                             } else if ($key === 'advancedInfoTypeMap') {
+                                 $.each(value, function(key2, value2) {
+                                     advancedInfoTypeHtml += '<option value="' + key2 + '">' + value2 + '</option>'
+                                 })
+                             }  else if ($key === 'businessServiceMap') {
+                                 $.each(value, function(key2, value2) {
+                                     businessServiceHtml += ' <label class="am-checkbox-inline">' +
+                                             '<input type="checkbox" value="' + key2 + '"> ' + value2 + '' +
+                                             '</label>'
+                                 })
+                             }
+                         });
+                         $('#selectMaterialImage').html(materialImageHtml)
+                         $('#selectCardType').html(cardTypeHtml)
+                         $('#selectCodeType').html(codeTypeHtml)
+                         $('#selectCardColor').html(cardColorHtml)
+                         $('#selectDateType').html(dateInfoTypeHtml)
+                         $('#selectAdvancedInfoType').append(advancedInfoTypeHtml)
+                         $('#selectBusinessService').append(businessServiceHtml)
+                     },
+                     error : function(err) {
+                         console.log(err)
+                     }
+                 });
+            }
+            function bindEvent() {
+                // 模态窗口的弹出
+                $('#showMaterialImage').click(function() {
+                    $('#showImagePopup').modal();
+                })
+                // 选择素材图片
+                $('body').on('click','#selectMaterialImage img',function() {
+                    var imgSrc = $(this).attr('src')
+                    var wechatImgUrl = $(this).data('wechatimgurl')
+                    $('#materialImg').attr('src', imgSrc)
+                    $('#materialImg').data('wechatimgurl', wechatImgUrl)
+                    $('#showImagePopup').modal('close')
+                })
+                // 选择卡券颜色
+                $('#selectCardColor').on('change', function() {
+                    setDivColor();
+                })
+                // 选择时间类型
+                $('#selectDateType').on('change', function() {
+                    var value = $(this).val()
+                    if (value === 'DATE_TYPE_FIX_TIME_RANGE') {
+                        setDateType('time', 'show')
+                        setDateType('term', 'hide')
+                    } else if (value === 'DATE_TYPE_FIX_TERM') {
+                        setDateType('time', 'hide')
+                        setDateType('term', 'show')
+                    }
+                })
+                // 选择卡券专用类型
+                $('#selectCardType').on('change', function() {
+                    var value = $(this).val()
+                    if (value === 'GENERAL_COUPON') {
+                        // 优惠券
+                        setCardType('generalCouponDiv')
+                    } else if (value === 'GIFT') {
+                        // 兑换券
+                        setCardType('giftDiv')
+                    } else if (value === 'DISCOUNT') {
+                        // 折扣券
+                        setCardType('discountDiv')
+                    } else if (value === 'CASH') {
+                        // 代金券
+                        setCardType('cashDiv')
+                    } else if (value === 'GROUPON') {
+                        // 团购券
+                        setCardType('groupOnDiv')
+                    }
+                })
+                // 提交按钮
+                $('#submitBtn').on('click', function() {
+                    var receiverInfo = getReceiverInfo();
+                    if (receiverInfo.status) {
+                        $.ajax({
+                            url : '/wechat/manager/create_card',
+                            data: JSON.stringify(receiverInfo.card),
+                            type : 'POST',
+                            dataType:'json',
+                            contentType:"application/json",
+                            success : function(res) {
+                                if (res.success) {
+                                    showMessage('卡券创建成功')
+                                    setTimeout(function(){
+                                        window.location.href = 'cardManager.html'
+                                    },1000);
+                                } else {
+                                    showMessage('卡券创建失败')
+                                }
+                            },
+                            error : function(err) {
+                                console.log(err)
+                                showMessage('系统错误')
+                            }
+                        });
+                    } else {
+                        showMessage(receiverInfo.msg)
+                    }
+                })
+            }
+            // 设置卡券颜色
+            function setDivColor() {
+                var color = $("#selectCardColor").find("option:selected").text();
+                console.log(color)
+                $("#initCardColor").css({"backgroundColor":color})
+            }
+            // 设置时间类型
+            function setDateType(dateType, showType) {
+                if (dateType === 'time' && showType === 'show') {
+                    $('#timeDiv').show()
+                } else if (dateType === 'time' && showType === 'hide') {
+                    $('#timeDiv').hide()
+                } else if (dateType === 'term' && showType === 'show') {
+                    $('#termDiv').show()
+                } else if (dateType === 'term' && showType === 'hide') {
+                    $('#termDiv').hide()
+                }
+            }
+            // 设置卡券专用属性
+            function setCardType(id) {
+                var ids = ['groupOnDiv', 'cashDiv', 'discountDiv', 'giftDiv', 'generalCouponDiv']
+
+                for (x in ids) {
+                    if (id === ids[x]) {
+                        $('#' + id).show()
+                    } else {
+                        $('#' + ids[x]).hide()
+                    }
+                }
+            }
+            // 获取表单参数并校验
+            function getReceiverInfo() {
+                // 存放获取的表单信息
+                var receiverInfo = {};
+                // 定义返回对象
+                var result = {
+                    status: false,
+                    msg: ''
+                };
+
+                // 获取表单数据
+                receiverInfo.cardType = $('#selectCardType').val()
+                receiverInfo.logoUrl = $('#materialImg').data('wechatimgurl')
+                receiverInfo.codeType = $('#selectCodeType').val()
+                receiverInfo.brandName = $.trim($('#brandName').val())
+                receiverInfo.title = $.trim($('#title').val())
+                receiverInfo.color = $('#selectCardColor').val()
+                receiverInfo.notice = $.trim($('#notice').val())
+                receiverInfo.description = $.trim($('#description').val())
+                receiverInfo.quantity = Number($('#quantity').val())
+                receiverInfo.dateType = $('#selectDateType').val()
+                receiverInfo.beginTimestamp = Number($('#my-start-2').val()) == 0 ? 0 : $.myTime.DateToUnix($('#my-start-2').val())
+                receiverInfo.endTimestamp = Number($('#my-end-2').val()) == 0 ? 0 : $.myTime.DateToUnix($('#my-end-2').val())
+                receiverInfo.fixedBeginTerm = Number($('#beginTerm').val())
+                receiverInfo.fixedTerm = Number($('#fixedTerm').val())
+                receiverInfo.acceptCategory = $.trim($('#acceptCategory').val())
+                receiverInfo.rejectCategory = $.trim($('#rejectCategory').val())
+                receiverInfo.reduceCost = Number($('#reduceCost').val())
+                receiverInfo.leastCost = Number($('#leastCost').val())
+                receiverInfo.discount = Number($('#discount').val())
+                receiverInfo.gift = $.trim($('#gift').val())
+                receiverInfo.defaultDetail = $.trim($('#defaultDetail').val())
+                receiverInfo.dealDetail = $.trim($('#dealDetail').val())
+                receiverInfo.servicePhone = $.trim($('#servicePhone').val())
+                receiverInfo.centerTitle = $.trim($('#centerTitle').val())
+                receiverInfo.centerSubTitle = $.trim($('#centerSubTitle').val())
+                receiverInfo.centerUrl = $.trim($('#centerUrl').val())
+                receiverInfo.customUrlName = $.trim($('#customUrlName').val())
+                receiverInfo.customUrlSubTitle = $.trim($('#customUrlSubTitle').val())
+                receiverInfo.customUrl = $.trim($('#customUrl').val())
+                receiverInfo.promotionUrlName = $.trim($('#promotionUrlName').val())
+                receiverInfo.promotionUrlSubTitle = $.trim($('#promotionUrlSubTitle').val())
+                receiverInfo.promotionUrl = $.trim($('#promotionUrl').val())
+                receiverInfo.getLimit = Number($('#getLimit').val())
+                receiverInfo.useLimit = Number($('#useLimit').val())
+                receiverInfo.businessService = $('#selectBusinessService').val()
+                receiverInfo.advancedType = $('#selectAdvancedInfoType').val()
+                receiverInfo.beginHour = Number($('#beginHour').val())
+                receiverInfo.beginMinute = Number($('#beginMinute').val())
+                receiverInfo.endHour = Number($('#endHour').val())
+                receiverInfo.endMinute = Number($('#endMinute').val())
+
+                if (!validate(receiverInfo.logoUrl, 'require')) {
+                    result.msg = '请选择一张商户图片';
+                    return result;
+                } else if (!validate(receiverInfo.brandName, 'require')) {
+                    result.msg = '请输入商户名称'
+                    return result
+                } else if (validate(receiverInfo.brandName, 'require') && receiverInfo.brandName.length > 12) {
+                    result.msg = '商户名称不能超过12个汉字'
+                    return result
+                } else if (!validate(receiverInfo.title, 'require')) {
+                    result.msg = '请输入卡券名称'
+                    return result
+                } else if (validate(receiverInfo.title, 'require') && receiverInfo.title.length > 18) {
+                    result.msg = '卡券名称不能超过9个汉字'
+                    return result
+                } else if (!validate(receiverInfo.notice, 'require')) {
+                    result.msg = '请输入卡券使用提醒'
+                    return result
+                } else if (receiverInfo.notice.length > 16) {
+                    result.msg = '卡券使用提醒不能超过16个汉字'
+                    return result
+                } else if (!validate(receiverInfo.description, 'require')) {
+                    result.msg = '请输入卡券使用说明'
+                    return result
+                } else if (validate(receiverInfo.description, 'require') && receiverInfo.description.length > 1024) {
+                    result.msg = '卡券使用说明不能超过1024个汉字'
+                    return result
+                } else if (!validate(receiverInfo.quantity, 'require')) {
+                    result.msg = '请输入库存数量'
+                    return result
+                } else if (!validate(receiverInfo.quantity, 'isNumber')) {
+                    result.msg = '库存数量只能为数字'
+                    return result
+                } else if (validate(receiverInfo.quantity, 'require') && Number(receiverInfo.quantity) > 100000000) {
+                    result.msg = '库存数量限量100000000'
+                    return result
+                } else if (receiverInfo.dateType === 'DATE_TYPE_FIX_TIME_RANGE' && !validate(receiverInfo.beginTimestamp, 'require')) {
+                    result.msg = '请选择启用日期'
+                    return result
+                } else if (receiverInfo.dateType === 'DATE_TYPE_FIX_TIME_RANGE' && !validate(receiverInfo.endTimestamp, 'require')) {
+                    result.msg = '请选择结束日期'
+                    return result
+                } else if (receiverInfo.dateType === 'DATE_TYPE_FIX_TERM' && !validate(receiverInfo.fixedBeginTerm, 'require')) {
+                    result.msg = '请输入生效时间'
+                    return result
+                } else if (receiverInfo.dateType === 'DATE_TYPE_FIX_TERM' && !validate(receiverInfo.fixedTerm, 'require')) {
+                    result.msg = '请输入有效期'
+                    return result
+                } else if (receiverInfo.cardType === 'GENERAL_COUPON' && !validate(receiverInfo.defaultDetail, 'require')) {
+                    result.msg = '请填写优惠详情'
+                    return result
+                } else if (receiverInfo.cardType === 'GIFT' && !validate(receiverInfo.gift, 'require')) {
+                    result.msg = '请填写兑换内容的名称'
+                    return result
+                } else if (receiverInfo.cardType === 'DISCOUNT' && !validate(receiverInfo.discount, 'require')) {
+                    result.msg = '请填写打折额度'
+                    return result
+                } else if (receiverInfo.cardType === 'CASH' && !validate(receiverInfo.reduceCost, 'require')) {
+                    result.msg = '请输入减免金额'
+                    return result
+                } else if (receiverInfo.cardType === 'CASH' && !validate(receiverInfo.leastCost, 'require')) {
+                    result.msg = '请输入起用金额'
+                    return result
+                } else if (receiverInfo.cardType === 'GROUPON' && !validate(receiverInfo.dealDetail, 'require')) {
+                    result.msg = '请填写团购详情'
+                    return result
+                } else if (validate(receiverInfo.acceptCategory, 'require') && receiverInfo.acceptCategory.length > 150) {
+                    result.msg = '可用的商品类目长度过长'
+                    return result
+                } else if (validate(receiverInfo.rejectCategory, 'require') && receiverInfo.rejectCategory.length > 150) {
+                    result.msg = '不可用的商品类目长度过长'
+                    return result
+                } else if (validate(receiverInfo.discount, 'require') && Number(receiverInfo.discount) > 100) {
+                    result.msg = '打折额度错误，请核对'
+                    return result
+                } else if (validate(receiverInfo.gift, 'require') && receiverInfo.gift.length > 1024) {
+                    result.msg = '兑换内容长度过长'
+                    return result
+                } else if (validate(receiverInfo.defaultDetail, 'require') && receiverInfo.defaultDetail.length > 1024) {
+                    result.msg = '优惠详情长度过长'
+                    return result
+                } else if (validate(receiverInfo.dealDetail, 'require') && receiverInfo.dealDetail.length > 1024) {
+                    result.msg = '团购详情长度过长'
+                    return result
+                } else if (validate(receiverInfo.servicePhone, 'require') && receiverInfo.servicePhone.length > 24) {
+                    result.msg = '客服电话长度过长'
+                    return result
+                } else if (validate(receiverInfo.centerTitle, 'require') && receiverInfo.centerTitle.length > 6) {
+                    result.msg = '使用场景入口按钮长度过长'
+                    return result
+                } else if (validate(receiverInfo.centerSubTitle, 'require') && receiverInfo.centerSubTitle.length > 8) {
+                    result.msg = '使用场景提示长度过长'
+                    return result
+                } else if (validate(receiverInfo.centerUrl, 'require') && receiverInfo.centerUrl.length > 128) {
+                    result.msg = '使用场景入口URL长度过长'
+                    return result
+                } else if (validate(receiverInfo.customUrlName, 'require') && receiverInfo.customUrlName.length > 5) {
+                    result.msg = '服务场景入口按钮长度过长'
+                    return result
+                } else if (validate(receiverInfo.customUrlSubTitle, 'require') && receiverInfo.customUrlSubTitle.length > 6) {
+                    result.msg = '服务场景提示长度过长'
+                    return result
+                } else if (validate(receiverInfo.customUrl, 'require') && receiverInfo.customUrl.length > 128) {
+                    result.msg = '服务场景入口URL长度过长'
+                    return result
+                } else if (validate(receiverInfo.promotionUrlName, 'require') && receiverInfo.promotionUrlName.length > 5) {
+                    result.msg = '营销场景入口按钮长度过长'
+                    return result
+                } else if (validate(receiverInfo.promotionUrlSubTitle, 'require') && receiverInfo.promotionUrlSubTitle.length > 6) {
+                    result.msg = '营销场景提示长度过长'
+                    return result
+                } else if (validate(receiverInfo.promotionUrl, 'require') && receiverInfo.promotionUrl.length > 128) {
+                    result.msg = '营销场景入口URL长度过长'
+                    return result
+                }
+
+                result.card = receiverInfo;
+                result.status = true;
+                result.msg = '验证通过';
+                return result;
+            }
+            // 参数验证方法
+            function validate(value, type) {
+                var value = $.trim(value);
+                // 非空验证
+                if ('require' === type) {
+                    return !!value;// 如果value为空则返回false，否则返回true
+                }
+                // 判断是否为数字
+                if ('isNumber' === type) {
+                    return /^[0-9]+.?[0-9]*$/.test(value);
+                }
+            }
+        </script>
+    </body>
+</html>

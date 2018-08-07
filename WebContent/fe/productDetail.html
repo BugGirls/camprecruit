@@ -1,0 +1,219 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>智能超市终端</title>
+        <meta name="keywords" content="index">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="renderer" content="webkit">
+        <meta http-equiv="Cache-Control" content="no-siteapp" />
+        <meta name="toTop" content="true">
+        <link rel="icon" type="image/png" href="assets/i/favicon.png">
+        <link rel="apple-touch-icon-precomposed" href="assets/i/app-icon72x72@2x.png">
+        <meta name="apple-mobile-web-app-title" content="Amaze UI" />
+        <link rel="stylesheet" href="assets/css/amazeui.min.css" />
+        <link rel="stylesheet" href="assets/css/admin.css">
+        <link rel="stylesheet" href="assets/css/app.css">
+        <script src="assets/js/echarts.min.js"></script>
+        <style>
+            body {
+                font-family: 'YouYuan';
+            }
+            .tpl-page-header-fixed {
+                margin-top: 150px;
+            }
+            .titleBox {
+                float:left;
+                position:relative;
+                left:35%;
+                height: 130px;
+                line-height: 130px;
+            }
+            .titleBox p {
+                float:left;
+                position:relative;
+                right:50%;
+                color: black;
+            }
+            ul,li {
+                list-style: none;
+                margin:0;
+                padding:0;
+            }
+            .bg {
+                width:350px;
+                padding-top: 20px;
+                overflow: hidden;
+                min-width: 400px;
+                box-sizing: border-box;
+                background: #fff;
+                float: left;
+            }
+            .bg_left{
+                width: 430px;
+                height:auto;
+                float: left
+            }
+            .show{width: 350px;height: 350px;margin-bottom: 10px;position: relative;border:1px solid #E8E8E8;cursor:move}
+            .show img{width: 350px;height: 350px;}
+            .mask{width: 215px;height: 215px;background: #000;filter: Alpha(opacity=50);opacity:0.5;position: absolute;top: 0;left: 0;display: none;}
+            .smallshow{width: 100%;height: 70px;position: relative}
+            .smallshow img{width:100%;border:1px solid #e8e8e8;box-sizing: border-box;transition: all 0.5s}
+            .smallshow>.middle_box{margin-left: 45px;margin-right: 30px;width:260px;overflow: hidden;height: 70px;}
+            .smallshow .middle{overflow: hidden;transition: all 0.5s;height: 70px;}
+            .smallshow .middle>li{width: 64px;height: 64px;float: left;cursor:pointer;padding:0 5px;}
+            .smallshow>p{position: absolute;top:50%;width: 22px;height: 32px;margin-top: -25px;}
+            .smallshow>.prev{left: 0;background: url(assets/img/hover-prev.png) no-repeat;transition: all 0.5s}
+            .smallshow>.next{right: 47px;background: url(assets/img/hover-next.png) no-repeat;transition: all 0.5s}
+            .smallshow>.prev.prevnone{left: 0;background: url(assets/img/prev.png) no-repeat;cursor: not-allowed}
+            .smallshow>.next.nextnone{right: 47px;background: url(assets/img/next.png) no-repeat;cursor: not-allowed}
+            .am-viewport {
+                width: 94%;
+                margin: 0 auto;
+            }
+            .returnDiv {
+                font-family: Arial,'Times New Roman','Microsoft YaHei',SimHei;
+                width: 120px;
+                top:20px;
+                right:50px;
+                position:fixed;
+                cursor:pointer;
+            }
+        </style>
+    </head>
+
+    <body data-type="index">
+        <header class="am-topbar am-topbar-inverse admin-header">
+            <div class="am-topbar-brand" style="height: 130px;line-height: 130px;">
+                <a href="index.html" class="tpl-logo">
+                    <img src="assets/img/logo.png">
+                </a>
+            </div>
+
+            <div class="titleBox">
+                <p class="am-text-xxxl">智能超市终端</p>
+            </div>
+
+            <div class="returnDiv">
+                <a style="color: black;" href="javascript:history.back(-1)">
+                    <span class="am-icon-arrow-left" style="font-size: 30px; margin-top: 10px;"></span>
+                    <span style="font-size: 28px;">Return</span>
+                </a>
+            </div>
+        </header>
+
+        <div class="tpl-page-container tpl-page-header-fixed">
+            <div class="tpl-portlet-components" style="margin-top: -20px;">
+                <div class="am-u-sm-12">
+                    <div class="bg">
+                        <div class="show">
+                            <img src="assets/img/img1.png" alt="">
+                            <div class="mask"></div>
+                        </div>
+                        <div class="smallshow">
+                            <p class="prev prevnone"></p>
+                            <div class="middle_box">
+                                <ul class="middle">
+                                    <li><img src="assets/img/img1.png" alt=""></li>
+                                    <li><img src="assets/img/img2.png" alt=""></li>
+                                    <li><img src="assets/img/img3.png" alt=""></li>
+                                    <li><img src="assets/img/img4.png" alt=""></li>
+                                    <li><img src="assets/img/img5.png" alt=""></li>
+                                    <li><img src="assets/img/img6.png" alt=""></li>
+                                    <li><img src="assets/img/img7.png" alt=""></li>
+                                    <li><img src="assets/img/img8.png" alt=""></li>
+                                </ul>
+                            </div>
+                            <p class="next "></p>
+                        </div>
+                    </div>
+                    <div class="tpl-table-images-content-block">
+                        <div id="productTitle" class="tpl-i-font" style="font-size: 26px;margin-top: 20px;">
+                            2018夏季新款女装时尚长裙学生条纹
+                        </div>
+                        <div id="productSubTitle" class="tpl-i-font" style="min-height: 120px;padding-left: 20px;font-size: 18px;padding-right: 20px;margin-top: 20px;">
+                            夏装圆领韩版修身T恤短袖衫，包邮，白色
+                            夏装圆领韩版修身T恤短袖衫，包邮，白色
+                            夏装圆领韩版修身T恤短袖衫，包邮，白色
+                            夏装圆领韩版修身T恤短袖衫，包邮，白色
+                        </div>
+                        <div id="productPrice" class="tpl-i-font" style="min-height: 40px;padding-left: 10px;">
+                            <span style="font-size: 26px;color: red;">￥240</span>
+                            <span class="am-text-warning" style="font-size: 22px;margin-left: 50px;">总销量：100+</span>
+                        </div>
+                        <div>
+                            <a href="productAccount.html" class="am-btn am-btn-success am-round" style="margin-top: 30px;height: 50px;width: 160px;font-size: 19px;padding-top: 13px;">
+                                <span class="am-icon-shopping-cart"></span>
+                                购买
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <hr data-am-widget="divider" style="" class="am-divider am-divider-dotted" />
+                <div style="margin-left: 2%;">
+                    <h1>猜你喜欢</h1>
+                </div>
+                <div class="am-slider am-slider-default am-slider-carousel" style="width: 96%;margin: 0 auto;">
+                    <ul class="am-slides">
+                        <li>
+                            <a href="./productDetail.html">
+                                <img src="assets/img/img1.png" />
+                            </a>
+                        </li>
+                        <li><img src="assets/img/img2.png" /></li>
+                        <li><img src="assets/img/img3.png" /></li>
+                        <li><img src="assets/img/img4.png" /></li>
+                        <li><img src="assets/img/img5.png" /></li>
+                        <li><img src="assets/img/img1.png" /></li>
+                        <li><img src="assets/img/img2.png" /></li>
+                        <li><img src="assets/img/img3.png" /></li>
+                        <li><img src="assets/img/img4.png" /></li>
+                        <li><img src="assets/img/img5.png" /></li>
+                        <li><img src="assets/img/img6.png" /></li>
+                        <li><img src="assets/img/img7.png" /></li>
+                        <li><img src="assets/img/img8.png" /></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <script src="assets/js/jquery.min.js"></script>
+        <script src="assets/js/amazeui.min.js"></script>
+        <script src="assets/js/toast.js"></script>
+        <script src="assets/js/mag.js"></script> 
+        <script src="assets/js/toTop.js"></script>
+        <script>
+            $(function(){
+                // 猜你喜欢图片轮播
+                $('.am-slider').flexslider({
+                    animation: "slide",
+                    animationLoop: true,// Boolean: 是否循环播放
+                    smoothHeight: false,// Boolean: 当 slide 图片比例不一样时："true": 父类自动适应图片高度，"false": 不自动适应，父类高度为图片的最高高度，默认为false
+                    slideshow: true,// Boolean：是否自动播放
+                    slideshowSpeed: 3000,// Integer: ms 滚动间隔时间
+                    animationSpeed: 600,// Integer: ms 动画滚动速度
+                    initDelay: 0,// Integer: ms 首次执行动画的延迟
+                    pauseOnAction: false,// Boolean: 用户操作时停止自动播放
+                    useCSS: true,// Boolean: 是否使用 css3 transition
+                    touch: true, // Boolean: 允许触摸屏触摸滑动滑块
+
+                    controlNav: false,// Boolean: 是否创建控制点
+                    directionNav: true,// Boolean: 是否创建上/下一个按钮（previous/next）
+                    prevText: "上一个",// String: 上一个按钮文字
+                    nextText: "下一个",// String: 下一个按钮文字
+
+                    itemWidth: 300,// Integer: slide 宽度，多个同时滚动时设置
+                    itemMargin: 20,// Integer: slide 间距
+                    minItems: 4,// Integer: 最少显示 slide 数, 与 `itemWidth` 相关
+                    maxItems: 6,// Integer: 最多显示 slide 数, 与 `itemWidth` 相关
+                    move: 0, // Integer: 一次滚动移动的 slide 数量，0 - 滚动可见的 slide
+                    playAfterPaused: 3000,
+                });
+                // 商品图片放大
+                var obj = new mag('.show', '.bigshow','.smallshow','.mask','.bigitem');
+                obj.init();
+            });
+        </script>
+    </body>
+</html>

@@ -1,0 +1,5 @@
+
+新增一级菜单（如果只在原来的一级菜单下增加功能模块，这步可省略）
+1、菜单class属性值“menu-icon fa fa-bar-chart”里面的“fa-bar-chart”可到http://fontawesome.io/icons/查找替换，更改图标。
+2、一级菜单的菜单data-url属性值都是“#”
+3、上级菜单编码都是“0”（数字零）

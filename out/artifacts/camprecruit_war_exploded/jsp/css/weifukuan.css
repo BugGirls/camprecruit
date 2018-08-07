@@ -1,0 +1,56 @@
+@CHARSET "UTF-8";
+ /* CSS Document */
+ 
+/*购物车*/
+
+.center_r_nr_tit{ width:100%; border-bottom:1px solid #e5e5e5;}
+.center_r_nr_tit p{ font-size:14px; color:#333; display:block; width:80px; text-align:center; border-bottom:2px solid #5dc479; line-height:35px;}
+ 
+.center_box_r{ padding-top:30px; border:1px solid #ccc; margin:0 auto; display:block; overflow:hidden;}
+.center_box_r .box_xq{ width:740px; margin:0 auto; display:block; overflow:hidden;}
+.center_box_r .box_xq .box_xq_tit{ width:100%; border-bottom:1px solid #e5e5e5;}
+.center_box_r .box_xq .box_xq_tit p{font-size:14px; color:#333; display:block; width:80px; text-align:center; border-bottom:2px solid #5dc479; line-height:35px;}
+.center_box_r .box_xq ul li{ width:100%; display:block; display:block; overflow:hidden;}
+.center_box_r .box_xq ul .box_xq_01{ width:100%; height:30px; background:#f5f5f5; border-bottom:1px solid #dbdbdb;}
+.center_box_r .box_xq ul .box_xq_01 p{ display:block; float:left; line-height:30px;}
+.center_box_r .box_xq ul .box_xq_01 .p1{ padding-left:20px; width:150px;}
+.center_box_r .box_xq ul .box_xq_01 .p1 .p1_inp{vertical-align:text-bottom; margin-bottom:2px; margin-bottom:-2px\9;}
+.center_box_r .box_xq ul .box_xq_01 .p1 span{ margin-left:5px; padding-top:2px;}
+.center_box_r .box_xq ul .box_xq_01 .p2{ width:168px;}
+.center_box_r .box_xq ul .box_xq_01 .p3{ width:160px;}
+.center_box_r .box_xq ul .box_xq_01 .p4{ width:160px;}
+.center_box_r .box_xq ul .box_xq_01 .p5{ width:100px;}
+.center_box_r .box_xq ul .box_xq_02{ width:100%; height:33px; background:#f5f5f5;}
+.center_box_r .box_xq ul .box_xq_02 p{ padding-left:20px; display:block; float:left; line-height:33px;}
+ 
+.center_box_r .box_xq ul .box_xq_02 p .p2_inp{ vertical-align:text-bottom; margin-bottom:2px; margin-bottom:-2px\9;}
+.center_box_r .box_xq ul .box_xq_02 p span{ margin-left:5px; font-size:14px; font-weight:600;}
+.center_box_r .box_xq ul .box_xq_03{ width:100%; margin:0 auto; padding:15px 0; border-bottom:1px solid #ebebeb;}
+.center_box_r .box_xq ul .box_xq_03:last-child{ border-bottom:none;}
+.center_box_r .box_xq ul .box_xq_03 p{ float:left;}
+.center_box_r .box_xq ul .box_xq_03 .p1{padding-left:20px;} 
+.center_box_r .box_xq ul .box_xq_03 .p2 img{ width:85px; height:85px; display:block; float:left;}
+.center_box_r .box_xq ul .box_xq_03 .p2 span{ display:block; float:left;}
+.center_box_r .box_xq ul .box_xq_03 .p2 .a_01{ width:127px; display:block; margin-left:15px; margin-top:10px;}
+.center_box_r .box_xq ul .box_xq_03 .p2 .a_02{ width:127px; display:block; margin-left:15px; font-size:14px; font-weight:600; color:#ff0000; margin-top:15px;}
+.center_box_r .box_xq ul .box_xq_03 .shoppng_form{ float:left; width:130px; height:30px; display:block; overflow:hidden;text-align:center;   margin-top:5px;  }
+.center_box_r .box_xq ul .box_xq_03 .p3{margin-left:76px; width:138px; text-align:left; margin-top:5px; float:left;}
+.center_box_r .box_xq ul .box_xq_03 .p3 span{ display:block;}
+.center_box_r .box_xq ul .box_xq_03 .p4{ margin-top:5px; margin-left:50px; cursor:pointer;}
+.center_box_r .box_xq ul .box_xq_04{ width:100%; height:63px; background:#f5f5f5; border-top:1px solid #dbdbdb; overflow:inherit;}
+.center_box_r .box_xq ul .box_xq_04 .p2{ margin-left:20px; display:block; float:left; line-height:60px;}
+.center_box_r .box_xq ul .box_xq_04 .p2 a{ font-size:12px; color:#666; margin:0 5px;}
+.center_box_r .box_xq ul .box_xq_04 .p2 a:hover{ color:#3963C5;}
+.center_box_r .box_xq ul .box_xq_04 .box_xq_r{ float:right;}
+.center_box_r .box_xq ul .box_xq_04 .box_xq_r .p3{ display:block; float:left; line-height:60px; margin-right:25px; color:#666;}
+.center_box_r .box_xq ul .box_xq_04 .box_xq_r .p3 span{ font-size:18px; margin:0 5px;}
+.center_box_r .box_xq ul .box_xq_04 .box_xq_r .p4{ display:block; float:left; line-height:60px; margin-right:25px; color:#666;}
+.center_box_r .box_xq ul .box_xq_04 .box_xq_r .p4 span{ font-size:18px; margin:0 5px; font-size:18px; color:#ff3300; font-weight:600;}
+.center_box_r .box_xq ul .box_xq_04 .box_xq_r .p5{display:block; float:left; }
+.center_box_r .box_xq ul .box_xq_04 .box_xq_r .p5 a{display:block; line-height:35px; width:150px; height:35px; margin-top:9px; background:#ff3300; font-size:24px; color:#fff; text-align:center;}
+.center_box_r .box_xq ul .box_xq_04 .box_xq_r .p5 a:hover{ background:#EA2F00;}
+.center_box_r .box_xq .box_neirong{height:600px;overflow-y:auto;} 
+
+
+
+

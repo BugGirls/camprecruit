@@ -1,0 +1,175 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>智能超市终端</title>
+        <meta name="keywords" content="index">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="renderer" content="webkit">
+        <meta http-equiv="Cache-Control" content="no-siteapp" />
+        <meta name="toTop" content="true">
+        <link rel="icon" type="image/png" href="assets/i/favicon.png">
+        <link rel="apple-touch-icon-precomposed" href="assets/i/app-icon72x72@2x.png">
+        <meta name="apple-mobile-web-app-title" content="Amaze UI" />
+        <link rel="stylesheet" href="assets/css/amazeui.min.css" />
+        <link rel="stylesheet" href="assets/css/admin.css">
+        <link rel="stylesheet" href="assets/css/app.css">
+        <script src="assets/js/echarts.min.js"></script>
+        <style>
+            header {
+                font-family: 'YouYuan'
+            }
+            .tpl-page-header-fixed {
+                margin-top: 150px;
+            }
+            .titleBox {
+                float:left;
+                position:relative;
+                left:35%;
+                height: 130px;
+                line-height: 130px;
+            }
+            .titleBox p {
+                float:left;
+                position:relative;
+                right:50%;
+                color: black;
+            }
+            .tpl-table-images-content-block {
+                margin-bottom: -20px;
+            }
+            .borderStyle {
+                border: 1px solid red;
+            }
+            .returnDiv {
+                font-family: Arial,'Times New Roman','Microsoft YaHei',SimHei;
+                width: 120px;
+                top:20px;
+                right:50px;
+                position:fixed;
+                cursor:pointer;
+            }
+        </style>
+    </head>
+
+    <body data-type="index">
+        <header class="am-topbar am-topbar-inverse admin-header">
+            <div class="am-topbar-brand" style="height: 130px;line-height: 130px;">
+                <a href="index.html" class="tpl-logo">
+                    <img src="assets/img/logo.png">
+                </a>
+            </div>
+
+            <div class="titleBox">
+                <p class="am-text-xxxl">智能超市终端</p>
+            </div>
+
+            <div class="returnDiv">
+                <a style="color: black;" href="javascript:history.back(-1)">
+                    <span class="am-icon-arrow-left" style="font-size: 30px; margin-top: 10px;"></span>
+                    <span style="font-size: 28px;">Return</span>
+                </a>
+            </div>
+        </header>
+
+        <div class="tpl-page-container tpl-page-header-fixed">
+            <div class="tpl-portlet-components" style="margin-top: -20px;">
+                <!-- 提示 -->
+                <div style="margin-top: 10px;margin-left: 20px;">
+                    <h1  style="font-weight: 300">请选择支付方式</h1>
+                </div>
+
+                <!-- 支付方式 -->
+                <div class="tpl-block">
+                    <div class="am-g am-monospace">
+                        <div class="am-u-lg-4" id="wechatDiv">
+                            <div class="tpl-table-images-content" style="width: 55%;float: right;">
+                                <a href="javascript:;" class="tpl-table-images-content-i">
+                                    <img src="assets/img/wechat.jpg" style="margin: 0 auto;">
+                                </a>
+                                <div class="tpl-table-images-content-block">
+                                    <div class="tpl-i-font" style="font-size: 24px;text-align: center;font-weight: 300;">
+                                        微信
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="am-u-lg-4" id="alipayDiv">
+                            <div class="tpl-table-images-content" style="width: 55%;margin: 0 auto;">
+                                <a href="javascript:;" class="tpl-table-images-content-i">
+                                    <img src="assets/img/alipay.jpg" style="width: 90%;margin: 0 auto;">
+                                </a>
+                                <div class="tpl-table-images-content-block">
+                                    <div class="tpl-i-font" style="font-size: 24px;text-align: center;font-weight: 300;">
+                                        支付宝
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="am-u-lg-4" id="unionPayDiv">
+                            <div class="tpl-table-images-content" style="width: 55%;float: left;">
+                                <a href="javascript:;" class="tpl-table-images-content-i" style="margin-left: -3%;">
+                                    <img src="assets/img/unionpay.jpg" style="width: 105%;margin-right: 10%;">
+                                </a>
+                                <div class="tpl-table-images-content-block">
+                                    <div class="tpl-i-font" style="font-size: 24px;text-align: center;font-weight: 300;">
+                                        银联
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 支付流程 -->
+                <div id="payFlow">
+                    <div style="margin-top: 10px;margin-left: 20px;">
+                        <h1  style="font-weight: 300">支付流程</h1>
+                    </div>
+                    <div style="text-align: center;">
+                        <img id="flowImg" src="assets/img/wechat_flow.jpg"/>
+                    </div>
+                </div>
+                <div class="tpl-alert"></div>
+            </div>
+        </div>
+
+        <script src="assets/js/jquery.min.js"></script>
+        <script src="assets/js/amazeui.min.js"></script>
+        <script src="assets/js/toast.js"></script>
+        <script src="assets/js/toTop.js"></script>
+        <script>
+            $(function() {
+                init();
+                bindEvent();
+            });
+            function init() {
+                $('#payFlow').hide();
+            }
+            function bindEvent() {
+                // 微信支付样式
+                $('#wechatDiv').on('click', function() {
+                    $(this).siblings().children().removeClass('borderStyle');               
+                    $(this).children().addClass('borderStyle');
+                    $('#payFlow').find('#flowImg').attr('src', 'assets/img/wechat_flow.jpg');
+                    $('#payFlow').show();
+                });
+                // 支付宝支付样式
+                $('#alipayDiv').on('click', function() {
+                    $(this).siblings().children().removeClass('borderStyle');               
+                    $(this).children().addClass('borderStyle');
+                    $('#payFlow').find('#flowImg').attr('src', 'assets/img/alipay_flow.jpg');
+                    $('#payFlow').show();
+                });
+                // 银联支付样式
+                $('#unionPayDiv').on('click', function() {
+                    $(this).siblings().children().removeClass('borderStyle');               
+                    $(this).children().addClass('borderStyle');
+                    $('#payFlow').find('#flowImg').attr('src', 'assets/img/onionpay_flow.jpg');
+                    $('#payFlow').show();
+                });
+            }
+        </script>
+    </body>
+</html>

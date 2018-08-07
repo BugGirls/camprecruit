@@ -1,0 +1,163 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>智能超市终端</title>
+        <meta name="keywords" content="index">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="renderer" content="webkit">
+        <meta http-equiv="Cache-Control" content="no-siteapp" />
+        <meta name="toTop" content="true">
+        <link rel="icon" type="image/png" href="assets/i/favicon.png">
+        <link rel="apple-touch-icon-precomposed" href="assets/i/app-icon72x72@2x.png">
+        <meta name="apple-mobile-web-app-title" content="Amaze UI" />
+        <link rel="stylesheet" href="assets/css/amazeui.min.css" />
+        <link rel="stylesheet" href="assets/css/admin.css">
+        <link rel="stylesheet" href="assets/css/app.css">
+        <script src="assets/js/echarts.min.js"></script>
+        <style>
+            body {
+                font-family: 'YouYuan';
+                /*overflow: hidden;*/
+            }
+            .tpl-page-header-fixed {
+                margin-top: 150px;
+            }
+            .am-topbar {
+                min-height: 130px;
+            }
+            .tpl-table-images-content .tpl-i-font {
+                font-family: 'YouYuan';
+                font-size: 25px;
+            }
+            .tpl-table-images-content {
+                padding-bottom: 10px;
+            }
+            .titleBox {
+                float:left;
+                position:relative;
+                left:35%;
+                height: 130px;
+                line-height: 130px;
+            }
+            .titleBox p {
+                float:left;
+                position:relative;
+                right:50%;
+                color: black;
+            }
+        </style>
+    </head>
+
+    <body data-type="index">
+        <header class="am-topbar am-topbar-inverse admin-header">
+            <div class="am-topbar-brand" style="height: 130px;line-height: 130px;">
+                <a href="javascript:;" class="tpl-logo">
+                    <img src="assets/img/logo.png">
+                </a>
+            </div>
+
+            <div class="titleBox">
+                <p class="am-text-xxxl">智能超市终端</p>
+            </div>
+
+            <div class="am-collapse am-topbar-collapse" id="topbar-collapse">
+                <ul class="am-nav am-nav-pills am-topbar-nav am-topbar-right admin-header-list tpl-header-list">
+                    <li class="am-dropdown" data-am-dropdown data-am-dropdown-toggle style="height: 120px;margin-right: 20px;">
+                        <a data-am-modal="{target: '#my-modal'}" class="am-dropdown-toggle tpl-header-list-link js-modal-open" href="javascript:;" style="height: 120px;line-height: 110px;">
+                            <img src="assets/img/qrcode.png" height="100">
+                            <div class="am-monospace" style="height: 15px; line-height: 15px;font-weight: bold;color: black;">扫一扫成为会员</div>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </header>
+
+        <!-- 模态弹出层 -->
+        <div class="am-modal am-modal-no-btn" tabindex="-1" id="my-modal">
+            <div class="am-modal-dialog" style="width: 445px;top: 7%">
+                <div class="am-modal-hd" style="font-size: 23px;">扫码二维码成为会员</div>
+                <div class="am-modal-bd">
+                    <img src="assets/img/qrcode.png" height="400" style="border-radius: 10px;">
+                </div>
+            </div>
+        </div>
+
+        <!-- 操作入口 -->
+        <div class="tpl-page-container tpl-page-header-fixed">
+            <div class="tpl-portlet-components" style="margin-top: -20px;">
+                <div class="tpl-block">
+                    <div id="showModule" class="am-g am-monospace">
+
+
+                    </div>
+                </div>
+                <div class="tpl-alert"></div>
+            </div>
+        </div>
+
+        <script src="assets/js/jquery.min.js"></script>
+        <script src="assets/js/amazeui.min.js"></script>
+        <script src="assets/js/toTop.js"></script>
+        <script src="assets/js/toast.js"></script>
+        <script>
+            var progress = $.AMUI.progress;
+            $(function() {
+                onLoad();
+            });
+            function onLoad() {
+                initPage();
+            }
+            function initPage() {
+                progress.start();
+                // 请求后台获取商品类别
+                $.ajax({
+                    url : '/client/getModuleInfoFe',
+                    type : 'POST',
+                    dataType:'json',
+                    success : function(res) {
+                        console.log(res)
+
+                        var html = '';
+                        var styleIndex = '';
+                        $.each(res, function (index, item) {
+                            if (index == 0 || index == 3) {
+                                styleIndex = 'width: 55%; float: right;'
+                            } else if (index == 1 || index == 4) {
+                                styleIndex = 'width: 55%; margin: 0 auto;'
+                            } else if (index == 2 || index == 5) {
+                                styleIndex = 'width: 55%; float: left;'
+                            }
+                            html +=
+                            '<div class="am-u-lg-4">'+
+                            '<div class="tpl-table-images-content" style="' + styleIndex + '">'+
+                            '<a href="' + item.accessUrl + '" class="tpl-table-images-content-i">'+
+                            '<div class="tpl-table-images-content-i-info">'+
+                            '<span class="ico">'+
+                            '<img src="' + item.imageUrl + '" alt="">' + item.name + ''+
+                            '</span>'+
+                            '</div>'+
+                            '<span class="tpl-table-images-content-i-shadow"></span>'+
+                            '<img src="' + item.imageUrl + '">'+
+                            '</a>'+
+                            '<div class="tpl-table-images-content-block">'+
+                            '<div class="tpl-i-font" style="text-align: center;">' +
+                            ''+ item.name + ''+
+                            '</div>'+
+                            '</div>'+
+                            '</div>'+
+                            '</div>';
+                        });
+                        $('#showModule').html(html);
+                        progress.done();
+                    },
+                    error : function(err) {
+                        showMessage("系统正在升级，请稍后重试");
+                        console.log(err);
+                    }
+                });
+            }
+        </script>
+    </body>
+</html>

@@ -1,0 +1,453 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>创建门店</title>
+        <meta name="keywords" content="index">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="renderer" content="webkit">
+        <meta http-equiv="Cache-Control" content="no-siteapp" />
+        <meta name="apple-mobile-web-app-title" content="Amaze UI" />
+        <link rel="stylesheet" href="../assets/css/amazeui.min.css" />
+        <link rel="stylesheet" href="../assets/css/admin.css">
+        <link rel="stylesheet" href="../assets/css/app.css">
+        <link rel="stylesheet" href="../assets/css/zyUpload.css">
+        <style>
+        	.tpl-portlet-components {
+        		margin-top: -12px;
+        		border-radius: 10px;
+        	}
+            .tpl-logo img {
+                display: block;
+                height: 78px;
+                width: auto;
+            }
+            .am-popup-bd img {
+                cursor: pointer;
+                width: 100px;
+                border-radius: 10px;
+                margin: 5px;
+            }
+            .am-popup-bd {
+                background-color: #fff;
+                text-align: center;
+            }
+            .am-dropdown {
+                float: left;
+            }
+        </style>
+    </head>
+
+    <body data-type="generalComponents">
+        <header class="am-topbar am-topbar-inverse admin-header">
+            <div class="am-topbar-brand">
+                <a href="javascript:;" class="tpl-logo">
+                    <img src="../assets/img/logo.png">
+                </a>
+            </div>
+
+            <div class="am-collapse am-topbar-collapse" id="topbar-collapse">
+                <ul class="am-nav am-nav-pills am-topbar-nav am-topbar-right admin-header-list tpl-header-list">
+                    <li class="am-hide-sm-only">
+                        <a href="javascript:;" id="admin-fullscreen" class="tpl-header-list-link">
+                            <span class="am-icon-arrows-alt"></span>
+                            <span class="admin-fullText">开启全屏</span>
+                        </a>
+                    </li>
+                    <li class="am-dropdown" data-am-dropdown data-am-dropdown-toggle>
+                        <a class="am-dropdown-toggle tpl-header-list-link" href="javascript:;">
+                            <span class="tpl-header-list-user-nick">禁言小张</span><span class="tpl-header-list-user-ico"> <img src="../assets/img/img1.png"></span>
+                        </a>
+                        <ul class="am-dropdown-content">
+                            <li><a href="#"><span class="am-icon-bell-o"></span> 资料</a></li>
+                            <li><a href="#"><span class="am-icon-cog"></span> 设置</a></li>
+                            <li><a href="#"><span class="am-icon-power-off"></span> 退出</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </header>
+
+        <div class="tpl-page-container tpl-page-header-fixed">
+            <div class="tpl-left-nav tpl-left-nav-hover">
+                <div class="tpl-left-nav-title">
+                    Amaze UI 列表
+                </div>
+                <div class="tpl-left-nav-list">
+                    <ul class="tpl-left-nav-menu">
+                        <li class="tpl-left-nav-item">
+                            <a href="materialImage.html" class="nav-link">
+                                <i class="am-icon-home"></i>
+                                <span>素材管理</span>
+                            </a>
+                        </li>
+                        <li class="tpl-left-nav-item">
+                            <a href="poiManager.html" class="nav-link active">
+                                <i class="am-icon-home"></i>
+                                <span>门店管理</span>
+                            </a>
+                        </li>
+                        <li class="tpl-left-nav-item">
+                            <a href="cardManager.html" class="nav-link tpl-left-nav-link-list ">
+                                <i class="am-icon-bar-chart"></i>
+                                <span>卡券管理</span>
+                            </a>
+                        </li>
+                        <li class="tpl-left-nav-item">
+                            <a href="memberCardManager.html" class="nav-link tpl-left-nav-link-list ">
+                                <i class="am-icon-bar-chart"></i>
+                                <span>会员卡管理</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="tpl-content-wrapper">
+                <div class="tpl-portlet-components">
+                    <div class="tpl-block">
+                        <div class="am-g">
+                            <div class="tpl-form-body tpl-form-line">
+                                <form class="am-form tpl-form-line-form">
+                                	<div>必填字段</div>
+                                    <div class="am-form-group">
+                                        <label class="am-u-sm-3 am-form-label">门店名称 <span class="tpl-form-line-small-title">businessName</span></label>
+                                        <div class="am-u-sm-9">
+                                            <input id="businessName" type="text" placeholder="输入门店名称">
+                                            <small>门店名称（仅为商户名，如：国美、麦当劳，不应包含地区、地址、分店名等信息，错误示例：北京国美） 不能为空，15个汉字或30个英文字符内</small>
+                                        </div>
+                                    </div>
+                                    <div class="am-form-group">
+                                        <label class="am-u-sm-3 am-form-label">分店名称 <span class="tpl-form-line-small-title">branchName</span></label>
+                                        <div class="am-u-sm-9">
+                                            <input id="branchName" type="text" placeholder="输入分店名称">
+                                            <small>分店名称（不应包含地区信息，不应与门店名有重复，错误示例：北京王府井店） 20 个字 以内</small>
+                                        </div>
+                                    </div>
+                                    <div class="am-form-group">
+                                        <label class="am-u-sm-3 am-form-label">省份 <span class="tpl-form-line-small-title">province</span></label>
+                                        <div class="am-u-sm-9">
+                                            <input id="province" type="text" placeholder="输入门店所在的省份">
+                                            <small>门店所在的省份（直辖市填城市名,如：北京 市） 10个字 以内</small>
+                                        </div>
+                                    </div>
+                                    <div class="am-form-group">
+                                        <label class="am-u-sm-3 am-form-label">城市 <span class="tpl-form-line-small-title">city</span></label>
+                                        <div class="am-u-sm-9">
+                                            <input id="city" type="text" placeholder="输入门店所在的城市">
+                                            <small>门店所在的城市 10个字 以内</small>
+                                        </div>
+                                    </div>
+                                    <div class="am-form-group">
+	                                    <label class="am-u-sm-3 am-form-label">地区 <span class="tpl-form-line-small-title">district</span></label>
+	                                    <div class="am-u-sm-9">
+	                                        <input id="district" type="text" placeholder="请输入门店所在的地区">
+	                                        <small>门店所在地区 10个字 以内</small>
+	                                    </div>
+	                                </div>
+                                    <div class="am-form-group">
+	                                    <label class="am-u-sm-3 am-form-label">详细地址 <span class="tpl-form-line-small-title">address</span></label>
+	                                    <div class="am-u-sm-9">
+	                                        <input id="address" type="text" placeholder="输入门店的详细地址">
+                                            <small>门店所在的详细街道地址（不要填写省市信息）</small>
+	                                    </div>
+	                                </div>
+									<div class="am-form-group">
+                                        <label class="am-u-sm-3 am-form-label">门店电话 <span class="tpl-form-line-small-title">telephone</span></label>
+                                        <div class="am-u-sm-9">
+                                            <input id="telephone" type="text" placeholder="输入门店的联系电话">
+                                            <small>门店的电话（纯数字，区号、分机号均由“-”隔开）</small>
+                                        </div>
+                                    </div>
+                                    <div class="am-form-group">
+                                        <label class="am-u-sm-3 am-form-label">门店类型 <span class="tpl-form-line-small-title">categories</span></label>
+                                        <div class="am-u-sm-9">
+                                            <input id="categories" type="text" placeholder="输入门店的类型">
+                                            <small>门店的类型（不同级分类用“,”隔开，如：美食，川菜，火锅。详细分类参见附件：微信门店类目表）</small>
+                                        </div>
+                                    </div>
+                                    <div class="am-form-group">
+                                        <label class="am-u-sm-3 am-form-label">坐标类型 <span class="tpl-form-line-small-title">offsetType</span></label>
+                                        <div class="am-u-sm-9">
+                                            <select id="offsetType" data-am-selected="{searchBox: 1}">
+                                                <option value="0"></option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="am-form-group">
+                                        <label class="am-u-sm-3 am-form-label">经度 <span class="tpl-form-line-small-title">longitude</span></label>
+                                        <div class="am-u-sm-9">
+                                            <input id="longitude" type="text" placeholder="输入门店所在的经度">
+                                            <small>门店所在地理位置的经度</small>
+                                        </div>
+                                    </div>
+                                    <div class="am-form-group">
+                                        <label class="am-u-sm-3 am-form-label">纬度 <span class="tpl-form-line-small-title">latitude</span></label>
+                                        <div class="am-u-sm-9">
+                                            <input id="latitude" type="text" placeholder="输入门店所在的纬度">
+                                            <small>门店所在地理位置的纬度（经纬度均为火星坐标，最好选用腾讯地图标记的坐标）</small>
+                                        </div>
+                                    </div>
+
+                                    <!-- 非必填字段 -->
+	                                <div style="border-top: 1px solid #eee;padding-top: 20px;">非必填字段</div>
+                                    <div class="am-form-group">
+                                        <label class="am-u-sm-3 am-form-label">图片列表 <span class="tpl-form-line-small-title">photoList</span></label>
+                                        <div class="am-u-sm-9">
+                                            <div id="uploadImage" class="uploadImage"></div>
+                                            <small>上传的图片限制文件大小限制1MB，支持JPG 格式，尺寸为 640*340px，最多上传9张图片</small>
+                                        </div>
+                                    </div>
+                                    <div class="am-form-group">
+                                        <label class="am-u-sm-3 am-form-label">推荐品 <span class="tpl-form-line-small-title">recommend</span></label>
+                                        <div class="am-u-sm-9">
+                                            <input id="recommend" type="text">
+                                            <small>推荐品，餐厅可为推荐菜；酒店为推荐套房；景点为推荐游玩景点等，针对自己行业的推荐内容 200字以内</small>
+                                        </div>
+                                    </div>
+                                    <div class="am-form-group">
+                                        <label class="am-u-sm-3 am-form-label">特色服务 <span class="tpl-form-line-small-title">special</span></label>
+                                        <div class="am-u-sm-9">
+                                            <input id="special" type="text">
+                                            <small>特色服务，如免费wifi，免费停车，送货上门等商户能提供的特色功能或服务</small>
+                                        </div>
+                                    </div>
+                                    <div class="am-form-group">
+                                        <label class="am-u-sm-3 am-form-label">商户简介 <span class="tpl-form-line-small-title">introduction</span></label>
+                                        <div class="am-u-sm-9">
+                                            <input id="introduction" type="text" >
+                                            <small>商户简介，主要介绍商户信息等 300字以内</small>
+                                        </div>
+                                    </div>
+                                    <div class="am-form-group">
+                                        <label class="am-u-sm-3 am-form-label">营业时间 <span class="tpl-form-line-small-title">openTime</span></label>
+                                        <div class="am-u-sm-9">
+                                            <input id="openTime" type="text">
+                                            <small>营业时间，24 小时制表示，用“-”连接，如 8:00-20:00</small>
+                                        </div>
+                                    </div>
+                                    <div class="am-form-group">
+                                        <label class="am-u-sm-3 am-form-label">人均价格 <span class="tpl-form-line-small-title">avgPrice</span></label>
+                                        <div class="am-u-sm-9">
+                                            <input id="avgPrice" type="number">
+                                            <small>人均价格，大于0 的整数</small>
+                                        </div>
+                                    </div>
+                                    <div class="am-form-group">
+                                        <div class="am-u-sm-9 am-u-sm-push-3">
+                                            <button id="submitBtn" type="button" class="am-btn am-btn-primary tpl-btn-bg-color-success ">提交</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script src="../assets/js/jquery.min.js"></script>
+        <script src="../assets/js/amazeui.min.js"></script>
+        <script src="../assets/js/app.js"></script>
+        <script src="../assets/js/toast.js"></script>
+        <!-- 引用核心层插件 -->
+        <script src="../assets/js/zyFile.js"></script>
+        <!-- 引用控制层插件 -->
+        <script src="../assets/js/zyUpload.js"></script>
+
+        <script type="text/javascript">
+            var photoUrls = ''
+
+            $(function() {
+                onLoad();
+                bindEvent();
+            });
+            function onLoad() {
+                // 初始化页面
+                initPage()
+                // 初始化文件上传插件
+                initUpload()
+            }
+            function initPage() {
+                  $.ajax({
+                     url : '/wechat/manager/init_create_poi_page',
+                     type : 'POST',
+                     dataType:'json',
+                     success : function(res) {
+                         var materialImageHtml = ''
+                         var offsetTypeHtml = ''
+                         $.each(res, function(key, value) {
+                             var $key = key;
+                             if ($key === 'wechatMaterialImageList') {
+                                 $.each(value, function(index, item) {
+                                     materialImageHtml += '<img src="' + item.localImgUrl + '" data-wechatimgurl="' + item.wechatImgUrl + '"/>';
+                                 })
+                             } else if ($key === 'offsetTypeMap') {
+                                 $.each(value, function(key1, value1) {
+                                     offsetTypeHtml += '<option value="' + key1 + '"> ' + value1 + '</option>'
+                                 })
+                             }
+                         });
+                         $('#selectMaterialImage').html(materialImageHtml)
+                         $('#offsetType').html(offsetTypeHtml)
+                     },
+                     error : function(err) {
+                         console.log(err)
+                     }
+                 });
+            }
+            function initUpload() {
+                $("#uploadImage").zyUpload({
+                    itemWidth        :   "160px",                 // 文件项的宽度
+                    itemHeight       :   "85px",                 // 文件项的高度
+                    url              :   "/wechat/manager/upload_background_image?scene=1",  // 上传文件的路径
+                    multiple         :   true,                    // 是否可以多个文件上传
+                    dragDrop         :   false,                    // 是否可以拖动上传文件
+                    del              :   true,                    // 是否可以删除文件
+                    finishDel        :   false,				  // 是否在上传文件完成后删除预览
+                    onSelect: function(files, allFiles){             // 选择文件的回调方法
+//                        console.info("当前选择了以下文件：");
+//                        console.info(files);
+//                        console.info("之前没上传的文件：");
+//                        console.info(allFiles);
+                    },
+                    onDelete: function(file, surplusFiles){          // 删除一个文件的回调方法
+//                        console.info("当前删除了此文件：");
+//                        console.info(file);
+//                        console.info("当前剩余的文件：");
+//                        console.info(surplusFiles);
+                    },
+                    onSuccess: function(file, response){
+                        // 文件上传成功的回调方法
+                        response = JSON.parse(response)
+                        if (response.success) {
+                            photoUrls += response.url + ","
+                        } else {
+                            showMessage(response.msg)
+                        }
+                    },
+                    onFailure: function(file, response){            // 文件上传失败的回调方法
+                        console.log(response)
+                        showMessage('文件上传失败')
+                    },
+                    onComplete: function(){                         // 上传完成的回调方法
+                        console.log(photoUrls)
+                    }
+                });
+            }
+            function bindEvent() {
+                // 提交按钮
+                $('#submitBtn').on('click', function() {
+                    var receiverInfo = getReceiverInfo();
+                    if (receiverInfo.status) {
+                        $.ajax({
+                            url : '/wechat/manager/create_poi',
+                            data: JSON.stringify(receiverInfo.wechatPoi),
+                            type : 'POST',
+                            dataType:'json',
+                            contentType:"application/json",
+                            success : function(res) {
+                                console.log(res)
+                                if (res.success) {
+                                    showMessage('门店创建成功')
+//                                    setTimeout(function(){
+//                                        window.location.href = 'poiManager.html'
+//                                    },1000);
+                                } else {
+                                    showMessage('门店创建失败：' + res.msg)
+                                }
+                            },
+                            error : function(err) {
+                                console.log(err)
+                                showMessage('系统错误')
+                            }
+                        });
+                    } else {
+                        showMessage(receiverInfo.msg)
+                    }
+                })
+            }
+            // 获取表单参数并校验
+            function getReceiverInfo() {
+                // 存放获取的表单信息
+                var receiverInfo = {};
+                // 定义返回对象
+                var result = {
+                    status: false,
+                    msg: ''
+                };
+
+                // 获取表单数据
+                receiverInfo.businessName = $.trim($('#businessName').val())
+                receiverInfo.branchName = $.trim($('#branchName').val())
+                receiverInfo.province = $.trim($('#province').val())
+                receiverInfo.city = $.trim($('#city').val())
+                receiverInfo.district = $.trim($('#district').val())
+                receiverInfo.address = $.trim($('#address').val())
+                receiverInfo.telephone = $.trim($('#telephone').val())
+                receiverInfo.categories = $.trim($('#categories').val())
+                receiverInfo.offsetType = Number($('#offsetType').val())
+                receiverInfo.longitude = Number($('#longitude').val())
+                receiverInfo.latitude = Number($('#latitude').val())
+
+                photoUrls = photoUrls.substring(0, photoUrls.lastIndexOf(','))
+                receiverInfo.photoUrls = photoUrls
+                receiverInfo.recommend = $.trim($('#recommend').val())
+                receiverInfo.special = $.trim($('#special').val())
+                receiverInfo.introduction = $.trim($('#introduction').val())
+                receiverInfo.openTime = $.trim($('#openTime').val())
+                receiverInfo.avgPrice = Number($('#avgPrice').val())
+
+                if (!validate(receiverInfo.businessName, 'require')) {
+                    result.msg = '请输入门店名称'
+                    return result
+                } else if (!validate(receiverInfo.branchName, 'require')) {
+                    result.msg = '请输入分店名称'
+                    return result
+                } else if (!validate(receiverInfo.province, 'require')) {
+                    result.msg = '请输入门店所在的省份'
+                    return result
+                } else if (!validate(receiverInfo.city, 'require')) {
+                    result.msg = '请输入门店坐在的城市'
+                    return result
+                } else if (!validate(receiverInfo.district, 'require')) {
+                    result.msg = '请输入门店所在的地区'
+                    return result
+                } else if (!validate(receiverInfo.address, 'require')) {
+                    result.msg = '请输入门店的详细街道地址'
+                    return result
+                } else if (!validate(receiverInfo.telephone, 'require')) {
+                    result.msg = '请输入门店的联系电话'
+                    return result
+                } else if (!validate(receiverInfo.categories, 'require')) {
+                    result.msg = '请输入门店类型'
+                    return result
+                } else if (!validate(receiverInfo.longitude, 'require')) {
+                    result.msg = '请输入门店所在的经度'
+                    return result
+                } else if (!validate(receiverInfo.latitude, 'require')) {
+                    result.msg = '请输入门店所在的纬度'
+                    return result
+                }
+
+                result.wechatPoi = receiverInfo;
+                result.status = true;
+                result.msg = '验证通过';
+                return result;
+            }
+            // 参数验证方法
+            function validate(value, type) {
+                var value = $.trim(value);
+                // 非空验证
+                if ('require' === type) {
+                    return !!value;// 如果value为空则返回false，否则返回true
+                }
+                // 判断是否为数字
+                if ('isNumber' === type) {
+                    return /^[0-9]+.?[0-9]*$/.test(value);
+                }
+            }
+        </script>
+    </body>
+</html>
