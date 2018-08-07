@@ -23,6 +23,7 @@
 
 #maven ignore
 target/
+out/
 
 #eclipse ignore
 .settings/
