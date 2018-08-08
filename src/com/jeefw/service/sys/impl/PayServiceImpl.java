@@ -2,11 +2,14 @@ package com.jeefw.service.sys.impl;
 
 import com.alipay.api.domain.TradeFundBill;
 import com.alipay.api.response.AlipayTradePayResponse;
+import com.alipay.api.response.AlipayTradeRefundResponse;
 import com.alipay.demo.trade.config.Configs;
 import com.alipay.demo.trade.model.ExtendParams;
 import com.alipay.demo.trade.model.GoodsDetail;
 import com.alipay.demo.trade.model.builder.AlipayTradePayRequestBuilder;
+import com.alipay.demo.trade.model.builder.AlipayTradeRefundRequestBuilder;
 import com.alipay.demo.trade.model.result.AlipayF2FPayResult;
+import com.alipay.demo.trade.model.result.AlipayF2FRefundResult;
 import com.alipay.demo.trade.service.AlipayTradeService;
 import com.alipay.demo.trade.service.impl.AlipayTradeServiceImpl;
 import com.jeefw.dao.sys.OrderMasterDao;
@@ -16,6 +19,7 @@ import com.jeefw.service.sys.OrderDetailSerivce;
 import com.jeefw.service.sys.PayService;
 import core.dto.*;
 import core.enums.AlipayTradeCodeEnum;
+import core.enums.OrderStatusEnum;
 import core.enums.PayStatusEnum;
 import core.enums.TradeTypeEnum;
 import core.util.*;
@@ -207,7 +211,8 @@ public class PayServiceImpl implements PayService {
             }
         } else if (result.getTradeStatus().name().equals("FAILED")) {
             System.out.println(("支付宝支付失败!!!"));
-            return "支付宝支付失败";
+            AlipayTradePayResponse response = result.getResponse();
+            return "支付宝支付失败，" + response.getSubMsg();
         } else if (result.getTradeStatus().name().equals("UNKNOWN")) {
             System.out.println(("系统异常，订单状态未知!!!"));
             return "系统异常，订单状态未知";
@@ -215,6 +220,70 @@ public class PayServiceImpl implements PayService {
             System.out.println(("不支持的交易状态，交易返回异常!!!"));
             return "不支持的交易状态，交易返回异常";
         }
+    }
 
+    /**
+     * 当面付2.0退款
+     *
+     * @param orderMasterDTO
+     */
+    @Override
+    public String tradeRefund(OrderMasterDTO orderMasterDTO) {
+        // (必填) 外部订单号，需要退款交易的商户外部订单号
+        String outTradeNo = orderMasterDTO.getOrderId();
+
+        // (必填) 退款金额，该金额必须小于等于订单的支付金额，单位为元
+        String refundAmount = orderMasterDTO.getAmount().toString();
+
+        // (可选，需要支持重复退货时必填) 商户退款请求号，相同支付宝交易号下的不同退款请求号对应同一笔交易的不同退款申请，
+        // 对于相同支付宝交易号下多笔相同商户退款请求号的退款交易，支付宝只会进行一次退款
+        String outRequestNo = "";
+
+        // (必填) 退款原因，可以说明用户退款原因，方便为商家后台提供统计
+        String refundReason = "正常退款，用户买多了";
+
+        // (必填) 商户门店编号，退款情况下可以为商家后台提供退款权限判定和统计等作用，详询支付宝技术支持
+        String storeId = "test_store_id";
+
+        // 创建退款请求builder，设置请求参数
+        AlipayTradeRefundRequestBuilder builder = new AlipayTradeRefundRequestBuilder()
+                .setOutTradeNo(outTradeNo).setRefundAmount(refundAmount).setRefundReason(refundReason)
+                .setOutRequestNo(outRequestNo).setStoreId(storeId);
+
+        /** 一定要在创建AlipayTradeService之前调用Configs.init()设置默认参数
+         *  Configs会读取classpath下的zfbinfo.properties文件配置信息，如果找不到该文件则确认该文件是否在classpath目录
+         */
+        Configs.init("config.properties");
+
+        /** 使用Configs提供的默认参数
+         *  AlipayTradeService可以使用单例或者为静态成员对象，不需要反复new
+         */
+        AlipayTradeService tradeService = new AlipayTradeServiceImpl.ClientBuilder().build();
+        AlipayF2FRefundResult result = tradeService.tradeRefund(builder);
+
+        if (result.getTradeStatus().name().equals("SUCCESS")) {
+            AlipayTradeRefundResponse response = result.getResponse();
+            if (response.getCode().equals(AlipayTradeCodeEnum.SUCCESS.getCode())) {
+                System.out.println("支付宝退款成功");
+
+                // 更改订单状态
+                OrderMaster orderMaster = orderMasterDao.getByProerties("orderId", orderMasterDTO.getOrderId());
+                orderMaster.setOrderStatus(OrderStatusEnum.REFUND.getCode());
+                orderMasterDao.update(orderMaster);
+                return "SUCCESS";
+            } else {
+                return "未知错误";
+            }
+        } else if (result.getTradeStatus().name().equals("FAILED")) {
+            System.out.println(("支付宝退款失败!!!"));
+            AlipayTradeRefundResponse response = result.getResponse();
+            return "支付宝退款失败，" + response.getSubMsg();
+        } else if (result.getTradeStatus().name().equals("UNKNOWN")) {
+            System.out.println(("系统异常，订单状态未知!!!"));
+            return "系统异常，订单状态未知";
+        } else {
+            System.out.println(("不支持的交易状态，交易返回异常!!!"));
+            return "不支持的交易状态，交易返回异常";
+        }
     }
 }

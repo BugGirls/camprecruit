@@ -78,4 +78,27 @@ public class PayController {
         String result = payService.createAlipayTradePay(orderMasterDTO);
         return result;
     }
+
+    /**
+     * 退款
+     *
+     * @param orderId
+     * @throws Exception
+     */
+    @RequestMapping(value = "alipay_trade_refund", method = RequestMethod.POST)
+    @ResponseBody
+    public String alipayTradeRefund(@RequestParam(value = "orderId") String orderId) throws Exception {
+
+        if (StringUtils.isBlank(orderId)) {
+            throw new Exception("参数错误");
+        }
+
+        OrderMasterDTO orderMasterDTO = orderMasterService.getOrderById(orderId);
+        if (orderMasterDTO == null) {
+            throw new Exception("用户没有该订单");
+        }
+
+        String result = payService.tradeRefund(orderMasterDTO);
+        return result;
+    }
 }

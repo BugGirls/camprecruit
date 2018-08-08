@@ -12,4 +12,6 @@ public interface PayService {
 
     String createAlipayTradePay(OrderMasterDTO orderMasterDTO);
 
+    String tradeRefund(OrderMasterDTO orderMasterDTO);
+
 }
