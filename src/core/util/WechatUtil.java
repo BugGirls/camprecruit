@@ -1084,4 +1084,24 @@ public class WechatUtil {
         }.getType());
     }
 
+    /**
+     * 获取用户基本信息
+     *
+     * @param openid
+     * @return
+     */
+    public static JSONObject getUserInfo(String openid) {
+        Map<String, Object> resultMap = new HashMap<>();
+        resultMap.put("errcode", -1);
+
+        if (StringUtils.isBlank(openid)) {
+            resultMap.put("errmsg", "openid为空");
+            return JSONObject.fromObject(resultMap);
+        }
+
+        String url = Const.GET_USER_INFO.replace("TOKEN", accessTokenBo.getAccess_token()).replace("OPENID", openid);
+        JSONObject jsonObject = HttpUtil.httpsRequest2(url, "GET", null);
+        return jsonObject;
+    }
+
 }

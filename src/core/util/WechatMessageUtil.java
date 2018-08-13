@@ -101,6 +101,16 @@ public class WechatMessageUtil {
      */
     public static final String MESSAGE_EVENT_POI_CHECK_NOTIFY = "poi_check_notify";
 
+    /**
+     * 关注公众号
+     */
+    public static final String MESSAGE_EVENT_SUBSCRIBE = "subscribe";
+
+    /**
+     * 取消关注公众号
+     */
+    public static final String MESSAGE_EVENT_UNSUBSCRIBE = "unsubscribe";
+
 
     /**
      * 将xml 转换成Map集合

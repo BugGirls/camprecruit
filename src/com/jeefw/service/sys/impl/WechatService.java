@@ -1,13 +1,7 @@
 package com.jeefw.service.sys.impl;
 
-import com.jeefw.model.sys.WechatCard;
-import com.jeefw.model.sys.WechatPoi;
-import com.jeefw.model.sys.WechatUserConsumeCard;
-import com.jeefw.model.sys.WechatUserGetCard;
-import com.jeefw.service.sys.WechatCardService;
-import com.jeefw.service.sys.WechatPoiService;
-import com.jeefw.service.sys.WechatUserConsumeCardService;
-import com.jeefw.service.sys.WechatUserGetCardService;
+import com.jeefw.model.sys.*;
+import com.jeefw.service.sys.*;
 import core.enums.AvailableStatusEnum;
 import core.enums.PoiUpdateStatusEnum;
 import core.enums.UserCardStatusEnum;
@@ -15,6 +9,7 @@ import core.util.GSON;
 import core.util.KeyUtil;
 import core.util.WechatMessageUtil;
 import core.util.WechatUtil;
+import net.sf.json.JSONObject;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Service;
 
@@ -41,6 +36,9 @@ public class WechatService {
 
     @Resource
     private WechatPoiService wechatPoiService;
+
+    @Resource
+    private WechatMemberStoresService wechatMemberStoresService;
 
     /**
      * 对request数据进行处理
@@ -196,6 +194,42 @@ public class WechatService {
                 // 设置积分，通过openid获取会员信息，如果是会员，然后通过cardId获取会员卡信息，设置对应的积分
 
 
+            } else if (WechatMessageUtil.MESSAGE_EVENT_SUBSCRIBE.equals(event)) {
+                // 关注公众号事件推送
+
+                WechatMemberStores wechatMemberStores = wechatMemberStoresService.getByProerties("openid", fromUserName);
+                if (wechatMemberStores == null) {
+                    // 获取用户信息
+                    JSONObject jsonObject = WechatUtil.getUserInfo(fromUserName);
+
+                    wechatMemberStores = new WechatMemberStores();
+                    wechatMemberStores.setMemberId(KeyUtil.generatorUniqueKey());
+                    wechatMemberStores.setSubscribe(jsonObject.getInt("subscribe"));
+                    wechatMemberStores.setOpenid(jsonObject.getString("openid"));
+                    wechatMemberStores.setNickname(jsonObject.getString("nickname"));
+                    wechatMemberStores.setSex(jsonObject.getInt("sex"));
+                    wechatMemberStores.setCity(jsonObject.getString("city"));
+                    wechatMemberStores.setProvince(jsonObject.getString("province"));
+                    wechatMemberStores.setCountry(jsonObject.getString("country"));
+                    wechatMemberStores.setHeadImgUrl(jsonObject.getString("headimgurl"));
+                    wechatMemberStores.setSubscribeTime(WechatMessageUtil.strToDateLong(WechatMessageUtil.formatTime(jsonObject.getString("subscribe_time"))));
+                    wechatMemberStores.setRemark(jsonObject.getString("remark"));
+                    wechatMemberStores.setGroupId(jsonObject.getInt("groupid"));
+                    wechatMemberStores.setSubscribeScene(jsonObject.getString("subscribe_scene"));
+                    wechatMemberStores.setQrScene(jsonObject.getInt("qr_scene"));
+                    wechatMemberStores.setQrSceneStr(jsonObject.getString("qr_scene_str"));
+                    wechatMemberStores.setLanguage(jsonObject.getString("language"));
+                    wechatMemberStoresService.persist(wechatMemberStores);
+                } else {
+                    wechatMemberStores.setSubscribe(1);
+                    wechatMemberStoresService.update(wechatMemberStores);
+                }
+            } else if (WechatMessageUtil.MESSAGE_EVENT_UNSUBSCRIBE.equals(event)) {
+                // 取消关注公众号事件推送
+
+                WechatMemberStores wechatMemberStores = wechatMemberStoresService.getByProerties("openid", fromUserName);
+                wechatMemberStores.setSubscribe(0);
+                wechatMemberStoresService.update(wechatMemberStores);
             }
             System.out.println(event);
         }

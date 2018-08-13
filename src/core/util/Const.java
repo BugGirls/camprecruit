@@ -154,4 +154,9 @@ public class Const {
      * 删除门店信息URL
      */
     public static final String DELETE_POI_URL = "https://api.weixin.qq.com/cgi-bin/poi/delpoi?access_token=TOKEN";
+
+    /**
+     * 获取用户基本信息
+     */
+    public static final String GET_USER_INFO = "https://api.weixin.qq.com/cgi-bin/user/info?access_token=TOKEN&openid=OPENID&lang=zh_CN";
 }
