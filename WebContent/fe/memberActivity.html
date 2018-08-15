@@ -1,0 +1,200 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>智能超市终端</title>
+        <meta name="keywords" content="index">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="renderer" content="webkit">
+        <meta http-equiv="Cache-Control" content="no-siteapp" />
+        <meta name="toTop" content="true">
+        <link rel="icon" type="image/png" href="assets/i/favicon.png">
+        <link rel="apple-touch-icon-precomposed" href="assets/i/app-icon72x72@2x.png">
+        <meta name="apple-mobile-web-app-title" content="Amaze UI" />
+        <link rel="stylesheet" href="assets/css/amazeui.min.css" />
+        <link rel="stylesheet" href="assets/css/admin.css">
+        <link rel="stylesheet" href="assets/css/app.css">
+        <link href="assets/css/simplegrid.css" rel="stylesheet" type="text/css"/>
+        <script src="assets/js/echarts.min.js"></script>
+        <style>
+            header {
+                font-family: 'YouYuan';
+            }
+            .tpl-page-header-fixed {
+                margin-top: 150px;
+            }
+            .titleBox {
+                float:left;
+                position:relative;
+                left:35%;
+                height: 130px;
+                line-height: 130px;
+            }
+            .titleBox p {
+                float:left;
+                position:relative;
+                right:50%;
+                color: black;
+            }
+            .returnDiv {
+                font-family: Arial,'Times New Roman','Microsoft YaHei',SimHei;
+                width: 120px;
+                top:20px;
+                right:50px;
+                position:fixed;
+                cursor:pointer;
+            }
+        </style>
+    </head>
+
+    <body data-type="index">
+        <header class="am-topbar am-topbar-inverse admin-header">
+            <div class="am-topbar-brand" style="height: 130px;line-height: 130px;">
+                <a href="index.html" class="tpl-logo">
+                    <img src="assets/img/logo.png">
+                </a>
+            </div>
+
+            <div class="titleBox">
+                <p class="am-text-xxxl">智能超市终端</p>
+            </div>
+
+            <div class="returnDiv">
+                <a style="color: black;" href="javascript:history.back(-1)">
+                    <span class="am-icon-arrow-left" style="font-size: 30px; margin-top: 10px;"></span>
+                    <span style="font-size: 28px;">Return</span>
+                </a>
+            </div>
+        </header>
+
+        <div class="tpl-page-container tpl-page-header-fixed">
+            <div class="grid grid-pad" id="showCard">
+
+            </div>
+        </div>
+
+        <script src="assets/js/jquery.min.js"></script>
+        <script src="assets/js/amazeui.min.js"></script>
+        <script src="assets/js/toast.js"></script>
+        <script src="assets/js/mytime.js"></script>
+        <script src="assets/js/layer.js"></script>
+        <script>
+            $(function() {
+                initPage()
+                bindEvent()
+            })
+            function initPage() {
+                $.ajax({
+                    url : '/member/activity/get_card_list',
+                    type : 'POST',
+                    dataType:'json',
+                    success : function(res) {
+                        var cardHtml = ''
+                        var cardExpiryDateHtml = ''
+                        $.each(res, function(index, item) {
+                            var card = item
+
+                            if (card.dateType === 'DATE_TYPE_FIX_TIME_RANGE') {
+                                cardExpiryDateHtml = $.myTime.UnixToDate(card.beginTimestamp) + ' - ' + $.myTime.UnixToDate(card.endTimestamp)
+                            } else if (card.dateType === 'DATE_TYPE_FIX_TERM') {
+                                cardExpiryDateHtml = '领取后' + card.fixedBeginTerm + '天生效' + card.fixedTerm + '天有效'
+                            }
+
+                            cardHtml += '<div id="cardDetail" data-id="' + card.cardId + '" class="col-1-3 mobile-col-1-3" style="position: relative; cursor: pointer">'+
+                                    '<div class="dashboard-stat" style="height: 200px;background-color: ' + card.color + '">'+
+                                    '<div class="visual" style="color: #eee">'+
+                                    '<i class="am-icon-comments-o"></i>'+
+                                    '</div>'+
+                                    '<div class="details" style="margin-right: 10px;">'+
+                                    '<div class="number" style="font-size: 45px;font-family: Arial;margin-bottom: 6px"> ' + card.title  + ' </div>'+
+                                    '<div class="desc" style="font-family:YouYuan,幼圆; font-size: 14px"> 有效期：' + cardExpiryDateHtml + ' </div>'+
+                                    '</div>'+
+                                    '<div style="font-family: STHeiti; color:  #dba515; position: absolute; right: 47px; bottom: 45px">'+
+                                    'NO:'+ PrefixInteger(card.id, 5) +
+                                    '</div>'+
+                                    '<div style="font-family: STHeiti; color:  #dba515; position: absolute; right: 47px; bottom: 80px">'+
+                                    '剩余:'+ card.quantity +
+                                    '</div>'+
+                                    '</div>'+
+                                    '</div>';
+                        })
+
+                        $('#showCard').html(cardHtml)
+                    },
+                    error : function(err) {
+                        console.log(err);
+                    }
+                })
+            }
+            function bindEvent() {
+                $(document).on('click', '#cardDetail', function() {
+                    var cardId = $(this).data('id')
+
+                    $.ajax({
+                        url : '/member/activity/get_card_detail',
+                        data: {
+                            cardId : cardId
+                        },
+                        type : 'POST',
+                        dataType:'json',
+                        success : function(res) {
+                            console.log(res)
+                            var cardDetailHtml = ''
+                            var cardExpiryDateHtml = ''
+                            if (res.success) {
+                                var card = res.card
+                                var qrcode = res.qrcode
+
+                                if (card.dateType === 'DATE_TYPE_FIX_TIME_RANGE') {
+                                    cardExpiryDateHtml = $.myTime.UnixToDate(card.beginTimestamp) + ' - ' + $.myTime.UnixToDate(card.endTimestamp)
+                                } else if (card.dateType === 'DATE_TYPE_FIX_TERM') {
+                                    cardExpiryDateHtml = '领取后' + card.fixedBeginTerm + '天生效' + card.fixedTerm + '天有效'
+                                }
+
+                                cardDetailHtml = '<article class="am-g blog-entry-article">'+
+                                        '<div class="am-u-lg-6 am-u-md-12 am-u-sm-12 blog-entry-img">'+
+                                        '<img src="' + qrcode + '" alt="" class="am-u-sm-12">'+
+                                        '</div>'+
+                                        '<div class="am-u-lg-6 am-u-md-12 am-u-sm-12 blog-entry-text" style="margin-top: 20px">'+
+                                        '<span>'+
+                                        '<img src="' + card.localLogoUrl + '" width="50" height="50"/>'+
+                                        '</span>'+
+                                        '<h1 style="margin-top: 0">'+
+                                        '<span>' + card.brandName + ' &nbsp;</span>'+
+                                        '<span>' + card.title + '</span>'+
+                                        '</h1>'+
+                                        '<p>' + card.notice + '</p>'+
+                                        '<p style="margin-top: -15px">' + card.description + '</p>'+
+                                        '<p style="margin-top: -15px">有效期：' + cardExpiryDateHtml + '</p>'+
+                                        '<p style="margin-top: -15px">' + card.defaultDetail + '</p>'+
+                                        '</div>'+
+                                        '</article>';
+
+                                //页面层
+                                layer.open({
+                                    type: 1,
+                                    title : '优惠券详情',
+                                    skin: 'layui-layer-rim', //加上边框
+                                    area: ['820px', '440px'], //宽高
+                                    content: cardDetailHtml,
+                                    closeBtn: 0,
+                                    shadeClose: true
+                                })
+                            } else {
+                                console.log(res.msg)
+                                showMessage('系统正在升级，请等候')
+                            }
+                        },
+                        error : function(err) {
+                            console.log(err);
+                        }
+                    })
+                })
+            }
+            function PrefixInteger(num, length) {
+                return (Array(length).join('0') + num).slice(-length);
+            }
+        </script>
+    </body>
+</html>

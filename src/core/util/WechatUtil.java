@@ -8,6 +8,7 @@ import com.jeefw.model.sys.bo.AccessTokenBo;
 import core.enums.CardTypeEnum;
 import core.enums.DateInfoType;
 import net.sf.json.JSONObject;
+import org.apache.commons.httpclient.HttpURL;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -277,7 +278,7 @@ public class WechatUtil {
         // 2、卡券高级信息字段
         List<String> businessServiceList = new ArrayList<>();
         if (StringUtils.isNotBlank(wechatCard.getBusinessService())) {
-            Integer index = wechatCard.getLocationIds().indexOf(",");
+            Integer index = wechatCard.getBusinessService().indexOf(",");
             if (index > 0) {
                 String[] sp = wechatCard.getBusinessService().split(",");
                 for (int i = 0; i < sp.length; i++) {
@@ -1101,6 +1102,33 @@ public class WechatUtil {
 
         String url = Const.GET_USER_INFO.replace("TOKEN", accessTokenBo.getAccess_token()).replace("OPENID", openid);
         JSONObject jsonObject = HttpUtil.httpsRequest2(url, "GET", null);
+        return jsonObject;
+    }
+
+    /**
+     * 设置卡券支持微信买单功能
+     *
+     * @param cardId
+     * @param isOpen
+     * @return
+     */
+    public static JSONObject setPayForCard(String cardId, Boolean isOpen) {
+        Map<String, Object> resultMap = new HashMap<>();
+        resultMap.put("errcode", -1);
+
+        if (StringUtils.isBlank(cardId) || isOpen == null) {
+            resultMap.put("errmsg", "参数错误");
+            return JSONObject.fromObject(resultMap);
+        }
+
+
+        Map<String, Object> paramMap = new HashMap<>();
+        paramMap.put("card_id", cardId);
+        paramMap.put("is_open", isOpen);
+
+        String json = GSON.toJson(paramMap);
+        String url = Const.SET_PAY_FOR_CARD.replace("TOKEN", accessTokenBo.getAccess_token());
+        JSONObject jsonObject = HttpUtil.httpsRequest2(url, "POST", json);
         return jsonObject;
     }
 

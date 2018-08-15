@@ -110,7 +110,7 @@ public class WechatService {
                 String[] propName = {"cardId", "userCardCode"};
                 String[] propValue = {cardId, userCardCode};
                 WechatUserGetCard wechatUserGetCard = wechatUserGetCardService.getByProerties(propName, propValue);
-                if (UserCardStatusEnum.NORMAL.equals(wechatUserGetCard.getCardStatus())) {
+                if (UserCardStatusEnum.NORMAL.getKey().equals(wechatUserGetCard.getCardStatus())) {
                     wechatUserGetCard.setCardStatus(UserCardStatusEnum.DELETE.getKey());
                     wechatUserGetCardService.update(wechatUserGetCard);
                 }
@@ -126,24 +126,31 @@ public class WechatService {
                 String remarkAmount = map.get("RemarkAmount");
                 String outerStr = map.get("OuterStr");
 
-                // 1、保存到本地数据库
-                WechatUserConsumeCard wechatUserConsumeCard = new WechatUserConsumeCard();
-                wechatUserConsumeCard.setId(KeyUtil.generatorUniqueKey());
-                wechatUserConsumeCard.setUserCardCode(userCardCode);
-                wechatUserConsumeCard.setOuterStr(outerStr);
-                wechatUserConsumeCard.setCardId(cardId);
-                wechatUserConsumeCard.setConsumeSource(consumeSource);
-                wechatUserConsumeCard.setCreateTime(WechatMessageUtil.strToDateLong(WechatMessageUtil.formatTime(createTime)));
-                wechatUserConsumeCard.setLocationId(StringUtils.isBlank(locationId) ? null : Integer.valueOf(locationId));
-                wechatUserConsumeCard.setLocationName(locationName);
-                wechatUserConsumeCard.setOpenid(fromUserName);
-                wechatUserConsumeCard.setRemarkAmount(StringUtils.isBlank(remarkAmount) ? null : new BigDecimal(remarkAmount));
-                wechatUserConsumeCard.setStaffOpenId(staffOpenId);
-                wechatUserConsumeCard.setVerifyCode(verifyCode);
-                wechatUserConsumeCardService.persist(wechatUserConsumeCard);
+                String[] propName = {"cardId", "userCardCode"};
+                String[] propValue = {cardId, userCardCode};
+                WechatUserConsumeCard wechatUserConsumeCard = wechatUserConsumeCardService.getByProerties(propName, propValue);
+                if (wechatUserConsumeCard == null) {
+                    // 1、保存到本地数据库
+                    wechatUserConsumeCard = new WechatUserConsumeCard();
+                    wechatUserConsumeCard.setId(KeyUtil.generatorUniqueKey());
+                    wechatUserConsumeCard.setUserCardCode(userCardCode);
+                    wechatUserConsumeCard.setOuterStr(outerStr);
+                    wechatUserConsumeCard.setCardId(cardId);
+                    wechatUserConsumeCard.setConsumeSource(consumeSource);
+                    wechatUserConsumeCard.setCreateTime(WechatMessageUtil.strToDateLong(WechatMessageUtil.formatTime(createTime)));
+                    wechatUserConsumeCard.setLocationId(StringUtils.isBlank(locationId) ? null : Integer.valueOf(locationId));
+                    wechatUserConsumeCard.setLocationName(locationName);
+                    wechatUserConsumeCard.setOpenid(fromUserName);
+                    wechatUserConsumeCard.setRemarkAmount(StringUtils.isBlank(remarkAmount) ? null : new BigDecimal(remarkAmount));
+                    wechatUserConsumeCard.setStaffOpenId(staffOpenId);
+                    wechatUserConsumeCard.setVerifyCode(verifyCode);
+                    wechatUserConsumeCardService.persist(wechatUserConsumeCard);
+                }
 
                 // 2、修改用户领取的卡券状态 - 已核销
-                WechatUserGetCard wechatUserGetCard = wechatUserGetCardService.getByProerties("cardId", cardId);
+                propName = new String[]{"cardId", "userCardCode"};
+                propValue = new String[]{cardId, userCardCode};
+                WechatUserGetCard wechatUserGetCard = wechatUserGetCardService.getByProerties(propName, propValue);
                 wechatUserGetCard.setCardStatus(UserCardStatusEnum.CONSUMED.getKey());
                 wechatUserGetCardService.update(wechatUserGetCard);
             } else if (WechatMessageUtil.MESSAGE_EVENT_POI_CHECK_NOTIFY.equals(event)) {

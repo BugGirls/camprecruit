@@ -159,4 +159,9 @@ public class Const {
      * 获取用户基本信息
      */
     public static final String GET_USER_INFO = "https://api.weixin.qq.com/cgi-bin/user/info?access_token=TOKEN&openid=OPENID&lang=zh_CN";
+
+    /**
+     * 设置卡券支持微信买单功能
+     */
+    public static final String SET_PAY_FOR_CARD = "https://api.weixin.qq.com/card/paycell/set?access_token=TOKEN";
 }

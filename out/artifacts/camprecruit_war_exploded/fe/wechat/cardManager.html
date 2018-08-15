@@ -218,7 +218,7 @@
                         var cardTypeStr = ''
                         var cardStatusStr = ''
                         var dateTypeStr = ''
-                        var operationBtn = ''
+                        var cardShelfStatusHtml = ''
                         $.each(res.data, function(index, item) {
                             //卡券类型
                             if (item.cardType === 'GENERAL_COUPON') {
@@ -233,7 +233,7 @@
                                 cardTypeStr = '团购券'
                             }
                             // 卡券状态
-                            cardStatusStr = item.cardStatus == 1 ? "已投放" : "待投放"
+                            cardStatusStr = item.cardPutStatus == 1 ? "已投放" : "待投放"
                             // 时间类型
                             if (item.dateType === 'DATE_TYPE_FIX_TIME_RANGE') {
                                 dateTypeStr = $.myTime.UnixToDate(item.beginTimestamp) + '到' + $.myTime.UnixToDate(item.endTimestamp) + '有效'
@@ -241,11 +241,10 @@
                                 dateTypeStr = '领取后' + item.fixedBeginTerm + '天生效' + item.fixedTerm + '天有效'
                             }
 
-                            if (item.cardStatus == 1) {
-                                operationBtn = '<a id="puttingCardBtn" data-cardid="' + item.id + '" data-wechatcardid="' + item.cardId + '" class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-pencil-square-o"></span> 投放</a>'
-                            } else {
-                                operationBtn = '<a id="puttingCardBtn" data-cardid="' + item.id + '" data-wechatcardid="' + item.cardId + '" class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-pencil-square-o"></span> 投放</a>' +
-                                               '<a id="deleteCardBtn" data-wechatcardid="' + item.cardId + '" class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-pencil-square-o"></span> 删除</a>'
+                            if (item.cardShelfStatus == 1) {
+                                cardShelfStatusHtml = '<a id="shelfCardBtn" data-status="0" data-wechatcardid="' + item.cardId + '" class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-unlock-alt"></span> 上架</a>'
+                            } else if (item.cardShelfStatus == 0) {
+                                cardShelfStatusHtml = '<a id="shelfCardBtn" data-status="1" data-wechatcardid="' + item.cardId + '" class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-unlock"></span> 下架</a>'
                             }
 
                             cardHtml += '<tr>'+
@@ -257,7 +256,11 @@
                                 '<td class="am-hide-sm-only">' + item.quantity + '</td>'+
                                 '<td>'+
                                 '<div class="am-btn-toolbar">'+
-                                '<div class="am-btn-group am-btn-group-xs">' + operationBtn + '</div>'+
+                                '<div class="am-btn-group am-btn-group-xs">' +
+                                '<a id="puttingCardBtn" data-cardid="' + item.id + '" data-wechatcardid="' + item.cardId + '" class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-pencil-square-o"></span> 投放</a>' +
+                                '<a id="deleteCardBtn" data-wechatcardid="' + item.cardId + '" class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-trash-o"></span> 删除</a>' +
+                                    cardShelfStatusHtml +
+                                '</div>'+
                                 '</div>'+
                                 '</td>'+
                                 '</tr>'
@@ -330,27 +333,56 @@
                 })
                 // 删除卡券
                 $('body').on('click','#deleteCardBtn',function() {
-                    $.ajax({
-                        url : '/wechat/manager/delete_card',
-                        data : {
-                            cardId: $(this).data('wechatcardid')
-                        },
-                        type : 'POST',
-                        dataType:'json',
-                        success : function(res) {
-                            if (res.success) {
-                                showMessage('卡券删除成功')
-                                addItems(data.pageNum, data.pageSize)
-                            } else {
-                                console.log(res.msg)
-                                showMessage('卡券删除失败')
+                    if(confirm("确认删除该卡券吗")) {
+                        $.ajax({
+                            url : '/wechat/manager/delete_card',
+                            data : {
+                                cardId: $(this).data('wechatcardid')
+                            },
+                            type : 'POST',
+                            dataType:'json',
+                            success : function(res) {
+                                if (res.success) {
+                                    showMessage('卡券删除成功')
+                                    addItems(data.pageNum, data.pageSize)
+                                } else {
+                                    console.log(res.msg)
+                                    showMessage('卡券删除失败')
+                                }
+                            },
+                            error : function(err) {
+                                console.log(err);
+                                showMessage('系统错误')
                             }
-                        },
-                        error : function(err) {
-                            console.log(err);
-                            showMessage('系统错误')
-                        }
-                    })
+                        })
+                    }
+                })
+                // 上架/下架卡券
+                $('body').on('click','#shelfCardBtn',function() {
+                    if(confirm("确认要执行该操作吗")) {
+                        $.ajax({
+                            url : '/wechat/manager/shelf_card',
+                            data : {
+                                cardId: $(this).data('wechatcardid'),
+                                cardShelfStatus: $(this).data('status')
+                            },
+                            type : 'POST',
+                            dataType:'json',
+                            success : function(res) {
+                                if (res.success) {
+                                    showMessage('卡券操作成功')
+                                    addItems(data.pageNum, data.pageSize)
+                                } else {
+                                    console.log(res.msg)
+                                    showMessage('卡券操作失败')
+                                }
+                            },
+                            error : function(err) {
+                                console.log(err);
+                                showMessage('系统错误')
+                            }
+                        })
+                    }
                 })
             }
         </script>

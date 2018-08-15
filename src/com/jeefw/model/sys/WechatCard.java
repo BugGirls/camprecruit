@@ -37,10 +37,16 @@ public class WechatCard extends WechatCardParameter {
     private String cardId;
 
     /**
-     * 卡券状态
+     * 卡券投放状态：0-待投放 1-已投放
      */
-    @Column(name = "card_status", nullable = false)
-    private Integer cardStatus;
+    @Column(name = "card_put_status", nullable = false)
+    private Integer cardPutStatus;
+
+    /**
+     * 卡券货架状态 0-上架 1-下架
+     */
+    @Column(name = "card_shelf_status", nullable = false)
+    private Integer cardShelfStatus;
 
     /**
      * 卡券类型
@@ -58,6 +64,12 @@ public class WechatCard extends WechatCardParameter {
      */
     @Column(name = "logo_url", nullable = false, length = 256)
     private String logoUrl;
+
+    /**
+     * 本地logo，用于展示
+     */
+    @Column(name = "local_logo_url", nullable = false, length = 128)
+    private String localLogoUrl;
 
     /**
      * 商户名字,字数上限为12个汉字。
@@ -1229,12 +1241,20 @@ public class WechatCard extends WechatCardParameter {
         this.cardId = cardId;
     }
 
-    public Integer getCardStatus() {
-        return cardStatus;
+    public Integer getCardPutStatus() {
+        return cardPutStatus;
     }
 
-    public void setCardStatus(Integer cardStatus) {
-        this.cardStatus = cardStatus;
+    public void setCardPutStatus(Integer cardPutStatus) {
+        this.cardPutStatus = cardPutStatus;
+    }
+
+    public Integer getCardShelfStatus() {
+        return cardShelfStatus;
+    }
+
+    public void setCardShelfStatus(Integer cardShelfStatus) {
+        this.cardShelfStatus = cardShelfStatus;
     }
 
     public String getBackgroundPicUrl() {
@@ -1437,4 +1457,11 @@ public class WechatCard extends WechatCardParameter {
         this.maxReduceBonus = maxReduceBonus;
     }
 
+    public String getLocalLogoUrl() {
+        return localLogoUrl;
+    }
+
+    public void setLocalLogoUrl(String localLogoUrl) {
+        this.localLogoUrl = localLogoUrl;
+    }
 }

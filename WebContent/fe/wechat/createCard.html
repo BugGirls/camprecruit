@@ -483,7 +483,7 @@
                              var $key = key;
                              if ($key === 'wechatMaterialImageList') {
                                  $.each(value, function(index, item) {
-                                     materialImageHtml += '<img src="' + item.localImgUrl + '" data-wechatimgurl="' + item.wechatImgUrl + '"/>';
+                                     materialImageHtml += '<img src="' + item.localImgUrl + '" data-localimgurl="' + item.localImgUrl + '" data-wechatimgurl="' + item.wechatImgUrl + '"/>';
                                  })
                              } else if ($key === 'cardTypeMap') {
                                  $.each(value, function(key2, value2) {
@@ -533,10 +533,9 @@
                 })
                 // 选择素材图片
                 $('body').on('click','#selectMaterialImage img',function() {
-                    var imgSrc = $(this).attr('src')
-                    var wechatImgUrl = $(this).data('wechatimgurl')
-                    $('#materialImg').attr('src', imgSrc)
-                    $('#materialImg').data('wechatimgurl', wechatImgUrl)
+                    $('#materialImg').attr('src', $(this).attr('src'))
+                    $('#materialImg').data('wechatimgurl', $(this).data('wechatimgurl'))
+                    $('#materialImg').data('localimgurl', $(this).data('localimgurl'))
                     $('#showImagePopup').modal('close')
                 })
                 // 选择卡券颜色
@@ -647,6 +646,7 @@
                 // 获取表单数据
                 receiverInfo.cardType = $('#selectCardType').val()
                 receiverInfo.logoUrl = $('#materialImg').data('wechatimgurl')
+                receiverInfo.localLogoUrl = $('#materialImg').data('localimgurl')
                 receiverInfo.codeType = $('#selectCodeType').val()
                 receiverInfo.brandName = $.trim($('#brandName').val())
                 receiverInfo.title = $.trim($('#title').val())
@@ -679,12 +679,22 @@
                 receiverInfo.promotionUrl = $.trim($('#promotionUrl').val())
                 receiverInfo.getLimit = Number($('#getLimit').val())
                 receiverInfo.useLimit = Number($('#useLimit').val())
-                receiverInfo.businessService = $('#selectBusinessService').val()
+//                receiverInfo.businessService = $('#selectBusinessService').val()
                 receiverInfo.advancedType = $('#selectAdvancedInfoType').val()
                 receiverInfo.beginHour = Number($('#beginHour').val())
                 receiverInfo.beginMinute = Number($('#beginMinute').val())
                 receiverInfo.endHour = Number($('#endHour').val())
                 receiverInfo.endMinute = Number($('#endMinute').val())
+                receiverInfo.businessService = ''
+                $.each($('input:checkbox:checked'), function(){
+                    receiverInfo.businessService += ($(this).val() + ",")
+                })
+                if (receiverInfo.businessService != '') {
+                    if (receiverInfo.businessService.indexOf(',') > 0) {
+                        receiverInfo.businessService = receiverInfo.businessService.substr(0, receiverInfo.businessService.lastIndexOf(","))
+                    }
+                }
+                console.log(receiverInfo.businessService)
 
                 if (!validate(receiverInfo.logoUrl, 'require')) {
                     result.msg = '请选择一张商户图片';

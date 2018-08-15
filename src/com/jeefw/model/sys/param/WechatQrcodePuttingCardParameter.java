@@ -9,6 +9,16 @@ import core.support.ExtJSBaseParameter;
 public class WechatQrcodePuttingCardParameter extends ExtJSBaseParameter {
 
     private Integer $eq_allianceId;
+    private String $eq_wechatCardId;
+
+
+    public String get$eq_wechatCardId() {
+        return $eq_wechatCardId;
+    }
+
+    public void set$eq_wechatCardId(String $eq_wechatCardId) {
+        this.$eq_wechatCardId = $eq_wechatCardId;
+    }
 
     public Integer get$eq_allianceId() {
         return $eq_allianceId;

@@ -394,7 +394,8 @@ public class WechatManagerController extends JavaEEFrameworkBaseController<Wecha
                 // 2、保存到本地数据库
                 wechatCard.setCardId(cardId);
                 wechatCard.setAllianceId(allianceId);
-                wechatCard.setCardStatus(CardStatusEnum.WAIT_PUTTING.getKey());
+                wechatCard.setCardPutStatus(CardPutStatusEnum.WAIT_PUTTING.getKey());
+                wechatCard.setCardShelfStatus(CardShelfStatusEnum.PUTAWAY.getKey());
                 wechatCardService.persist(wechatCard);
             } else {
                 resultMap.put("msg", jsonObject.get("errmsg"));
@@ -426,15 +427,23 @@ public class WechatManagerController extends JavaEEFrameworkBaseController<Wecha
             Map<String, String> map = WechatUtil.createQrCodePutCard(wechatQrcodePuttingCard);
             logger.info(GSON.toJson(map));
             if (map.get("errcode").equals("0") && map.get("errmsg").equals("ok")) {
-                wechatQrcodePuttingCard.setAllianceId(allianceId);
-                wechatQrcodePuttingCard.setTicket(map.get("ticket"));
-                wechatQrcodePuttingCard.setUrl(map.get("url"));
-                wechatQrcodePuttingCard.setShowQrcodeUrl(map.get("show_qrcode_url"));
-                wechatQrcodePuttingCardService.persist(wechatQrcodePuttingCard);
+                // 从数据库中获取该卡券的投放信息，如果已经投放过，则更新二维码信息，否则创建新的投放信息
+                WechatQrcodePuttingCard qrcodePuttingCard = wechatQrcodePuttingCardService.getByProerties("wechatCardId", wechatQrcodePuttingCard.getWechatCardId());
+                if (qrcodePuttingCard != null) {
+                    qrcodePuttingCard.setShowQrcodeUrl(map.get("show_qrcode_url"));
+                    wechatQrcodePuttingCardService.update(qrcodePuttingCard);
+                } else {
+                    wechatQrcodePuttingCard.setAllianceId(allianceId);
+                    wechatQrcodePuttingCard.setTicket(map.get("ticket"));
+                    wechatQrcodePuttingCard.setUrl(map.get("url"));
+                    wechatQrcodePuttingCard.setShowQrcodeUrl(map.get("show_qrcode_url"));
+                    wechatQrcodePuttingCardService.persist(wechatQrcodePuttingCard);
 
-                WechatCard wechatCard = wechatCardService.getByProerties("id", wechatQrcodePuttingCard.getCardId());
-                wechatCard.setCardStatus(CardStatusEnum.ALREADY_PUTTING.getKey());
-                wechatCardService.merge(wechatCard);
+                    WechatCard wechatCard = wechatCardService.getByProerties("id", wechatQrcodePuttingCard.getCardId());
+                    wechatCard.setCardPutStatus(CardPutStatusEnum.ALREADY_PUTTING.getKey());
+                    wechatCard.setCardShelfStatus(CardShelfStatusEnum.PUTAWAY.getKey());
+                    wechatCardService.update(wechatCard);
+                }
 
                 resultMap.put("success", true);
                 resultMap.put("wechatQrcodePuttingCard", wechatQrcodePuttingCard);
@@ -536,19 +545,55 @@ public class WechatManagerController extends JavaEEFrameworkBaseController<Wecha
         try {
             if (StringUtils.isNotBlank(cardId)) {
                 WechatCard wechatCard = wechatCardService.getByProerties("cardId", cardId);
-                if (wechatCard.getCardStatus().equals(CardStatusEnum.WAIT_PUTTING.getKey())) {
-                    // 删除本地服务器的卡券信息
-                    wechatCardService.delete(wechatCard);
+                // 删除本地服务器的卡券信息
+                wechatCardService.delete(wechatCard);
 
-                    // 删除微信服务器的卡券信息
-                    Map<String, String> map = WechatUtil.deleteCard(cardId);
-                    if (map.get("errcode").equals("0") && map.get("errmsg").equals("ok")) {
+                // 删除微信服务器的卡券信息
+                Map<String, String> map = WechatUtil.deleteCard(cardId);
+                if (map.get("errcode").equals("0") && map.get("errmsg").equals("ok")) {
+                    resultMap.put("success", true);
+                } else {
+                    resultMap.put("msg", map.get("errmsg"));
+                }
+            } else {
+                resultMap.put("msg", "卡券ID为空");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            resultMap.put("msg", e.getMessage());
+        }
+
+        return resultMap;
+    }
+
+    /**
+     * 上架/下架卡券
+     *
+     * @param cardId
+     * @param cardShelfStatus
+     * @return
+     */
+    @RequestMapping(value = "/shelf_card", method = RequestMethod.POST)
+    @ResponseBody
+    public Map<String, Object> shelfCard(@RequestParam(value = "cardId") String cardId,
+                                         @RequestParam(value = "cardShelfStatus") Integer cardShelfStatus) {
+        Map<String, Object> resultMap = new HashMap<>();
+        resultMap.put("success", false);
+
+        try {
+            if (StringUtils.isNotBlank(cardId)) {
+                WechatCard wechatCard = wechatCardService.getByProerties("cardId", cardId);
+                if (wechatCard != null) {
+                    if (CardShelfStatusEnum.keyOf(cardShelfStatus) != null) {
+                        wechatCard.setCardShelfStatus(cardShelfStatus);
+                        wechatCardService.update(wechatCard);
+
                         resultMap.put("success", true);
                     } else {
-                        resultMap.put("msg", map.get("errmsg"));
+                        resultMap.put("msg", "卡券状态错误");
                     }
                 } else {
-                    resultMap.put("msg", "卡券已投放，无法删除");
+                    resultMap.put("msg", "该卡券不存在");
                 }
             } else {
                 resultMap.put("msg", "卡券ID为空");
@@ -996,7 +1041,8 @@ public class WechatManagerController extends JavaEEFrameworkBaseController<Wecha
                 // 保存到本地数据库
                 wechatCard.setAllianceId(allianceId);
                 wechatCard.setCardId(jsonObject.get("card_id").toString());
-                wechatCard.setCardStatus(CardStatusEnum.WAIT_PUTTING.getKey());
+                wechatCard.setCardPutStatus(CardPutStatusEnum.WAIT_PUTTING.getKey());
+                wechatCard.setCardShelfStatus(CardShelfStatusEnum.PUTAWAY.getKey());
                 wechatCard.setCardType(CardTypeEnum.MEMBER_CARD.getKey());
                 wechatCardService.persist(wechatCard);
 
@@ -1037,7 +1083,7 @@ public class WechatManagerController extends JavaEEFrameworkBaseController<Wecha
                 wechatQrcodePuttingCardService.persist(wechatQrcodePuttingCard);
 
                 WechatCard wechatCard = wechatCardService.getByProerties("id", wechatQrcodePuttingCard.getCardId());
-                wechatCard.setCardStatus(CardStatusEnum.ALREADY_PUTTING.getKey());
+                wechatCard.setCardPutStatus(CardPutStatusEnum.ALREADY_PUTTING.getKey());
                 wechatCardService.merge(wechatCard);
 
                 resultMap.put("success", true);

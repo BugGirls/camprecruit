@@ -108,7 +108,7 @@ a:hover {
     position: relative;
     /*height: 424px;*/
     margin: 0 auto;
-    width: 500px;
+    width: 700px;
     text-align: center;
     border: 1px solid #f2f2f2;
     border-radius: 2px;
@@ -147,7 +147,7 @@ a:hover {
 }
 
 .ques-card-title {
-    font-size: 18px;
+    font-size: 24px;
     font-weight: 500;
     line-height: 24px;
     position: relative;
@@ -272,7 +272,7 @@ a:hover {
     position: absolute;
     z-index: 2;
     top: 6px;
-    left: 37px;
+    left: 78px;
     display: block;
     content: '';
     background-position: -115px -44px;
@@ -285,7 +285,7 @@ a:hover {
     position: absolute;
     z-index: 2;
     top: 6px;
-    left: 37px;
+    left: 78px;
     display: block;
     content: '';
     background-position: -115px -88px;
@@ -299,7 +299,7 @@ a:hover {
     bottom: 0;
     left: 10px;
     display: block;
-    width: 475px;
+    width: 675px;
     height: 1px;
     content: '';
     background-color: #ededed;
@@ -308,31 +308,31 @@ a:hover {
 .ques-list-box {
     position: relative;
     display: block;
-    height: 90px;
+    height: 120px;
     padding: 16px 15px 17px;
 }
 
 .ques-list-head {
     position: relative;
     float: left;
-    padding-right: 8px;
+    padding-right: 20px;
 }
 
 .ques-list-image {
     position: relative;
     display: block;
-    width: 36px;
-    height: 36px;
+    width: 90px;
+    height: 90px;
     z-index: 2;
     margin: 0 auto;
 }
 
 .ques-list-image:before {
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 32px;
-    height: 32px;
+    top: 0px;
+    left: 0px;
+    width: 90px;
+    height: 90px;
     content: '';
     border: 2px solid #f87851;
     border-radius: 100%;
@@ -340,8 +340,8 @@ a:hover {
 
 .ques-list-image img {
     border-radius: 100%;
-    width: 100%;
-    height: auto;
+    width: 90px;
+    height: 90px;
     display: block;
     border: none;
 }
@@ -357,8 +357,8 @@ a:hover {
 }
 
 .ques-list-name-text {
-    font-size: 12px;
-    line-height: 16px;
+    font-size: 16px;
+    line-height: 40px;
     margin-top: 2px;
     color: #a3a3a3;
 }
@@ -422,7 +422,7 @@ a:hover {
     position: absolute;
     z-index: 2;
     top: 6px;
-    left: 37px;
+    left: 78px;
     display: block;
     content: '';
     background-image: url(../images/icon-body.png);
