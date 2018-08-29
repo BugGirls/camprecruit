@@ -31,6 +31,12 @@ public class WechatMemberStores extends WechatMemberStoresParameter {
     private String memberId;
 
     /**
+     * 公众号appId
+     */
+    @Column(name = "app_id", nullable = false, length = 64)
+    private String appId;
+
+    /**
      * 会员所属店铺
      */
     @Column(name = "poi", length = 64)
@@ -271,5 +277,13 @@ public class WechatMemberStores extends WechatMemberStoresParameter {
 
     public void setQrSceneStr(String qrSceneStr) {
         this.qrSceneStr = qrSceneStr;
+    }
+
+    public String getAppId() {
+        return appId;
+    }
+
+    public void setAppId(String appId) {
+        this.appId = appId;
     }
 }

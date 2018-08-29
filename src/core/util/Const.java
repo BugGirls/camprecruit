@@ -51,20 +51,50 @@ public class Const {
     /**
      * 需要和微信后台配置的token一致
      */
-    public static final String TOKEN = "test";
+    public static final String TOKEN = "empress";
 
     public static final String ORDER_NAME = "云尚互联订单";
 
     /**
      * AppId 和 AppSecret
      */
-    public static final String APP_ID = "wx9760b6876d5e339f";
-    public static final String APP_SECRET = "7920140c08c03ad5a348cb0c77c3e222";
+//    public static final String APP_ID = "wx9760b6876d5e339f";
+//    public static final String APP_SECRET = "7920140c08c03ad5a348cb0c77c3e222";
+    public static final String APP_ID = "wx329df211e75cb653";
+    public static final String APP_SECRET = "69b7af61b3c492c59814e7c4c992d413";
+
+    /**
+     * 应用授权作用域
+     * snsapi_base （不弹出授权页面，直接跳转，只能获取用户openid）
+     * snsapi_userinfo （弹出授权页面，可通过openid拿到昵称、性别、所在地。并且， 即使在未关注的情况下，只要用户授权，也能获取其信息 ）
+     */
+    public static final String SCOPE_USER_INFO = "snsapi_userinfo";
+    public static final String SCOPE_BASE = "snsapi_base";
+
+    /**
+     * 获取code的URL（网页授权）
+     */
+    public static final String GET_CODE_FOR_AUTH_URL = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=APPID&redirect_uri=REDIRECT_URI&response_type=code&scope=SCOPE&state=STATE#wechat_redirect";
+
+    /**
+     * 获取access_token的URL（网页授权）
+     */
+    public static final String GET_ACCESS_TOKEN_FOR_AUTH_URL = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=APPID&secret=SECRET&code=CODE&grant_type=authorization_code";
 
     /**
      * 获取access_token URL
      */
     public static final String ACCESS_TOKEN_URL = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=APPID&secret=APPSECRET";
+
+    /**
+     * 获取jsapi_ticket
+     */
+    public static final String JS_API_TICKET_URL = "https://api.weixin.qq.com/cgi-bin/ticket/getticket?access_token=ACCESS_TOKEN&type=jsapi";
+
+    /**
+     * 获取卡券api_ticket
+     */
+    public static final String CARD_TICKET_URL = "https://api.weixin.qq.com/cgi-bin/ticket/getticket?access_token=ACCESS_TOKEN&type=wx_card";
 
     /**
      * 新增永久素材URL

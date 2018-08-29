@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>智能超市终端</title>
+        <title>结算</title>
         <meta name="keywords" content="index">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="renderer" content="webkit">
@@ -50,6 +50,13 @@
                 position:fixed;
                 cursor:pointer;
             }
+            .tpl-task-remind li .cosA .cosIco {
+                width: auto;
+                height: auto;
+            }
+            .tpl-task-remind li .cosB {
+                font-size: 20px;
+            }
         </style>
     </head>
 
@@ -75,6 +82,21 @@
 
         <div class="tpl-page-container tpl-page-header-fixed">
             <div class="tpl-portlet-components" style="margin-top: -20px;">
+                <!-- 支付确认 -->
+                <div id="">
+                    <div style="margin-left: 20px;">
+                        <h1  style="font-weight: 300">支付确认</h1>
+                    </div>
+                    <div style="">
+                        <div style="font-size: 31px;font-weight: 300;color: red;text-align: center;">待支付：<span id="amount"></span>元</div>
+                        <div>
+                            <ul class="tpl-task-list tpl-task-remind" id="orderDetailDiv">
+
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
                 <!-- 提示 -->
                 <div style="margin-top: 10px;margin-left: 20px;">
                     <h1  style="font-weight: 300">请选择支付方式</h1>
@@ -107,18 +129,18 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="am-u-lg-4" id="unionPayDiv">
-                            <div class="tpl-table-images-content" style="width: 55%;float: left;">
-                                <a href="javascript:;" class="tpl-table-images-content-i" style="margin-left: -3%;">
-                                    <img src="assets/img/unionpay.jpg" style="width: 105%;margin-right: 10%;">
-                                </a>
-                                <div class="tpl-table-images-content-block">
-                                    <div class="tpl-i-font" style="font-size: 24px;text-align: center;font-weight: 300;">
-                                        银联
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        <!--<div class="am-u-lg-4" id="unionPayDiv">-->
+                            <!--<div class="tpl-table-images-content" style="width: 55%;float: left;">-->
+                                <!--<a href="javascript:;" class="tpl-table-images-content-i" style="margin-left: -3%;">-->
+                                    <!--<img src="assets/img/unionpay.jpg" style="width: 105%;margin-right: 10%;">-->
+                                <!--</a>-->
+                                <!--<div class="tpl-table-images-content-block">-->
+                                    <!--<div class="tpl-i-font" style="font-size: 24px;text-align: center;font-weight: 300;">-->
+                                        <!--银联-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                            <!--</div>-->
+                        <!--</div>-->
                     </div>
                 </div>
 
@@ -146,6 +168,42 @@
             });
             function init() {
                 $('#payFlow').hide();
+
+                // 获取订单详情信息
+                $.ajax({
+                    url : '/order/manager/get_order_detail',
+                    data : {
+                        orderId : getUrlParam('orderId')
+                    },
+                    type : 'POST',
+                    dataType:'json',
+                    success : function(res) {
+                        console.log(res)
+                        if (res.success) {
+                            var orderMaster = res.orderMaster
+                            var orderDetailHtml = ''
+                            $.each(orderMaster.orderDetailList, function(index, item) {
+                                orderDetailHtml += '<li>'+
+                                        '<div class="cosB" style="height: 100px; line-height: 100px;">￥ ' + item.productPrice + '</div>'+
+                                        '<div class="cosA">'+
+                                        '<span class="cosIco" style="margin-right: 20px;">'+
+                                        '<img src="' + item.productIcon + '" style="width: 100px;"/>'+
+                                        '</span>'+
+                                        '<span style="font-size: 22px; color: black;">' + item.productName + '</span>'+
+                                        '</div>'+
+                                        '</li>'
+                            })
+                            $('#orderDetailDiv').html(orderDetailHtml)
+                            $('#amount').html(orderMaster.amount)
+                        } else {
+                            showMessage(res.msg)
+                        }
+                    },
+                    error : function(err) {
+                        showMessage("系统正在升级，请稍后重试");
+                        console.log(err);
+                    }
+                });
             }
             function bindEvent() {
                 // 微信支付样式
@@ -163,12 +221,20 @@
                     $('#payFlow').show();
                 });
                 // 银联支付样式
-                $('#unionPayDiv').on('click', function() {
-                    $(this).siblings().children().removeClass('borderStyle');               
-                    $(this).children().addClass('borderStyle');
-                    $('#payFlow').find('#flowImg').attr('src', 'assets/img/onionpay_flow.jpg');
-                    $('#payFlow').show();
-                });
+//                $('#unionPayDiv').on('click', function() {
+//                    $(this).siblings().children().removeClass('borderStyle');
+//                    $(this).children().addClass('borderStyle');
+//                    $('#payFlow').find('#flowImg').attr('src', 'assets/img/onionpay_flow.jpg');
+//                    $('#payFlow').show();
+//                });
+            }
+            function getUrlParam(name){
+                var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+                var r = window.location.search.substr(1).match(reg);
+                if (r != null) {
+                    return unescape(r[2]);
+                }
+                return null;
             }
         </script>
     </body>

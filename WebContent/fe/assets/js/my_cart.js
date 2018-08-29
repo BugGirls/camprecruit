@@ -12,37 +12,38 @@ jQuery(document).ready(function($){
 		var cartCount = cartTrigger.children('.count')
 		var addToCartBtn = $('.cd-add-to-cart');
 		var undo = cartWrapper.find('.undo');
+		var sellet = cartWrapper.find('.sleel')
 		var undoTimeoutId;
 
-		//add product to cart
+		// 添加商品到购物车
 		addToCartBtn.on('click', function(event){
 			event.preventDefault();
 			addToCart($(this));
 		});
 
-		//open/close cart
+		// 打开/关闭购物车
 		cartTrigger.on('click', function(event){
 			event.preventDefault();
 			toggleCart();
 		});
 
-		//close cart when clicking on the .cd-cart-container::before (bg layer)
+		// 单击时关闭购物车
 		cartWrapper.on('click', function(event){
 			if( $(event.target).is($(this)) ) toggleCart(true);
 		});
 
-		//delete an item from the cart
+		// 从购物车中删除一个商品
 		cartList.on('click', '.delete-item', function(event){
 			event.preventDefault();
 			removeProduct($(event.target).parents('.product'));
 		});
 
-		//update item quantity
+		// 更新购物车中商品的数量
 		cartList.on('change', 'select', function(event){
 			quickUpdateCart();
 		});
 
-		//reinsert item deleted from the cart
+		// 重新添加从购物车中删除的商品
 		undo.on('click', 'a', function(event){
 			clearInterval(undoTimeoutId);
 			event.preventDefault();
@@ -52,6 +53,12 @@ jQuery(document).ready(function($){
 			});
 			undo.removeClass('visible');
 		});
+
+		sellet.on('click', 'a', function(event){
+			event.preventDefault();
+
+			alert('ewrjqwr')
+		})
 	}
 
 	function toggleCart(bool) {
@@ -95,7 +102,7 @@ jQuery(document).ready(function($){
 		var productPrice = trigger.data('price')
 		productId = productId + 1;
 		var productAdded = $('<li class="product"><div class="product-image"><a href="#0"><img src="' + imgUrl + '" alt="placeholder"></a></div><div class="product-details"><h3><a href="#0">' + productName + '</a></h3><span class="price">' + productPrice + '</span><div class="actions"><a href="#0" class="delete-item">Delete</a><div class="quantity"><label for="cd-product-'+ productId +'">Qty</label><span class="select"><select id="cd-product-'+ productId +'" name="quantity"><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option></select></span></div></div></div></li>');
-		
+
 		cartList.prepend(productAdded);
 	}
 

@@ -12,6 +12,7 @@ import java.util.List;
  */
 public class OrderMasterDTO {
     private String orderId;
+    private Integer allianceId;
     private String transactionId;
     private String name;
     private String phone;
@@ -34,12 +35,12 @@ public class OrderMasterDTO {
         this.orderId = orderId;
     }
 
-    public String getTransactionId() {
-        return transactionId;
+    public Integer getAllianceId() {
+        return allianceId;
     }
 
-    public void setTransactionId(String transactionId) {
-        this.transactionId = transactionId;
+    public void setAllianceId(Integer allianceId) {
+        this.allianceId = allianceId;
     }
 
     public String getName() {
@@ -137,5 +138,13 @@ public class OrderMasterDTO {
 
     public void setAuthCode(String authCode) {
         this.authCode = authCode;
+    }
+
+    public String getTransactionId() {
+        return transactionId;
+    }
+
+    public void setTransactionId(String transactionId) {
+        this.transactionId = transactionId;
     }
 }

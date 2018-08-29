@@ -17,6 +17,7 @@
 	<mvc:resources location="/uploadFiles/" mapping="/uploadFiles/**"/>
 	<mvc:resources location="/fe/" mapping="/fe/**"/>
 	<mvc:resources location="/upload/" mapping="/upload/**"/>
+	<mvc:resources location="/" mapping="/**"/>
 	
 	<mvc:resources location="/jsp/" mapping="/jsp/**"/>
 	 

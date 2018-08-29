@@ -13,4 +13,6 @@ public interface OrderMasterService extends Service<OrderMaster> {
     OrderMasterDTO create(OrderMasterDTO orderMasterDTO) throws Exception;
 
     OrderMasterDTO getOrderById(String orderId) throws Exception;
+
+    OrderMasterDTO getOrderDetail(String orderId) throws Exception;
 }

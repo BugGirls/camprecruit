@@ -8,13 +8,17 @@ import com.jeefw.model.sys.bo.AccessTokenBo;
 import core.enums.CardTypeEnum;
 import core.enums.DateInfoType;
 import net.sf.json.JSONObject;
-import org.apache.commons.httpclient.HttpURL;
+import org.apache.commons.codec.digest.DigestUtils;
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.security.MessageDigest;
 import java.util.*;
 
 /**
@@ -29,6 +33,8 @@ public class WechatUtil {
     private static final Logger logger = LoggerFactory.getLogger(WechatUtil.class);
 
     public static AccessTokenBo accessTokenBo = null;
+    public static String js_api_ticket = null;
+    public static String card_ticket = null;
 
     /**
      * 验证消息是否来自微信服务器
@@ -79,7 +85,100 @@ public class WechatUtil {
     @Scheduled(fixedRate = 1000 * 7000)
     public void tokenScheduled() throws InterruptedException {
         accessTokenBo = getAccessToken();
+        js_api_ticket = getJSAPITicket();
+        card_ticket = getCardTicket();
         logger.info("accessToken={}", GSON.toJson(accessTokenBo));
+    }
+
+    /**
+     * 获取jsapi_ticket
+     *
+     * @return
+     */
+    public static String getJSAPITicket() {
+        String url = Const.JS_API_TICKET_URL.replace("ACCESS_TOKEN", accessTokenBo.getAccess_token());
+        JSONObject jsonObject = HttpUtil.httpsRequest2(url, "GET", null);
+        System.out.println(jsonObject.getString("ticket"));
+        return jsonObject.getString("ticket");
+    }
+
+
+    /**
+     * 获取卡券ticket，用于JS-SDK投放卡券
+     *
+     * @return
+     */
+    public static String getCardTicket() {
+        String url = Const.CARD_TICKET_URL.replace("ACCESS_TOKEN", accessTokenBo.getAccess_token());
+        JSONObject jsonObject = HttpUtil.httpsRequest2(url, "GET", null);
+        System.out.println(jsonObject.getString("ticket"));
+        return jsonObject.getString("ticket");
+    }
+
+    /**
+     * 获取jsapi_ticket 签名
+     *
+     * @param nonceStr
+     * @param timestamp
+     * @return
+     */
+    public static String getJSAPISign(String nonceStr, String timestamp) {
+        String url = "https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1421141115";
+
+        Map paramMap = Utils.asHashMap("jsapi_ticket", js_api_ticket, "noncestr", nonceStr, "timestamp", timestamp, "url", url);
+        paramMap = WechatMessageUtil.sort(paramMap);
+
+        String stringBuffer = WechatMessageUtil.assembleMap(paramMap);
+        System.out.println(stringBuffer);
+        String sign = Utils.sha1(stringBuffer);
+        return sign;
+    }
+
+    /**
+     * 获取JS-SDK投放卡券签名
+     *
+     * @param timestamp
+     * @param nonceStr
+     * @param cardId
+     * @return
+     */
+    public static String getCardSign(String timestamp, String nonceStr, String cardId) {
+        String[] array = new String[]{timestamp, nonceStr, cardId, card_ticket};
+
+        Arrays.sort(array);
+
+        StringBuffer content = new StringBuffer();
+        for (int i = 0; i < array.length; i++) {
+            content.append(array[i]);
+        }
+
+        String sign = Utils.sha1(content.toString());
+        return sign;
+    }
+
+    /**
+     * 生成用于获取access_token的Code的Url
+     *
+     * @param redirectUrl 跳转回调的URL
+     * @param returnUrl
+     * @return
+     * @throws UnsupportedEncodingException
+     */
+    public synchronized static String getCodeUrl(String redirectUrl, String returnUrl) throws UnsupportedEncodingException {
+        redirectUrl = URLEncoder.encode(redirectUrl, "UTF-8");
+        return Const.GET_CODE_FOR_AUTH_URL.replace("APPID", Const.APP_ID).replace("REDIRECT_URI", redirectUrl).replace("SCOPE", Const.SCOPE_USER_INFO).replace("STATE", returnUrl);
+    }
+
+    /**
+     * 通过code 换取网页授权access_token
+     *
+     * @param code 微信返回的code
+     * @return
+     */
+    public synchronized static JSONObject getAccessTokenForAuth(String code) {
+        String url = Const.GET_ACCESS_TOKEN_FOR_AUTH_URL.replace("APPID", Const.APP_ID).replace("SECRET", Const.APP_SECRET).replace("CODE", code);
+        JSONObject jsonObject = HttpUtil.httpsRequest2(url, "GET", null);
+        return jsonObject;
     }
 
     /**

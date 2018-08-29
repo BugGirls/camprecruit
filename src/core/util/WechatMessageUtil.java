@@ -11,10 +11,7 @@ import java.io.InputStream;
 import java.text.DateFormat;
 import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * 微信消息处理工具
@@ -189,4 +186,41 @@ public class WechatMessageUtil {
         Date strtodate = formatter.parse(strDate, pos);
         return strtodate;
     }
+
+    /**
+     * 所有map集合中的参数按照字段名的 ascii 码值从小到大排序(升序)
+     *
+     * @param map
+     * @return
+     */
+    public static Map<String, Object> sort(Map<String, Object> map) {
+        Map<String, Object> result = new LinkedHashMap<>(16);
+
+        if (map == null || map.isEmpty()) {
+            return result;
+        }
+
+        Collection<String> keySet = map.keySet();
+        List<String> list = new ArrayList<>(keySet);
+        Collections.sort(list);
+        list.forEach(x -> result.put(x, map.get(x)));
+
+        return result;
+    }
+
+    /**
+     * 将传入的Map集合以&符号进行拼接，返回拼接后的字符串
+     *
+     * @param map
+     * @return
+     */
+    public static String assembleMap(Map<String, Object> map) {
+        StringBuffer stringBufferParam = new StringBuffer();
+        for (String key : map.keySet()) {
+            stringBufferParam.append(key + "=" + map.get(key) + "&");
+        }
+        String stringBuffer = stringBufferParam.substring(0, stringBufferParam.length() - 1);
+        return stringBuffer;
+    }
+
 }

@@ -81,6 +81,7 @@ public class OrderMasterServiceImpl extends BaseService<OrderMaster> implements 
             orderDetail.setCreateTime(new Date());
             orderDetail.setUpdateTime(new Date());
             orderDetail.setProductPrice(productInfo.getAdvicePrice());
+            orderDetail.setAllianceId(orderMasterDTO.getAllianceId());
             orderDetailDao.persist(orderDetail);
         }
 
@@ -93,6 +94,7 @@ public class OrderMasterServiceImpl extends BaseService<OrderMaster> implements 
         orderMaster.setUpdateTime(new Date());
         orderMaster.setPayStatus(PayStatusEnum.NOT_PAY.getCode());
         orderMaster.setOrderStatus(OrderStatusEnum.NEW.getCode());
+        orderMaster.setAllianceId(orderMasterDTO.getAllianceId());
         orderMasterDao.persist(orderMaster);
 
         // 5、减少商品库存
@@ -122,6 +124,32 @@ public class OrderMasterServiceImpl extends BaseService<OrderMaster> implements 
 
         OrderMasterDTO orderMasterDTO = new OrderMasterDTO();
         BeanUtils.copyProperties(orderMaster, orderMasterDTO);
+        return orderMasterDTO;
+    }
+
+    /**
+     * 获取订单和订单详情信息
+     *
+     * @param orderId
+     * @return
+     * @throws Exception
+     */
+    @Override
+    public OrderMasterDTO getOrderDetail(String orderId) throws Exception {
+        // 非法参数判断
+        if (StringUtils.isBlank(orderId)) {
+            throw new Exception("参数错误");
+        }
+
+        OrderMaster orderMaster = orderMasterDao.getByProerties("orderId", orderId);
+        if (orderMaster == null) {
+            throw new Exception("订单不存在");
+        }
+
+        List<OrderDetail> orderDetailList = orderDetailDao.queryByProerties("orderId", orderId);
+        OrderMasterDTO orderMasterDTO = new OrderMasterDTO();
+        BeanUtils.copyProperties(orderMaster, orderMasterDTO);
+        orderMasterDTO.setOrderDetailList(orderDetailList);
         return orderMasterDTO;
     }
 }

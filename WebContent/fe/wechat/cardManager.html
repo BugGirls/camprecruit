@@ -231,6 +231,8 @@
                                 cardTypeStr = '代金券'
                             } else if (item.cardType === 'GROUPON') {
                                 cardTypeStr = '团购券'
+                            } else {
+                                cardTypeStr = ''
                             }
                             // 卡券状态
                             cardStatusStr = item.cardPutStatus == 1 ? "已投放" : "待投放"
