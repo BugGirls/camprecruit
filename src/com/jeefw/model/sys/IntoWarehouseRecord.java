@@ -22,11 +22,7 @@ import com.jeefw.model.sys.param.IntoWarehouseRecordParameter;
  *
  */
 @Entity
-<<<<<<< HEAD
 @Table(name = "intoWarehouse_record")
-=======
-@Table(name = "intowarehouse_record")
->>>>>>> merge project
 @Cache(region = "all", usage = CacheConcurrencyStrategy.READ_WRITE)
 @JsonIgnoreProperties(value = { "maxResults", "firstResult", "topCount", "sortColumns", "cmd", "queryDynamicConditions", "sortedConditions", "dynamicProperties", "success", "message", "sortColumnsString", "flag" })
 public class IntoWarehouseRecord extends IntoWarehouseRecordParameter {
@@ -54,12 +50,6 @@ public class IntoWarehouseRecord extends IntoWarehouseRecordParameter {
 	@Column(name = "creater", length = 255 )
 	private String creater;//制单人/操作人员
 	
-<<<<<<< HEAD
-=======
-	@Column(name = "createrNo", length = 255 )
-	private String createrNo;//制单人/操作人员工号
-	
->>>>>>> merge project
 	@Column(name = "title", length = 255 )
 	private String title;//标题
 	
@@ -184,24 +174,14 @@ public class IntoWarehouseRecord extends IntoWarehouseRecordParameter {
 		this.saleTotalAmount = saleTotalAmount;
 	}
 
-<<<<<<< HEAD
 	public IntoWarehouseRecord(Long id, String no, Date createtime, String creater, String title, Float intoTotalAmount,
 			Float saleTotalAmount, Long intoNum, Long intoTypeNum, String content, String supplier,
 			Integer allianceId) {
 		super();
-=======
-	public IntoWarehouseRecord(Long id, String no, Date createtime, String creater, String createrNo, String title,
-			Float intoTotalAmount, Float saleTotalAmount, Long intoNum, Long intoTypeNum, String content,
-			String supplier, Integer allianceId) {
->>>>>>> merge project
 		this.id = id;
 		this.no = no;
 		this.createtime = createtime;
 		this.creater = creater;
-<<<<<<< HEAD
-=======
-		this.createrNo = createrNo;
->>>>>>> merge project
 		this.title = title;
 		this.intoTotalAmount = intoTotalAmount;
 		this.saleTotalAmount = saleTotalAmount;
@@ -212,15 +192,4 @@ public class IntoWarehouseRecord extends IntoWarehouseRecordParameter {
 		this.allianceId = allianceId;
 	}
 
-<<<<<<< HEAD
-=======
-	public String getCreaterNo() {
-		return createrNo;
-	}
-
-	public void setCreaterNo(String createrNo) {
-		this.createrNo = createrNo;
-	}
-
->>>>>>> merge project
 }

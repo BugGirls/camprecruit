@@ -81,10 +81,7 @@ public class OrderMasterServiceImpl extends BaseService<OrderMaster> implements 
             orderDetail.setCreateTime(new Date());
             orderDetail.setUpdateTime(new Date());
             orderDetail.setProductPrice(productInfo.getAdvicePrice());
-<<<<<<< HEAD
             orderDetail.setAllianceId(orderMasterDTO.getAllianceId());
-=======
->>>>>>> merge project
             orderDetailDao.persist(orderDetail);
         }
 
@@ -97,10 +94,8 @@ public class OrderMasterServiceImpl extends BaseService<OrderMaster> implements 
         orderMaster.setUpdateTime(new Date());
         orderMaster.setPayStatus(PayStatusEnum.NOT_PAY.getCode());
         orderMaster.setOrderStatus(OrderStatusEnum.NEW.getCode());
-<<<<<<< HEAD
         orderMaster.setAllianceId(orderMasterDTO.getAllianceId());
-=======
->>>>>>> merge project
+        orderMaster.setTradeType(TradeTypeEnum.WECHAT.getCode());
         orderMasterDao.persist(orderMaster);
 
         // 5、减少商品库存
@@ -132,7 +127,6 @@ public class OrderMasterServiceImpl extends BaseService<OrderMaster> implements 
         BeanUtils.copyProperties(orderMaster, orderMasterDTO);
         return orderMasterDTO;
     }
-<<<<<<< HEAD
 
     /**
      * 获取订单和订单详情信息
@@ -159,6 +153,4 @@ public class OrderMasterServiceImpl extends BaseService<OrderMaster> implements 
         orderMasterDTO.setOrderDetailList(orderDetailList);
         return orderMasterDTO;
     }
-=======
->>>>>>> merge project
 }

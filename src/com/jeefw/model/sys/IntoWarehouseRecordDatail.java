@@ -14,11 +14,8 @@ import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
-<<<<<<< HEAD
 import com.jeefw.model.sys.param.ProductInfoParameter;
-=======
 import com.jeefw.model.sys.param.IntoWarehouseRecordDatailParameter;
->>>>>>> merge project
 
 /**
  * 入库记录——商品明细单
@@ -26,18 +23,10 @@ import com.jeefw.model.sys.param.IntoWarehouseRecordDatailParameter;
  *
  */
 @Entity
-<<<<<<< HEAD
-@Table(name = "intoWarehouse_record_detail")
-@Cache(region = "all", usage = CacheConcurrencyStrategy.READ_WRITE)
-@JsonIgnoreProperties(value = { "maxResults", "firstResult", "topCount", "sortColumns", "cmd", "queryDynamicConditions", "sortedConditions", "dynamicProperties", "success", "message", "sortColumnsString", "flag" })
-public class IntoWarehouseRecordDatail extends ProductInfoParameter {
-=======
 @Table(name = "intowarehouse_record_detail")
 @Cache(region = "all", usage = CacheConcurrencyStrategy.READ_WRITE)
 @JsonIgnoreProperties(value = { "maxResults", "firstResult", "topCount", "sortColumns", "cmd", "queryDynamicConditions", "sortedConditions", "dynamicProperties", "success", "message", "sortColumnsString", "flag" })
 public class IntoWarehouseRecordDatail extends IntoWarehouseRecordDatailParameter {
->>>>>>> merge project
-
 
 	/**
 	 * 
@@ -54,9 +43,7 @@ public class IntoWarehouseRecordDatail extends IntoWarehouseRecordDatailParamete
 	private String intoWarehouseRecordNo;//所属入库单号
 	
 	@Column(name = "product_no", length = 50)
-<<<<<<< HEAD
 	private String product_no;//商品编码
-=======
 	private String productNo;//商品编码
 	
 	@Column(name = "product_name", length = 50)
@@ -64,8 +51,7 @@ public class IntoWarehouseRecordDatail extends IntoWarehouseRecordDatailParamete
 	
 	@Column(name = "product_barCode", length = 50)
 	private String productBarCode;//商品条形码编码
->>>>>>> merge project
-	
+
 	@Column(name = "seqence")
 	private Long seqence;//序号
 	
@@ -75,12 +61,9 @@ public class IntoWarehouseRecordDatail extends IntoWarehouseRecordDatailParamete
 	@Column(name = "sale_price", length = 10 )
 	private Float salePrice;//售价/单价
 	
-<<<<<<< HEAD
-=======
 	@Column(name = "advice_price", length = 10 )
 	private Float advicePrice;//进价
 	
->>>>>>> merge project
 	@Column(name = "content", length = 255 )
 	private String content;//备注
 	
@@ -91,12 +74,9 @@ public class IntoWarehouseRecordDatail extends IntoWarehouseRecordDatailParamete
 	@Temporal(TemporalType.TIMESTAMP) 
 	private Date productionDate;//生产日期
 	
-<<<<<<< HEAD
-=======
 	@Column(name = "alliance_id")
 	private Integer allianceId;//所属加盟商公司
 	
->>>>>>> merge project
 	private ProductInfo productInfo;
 	private IntoWarehouseRecord intoWarehouseRecord;
 	
@@ -106,7 +86,6 @@ public class IntoWarehouseRecordDatail extends IntoWarehouseRecordDatailParamete
 	public void setIntoWarehouseRecordNo(String intoWarehouseRecordNo) {
 		this.intoWarehouseRecordNo = intoWarehouseRecordNo;
 	}
-<<<<<<< HEAD
 	public String getProduct_no() {
 		return product_no;
 	}
@@ -114,14 +93,12 @@ public class IntoWarehouseRecordDatail extends IntoWarehouseRecordDatailParamete
 		this.product_no = product_no;
 	}
 	
-=======
 	public String getProductNo() {
 		return productNo;
 	}
 	public void setProductNo(String productNo) {
 		this.productNo = productNo;
 	}
->>>>>>> merge project
 	public String getContent() {
 		return content;
 	}
@@ -179,7 +156,6 @@ public class IntoWarehouseRecordDatail extends IntoWarehouseRecordDatailParamete
 	public void setStorageLocation(String storageLocation) {
 		this.storageLocation = storageLocation;
 	}
-<<<<<<< HEAD
 	public IntoWarehouseRecordDatail(Long id, String intoWarehouseRecordNo, String product_no, Long seqence, Long num,
 			Float salePrice, String content, String storageLocation, Date productionDate, ProductInfo productInfo,
 			IntoWarehouseRecord intoWarehouseRecord) {
@@ -197,7 +173,6 @@ public class IntoWarehouseRecordDatail extends IntoWarehouseRecordDatailParamete
 		this.intoWarehouseRecord = intoWarehouseRecord;
 	}
 	
-=======
 	public String getProductBarCode() {
 		return productBarCode;
 	}
@@ -242,6 +217,5 @@ public class IntoWarehouseRecordDatail extends IntoWarehouseRecordDatailParamete
 	public void setAllianceId(Integer allianceId) {
 		this.allianceId = allianceId;
 	}
->>>>>>> merge project
-	
+
 }

@@ -14,11 +14,7 @@ public class ProductInfoParameter extends  ExtJSBaseParameter{
 	 * 
 	 */
 	private static final long serialVersionUID = 8623375792147250273L;
-<<<<<<< HEAD
-	
-=======
 	private String $like_no;
->>>>>>> merge project
 	private String $like_name;
 	private String $like_barCode;
 	private String $like_brand;
@@ -56,16 +52,13 @@ public class ProductInfoParameter extends  ExtJSBaseParameter{
 	public void set$like_name(String $like_name) {
 		this.$like_name = $like_name;
 	}
-<<<<<<< HEAD
-=======
 	public String get$like_no() {
 		return $like_no;
 	}
 	public void set$like_no(String $like_no) {
 		this.$like_no = $like_no;
 	}
->>>>>>> merge project
-	
+
 
 }
 

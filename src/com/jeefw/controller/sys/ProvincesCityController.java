@@ -20,10 +20,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.jeefw.core.Constant;
 import com.jeefw.core.JavaEEFrameworkBaseController;
-<<<<<<< HEAD
 import com.jeefw.model.sys.ProductPropertyTemp;
-=======
->>>>>>> merge project
 import com.jeefw.model.sys.ProvincesCity;
 import com.jeefw.service.sys.ProvincesCityService;
 
@@ -31,11 +28,8 @@ import core.util.NumberHelper;
 import core.util.StringHelper;
 
 /**
-<<<<<<< HEAD
- * 职位类别的控制层 
-=======
- * 控制层 
->>>>>>> merge project
+ * 职位类别的控制层
+ * 控制层
  */
 @Controller
 @RequestMapping("/sys/provincesCity")
@@ -45,11 +39,8 @@ public class ProvincesCityController extends JavaEEFrameworkBaseController<Provi
 	private ProvincesCityService provincesCityService;
 	
 		
-<<<<<<< HEAD
 		// 保存职位类别树
-=======
 		// 保存树
->>>>>>> merge project
 		@RequestMapping(value = "/savetree", method = { RequestMethod.POST, RequestMethod.GET })
 		public void savetree(HttpServletRequest request, HttpServletResponse response) throws IOException {
 			JSONArray array = JSONArray.fromObject(request.getParameter("tree"));

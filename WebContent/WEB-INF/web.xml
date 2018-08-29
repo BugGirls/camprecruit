@@ -58,10 +58,7 @@
   <filter>
     <filter-name>characterEncoding</filter-name>
     <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
-<<<<<<< HEAD
     <async-supported>true</async-supported>
-=======
->>>>>>> merge project
     <init-param>
       <param-name>encoding</param-name>
       <param-value>UTF-8</param-value>
@@ -79,10 +76,7 @@
     <servlet-name>springmvc</servlet-name>
     <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
     <load-on-startup>1</load-on-startup>
-<<<<<<< HEAD
     <async-supported>true</async-supported>
-=======
->>>>>>> merge project
   </servlet>
   <servlet-mapping>
     <servlet-name>springmvc</servlet-name>

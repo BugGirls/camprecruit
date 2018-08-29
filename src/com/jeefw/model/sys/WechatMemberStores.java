@@ -281,7 +281,6 @@ public class WechatMemberStores extends WechatMemberStoresParameter {
     public void setQrSceneStr(String qrSceneStr) {
         this.qrSceneStr = qrSceneStr;
     }
-<<<<<<< HEAD
 
     public String getAppId() {
         return appId;
@@ -290,6 +289,4 @@ public class WechatMemberStores extends WechatMemberStoresParameter {
     public void setAppId(String appId) {
         this.appId = appId;
     }
-=======
->>>>>>> merge project
 }

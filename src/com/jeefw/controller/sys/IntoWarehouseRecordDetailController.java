@@ -72,7 +72,6 @@ public class IntoWarehouseRecordDetailController extends JavaEEFrameworkBaseCont
 			JSONArray jsonArray = (JSONArray) jsonObject.get("rules");
 			for (int i = 0; i < jsonArray.size(); i++) {
 				JSONObject result = (JSONObject) jsonArray.get(i);
-<<<<<<< HEAD
 //				if (result.getString("field").equals("no") && result.getString("op").equals("cn")) {
 //					intoWarehouseRecord.set$like_no(result.getString("data"));
 //				}
@@ -88,7 +87,6 @@ public class IntoWarehouseRecordDetailController extends JavaEEFrameworkBaseCont
 //				if (result.getString("field").equals("createtime") && result.getString("op").equals("cn")) {
 //					intoWarehouseRecord.set$like_createtime(result.getString("data"));
 //				}
-=======
 				if (result.getString("field").equals("productNo") && result.getString("op").equals("cn")) {
 					deDatail.set$like_productNo(result.getString("data"));
 				}
@@ -98,7 +96,6 @@ public class IntoWarehouseRecordDetailController extends JavaEEFrameworkBaseCont
 				if (result.getString("field").equals("storageLocation") && result.getString("op").equals("cn")) {
 					deDatail.set$like_storageLocation(result.getString("data"));
 				}
->>>>>>> merge project
 			}
 			if (((String) jsonObject.get("groupOp")).equalsIgnoreCase("OR")) {
 				deDatail.setFlag("OR");
@@ -119,9 +116,7 @@ public class IntoWarehouseRecordDetailController extends JavaEEFrameworkBaseCont
 		dictListView.setRecords(queryResult.getTotalCount());
 		writeJSON(response, dictListView);
 	}
-<<<<<<< HEAD
-=======
-	
+
 	// 库存查询盘点
 	@RequestMapping(value = "/getIntoWarehouseCheckList", method = { RequestMethod.POST, RequestMethod.GET })
 	public void getIntoWarehouseCheckList(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -167,7 +162,6 @@ public class IntoWarehouseRecordDetailController extends JavaEEFrameworkBaseCont
 		dictListView.setRecords(queryResult.getTotalCount());
 		writeJSON(response, dictListView);
 	}
->>>>>>> merge project
 //
 //	// 保存实体Bean
 //	@RequestMapping(value = "/saveProductInfo", method = { RequestMethod.POST, RequestMethod.GET })
@@ -181,7 +175,6 @@ public class IntoWarehouseRecordDetailController extends JavaEEFrameworkBaseCont
 //		parameter.setSuccess(true);
 //		writeJSON(response, parameter);
 //	}
-<<<<<<< HEAD
 //
 //	// 操作类型的删除、导出Excel、字段判断和保存
 //	@RequestMapping(value = "/operateProductInfo", method = { RequestMethod.POST, RequestMethod.GET })
@@ -284,7 +277,6 @@ public class IntoWarehouseRecordDetailController extends JavaEEFrameworkBaseCont
 //		}
 //	}
 //
-=======
 
 	// 操作类型的删除、导出Excel、字段判断和保存
 	@RequestMapping(value = "/operateDetail", method = { RequestMethod.POST, RequestMethod.GET })
@@ -319,7 +311,6 @@ public class IntoWarehouseRecordDetailController extends JavaEEFrameworkBaseCont
 		}
 	}
 
->>>>>>> merge project
 //	private static SimpleDateFormat sdfa = new SimpleDateFormat("yyyyMMddHHmmssSSS");
 //	/**
 //	 *  上传图片

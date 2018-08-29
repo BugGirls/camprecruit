@@ -49,11 +49,8 @@ public class SysUser extends SysUserParameter {
 	private Short sex;
 	@Column(name = "email", length = 30, nullable = false, unique = true)
 	private String email;
-<<<<<<< HEAD
-=======
 	@Column(name = "no", length = 64)
 	private String no;
->>>>>>> merge project
 	@Column(name = "phone", length = 20)
 	private String phone;
 	@Column(name = "birthday")
@@ -212,38 +209,12 @@ public class SysUser extends SysUserParameter {
 		this.roles = roles;
 	}
 
-<<<<<<< HEAD
-=======
 	public String getNo() {
 		return no;
 	}
 
 	public void setNo(String no) {
 		this.no = no;
-	}
-
->>>>>>> merge project
-	public boolean equals(Object obj) {
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		final SysUser other = (SysUser) obj;
-<<<<<<< HEAD
-		return Objects.equal(this.id, other.id) && Objects.equal(this.userName, other.userName) && Objects.equal(this.sex, other.sex) && Objects.equal(this.email, other.email) && Objects.equal(this.phone, other.phone)
-=======
-		return Objects.equal(this.id, other.id) && Objects.equal(this.no, other.no) && Objects.equal(this.userName, other.userName) && Objects.equal(this.sex, other.sex) && Objects.equal(this.email, other.email) && Objects.equal(this.phone, other.phone)
->>>>>>> merge project
-				&& Objects.equal(this.birthday, other.birthday) && Objects.equal(this.departmentKey, other.departmentKey) && Objects.equal(this.password, other.password) && Objects.equal(this.status, other.status)
-				&& Objects.equal(this.lastLoginTime, other.lastLoginTime) && Objects.equal(this.roles, other.roles);
-	}
-
-	public int hashCode() {
-<<<<<<< HEAD
-		return Objects.hashCode(this.id, this.userName, this.sex, this.email, this.phone, this.birthday, this.departmentKey, this.password, this.status, this.lastLoginTime, this.roles);
-=======
-		return Objects.hashCode(this.id, this.no, this.userName, this.sex, this.email, this.phone, this.birthday, this.departmentKey, this.password, this.status, this.lastLoginTime, this.roles);
->>>>>>> merge project
 	}
 
 }

@@ -90,11 +90,7 @@ height:auto;
         			url : "${contextPath}/sys/intoWarehouse/getIntoWarehouseRecordList",
         			datatype : "json",
         			height : 650,
-<<<<<<< HEAD
         			colNames : ['订单详情', '入库单号', '标题','种类总数','商品总数','进货总额', '售价总额', '制单人', '入库时间'],
-=======
-        			colNames : ['订单详情', '入库单号', '标题','种类总数','商品总数','建议总额', '进货总额', '制单人', '入库时间'],
->>>>>>> merge project
         			colModel : [ {
         				name : 'no',
         				index : 'no',
@@ -141,11 +137,7 @@ height:auto;
         			},{
         				name : 'intoTotalAmount',
         				index : 'intoTotalAmount',
-<<<<<<< HEAD
         				label : '进价总额',
-=======
-        				label : '建议总额',
->>>>>>> merge project
         				width : 80,
         				hidden : false,
         				searchoptions : {sopt : ['cn']},
@@ -153,11 +145,7 @@ height:auto;
         			},{
         				name : 'saleTotalAmount',
         				index : 'saleTotalAmount',
-<<<<<<< HEAD
         				label : '售价总额',
-=======
-        				label : '进货总额',
->>>>>>> merge project
         				width : 80,
         				hidden : false,
         				searchoptions : {sopt : ['cn']},
@@ -176,12 +164,7 @@ height:auto;
         				label : '入库时间',
         				width : 150  ,
         				editable : true,
-<<<<<<< HEAD
         				search : false		
-=======
-        				search : false,
-        				formatter : dateFormatter
->>>>>>> merge project
         			}
 					],
         			//scroll : 1, // set the scroll property to 1 to enable paging with scrollbar - virtual loading of records
@@ -213,16 +196,6 @@ height:auto;
            			var template = "<a href='${contextPath}/sys/sysuser/home#page/intoWarehouseRecordDatail?intoWarehouseRecordNo="+cell.no+"'>订单详情</a>";
            			return template;
            		}
-<<<<<<< HEAD
-=======
-        		function dateFormatter(cellvalue, options, cell) {
-        			 var date =  new Date(cell.createtime);
-        			 var y = 1900+date.getYear();
-        			 var m = "0"+(date.getMonth()+1);
-        			 var d = "0"+date.getDate();
-        			 return y+"-"+m.substring(m.length-2,m.length)+"-"+d.substring(d.length-2,d.length);
-           		}
->>>>>>> merge project
         		
         //=====================================================
         	$('[data-rel=tooltip]').tooltip();

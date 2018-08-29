@@ -1,6 +1,5 @@
 package com.jeefw.controller.sys;
 
-<<<<<<< HEAD
 import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -8,19 +7,11 @@ import java.math.BigDecimal;
 import java.net.URLDecoder;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-=======
-import java.io.IOException;
-import java.io.OutputStream;
-import java.net.URLDecoder;
->>>>>>> merge project
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-<<<<<<< HEAD
 import java.util.UUID;
-=======
->>>>>>> merge project
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -31,15 +22,11 @@ import net.sf.json.JSONObject;
 
 import org.apache.commons.beanutils.ConvertUtils;
 import org.apache.commons.lang.StringUtils;
-<<<<<<< HEAD
 import org.hibernate.internal.util.StringHelper;
-=======
->>>>>>> merge project
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-<<<<<<< HEAD
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.RequestContext;
@@ -49,20 +36,10 @@ import com.jeefw.core.JavaEEFrameworkBaseController;
 import com.jeefw.model.sys.AllianceBusiness;
 import com.jeefw.model.sys.IntoWarehouseRecord;
 import com.jeefw.model.sys.IntoWarehouseRecordDatail;
-=======
-
-import com.jeefw.core.Constant;
-import com.jeefw.core.JavaEEFrameworkBaseController;
-import com.jeefw.model.sys.IntoWarehouseRecord;
-import com.jeefw.model.sys.IntoWarehouseRecordDatail;
-import com.jeefw.model.sys.ProductInfo;
-import com.jeefw.model.sys.ProductWarehouse;
->>>>>>> merge project
 import com.jeefw.model.sys.SysUser;
 import com.jeefw.service.sys.AllianceBusinessService;
 import com.jeefw.service.sys.IntoWarehouseRecordDetailService;
 import com.jeefw.service.sys.IntoWarehouseRecordService;
-<<<<<<< HEAD
 
 import core.support.ExtJSBaseParameter;
 import core.support.JqGridPageView;
@@ -72,14 +49,6 @@ import core.util.Const;
 import core.util.JavaEEFrameworkUtils;
 import core.util.PathUtil;
 import core.util.TwoDimensionCode;
-=======
-import com.jeefw.service.sys.ProductInfoService;
-import com.jeefw.service.sys.ProductWarehouseService;
-
-import core.support.JqGridPageView;
-import core.support.QueryResult;
-import core.util.DateHelper;
->>>>>>> merge project
 
 /**
  * 入库单信息控制层 
@@ -94,16 +63,7 @@ public class IntoWarehouseRecordController extends JavaEEFrameworkBaseController
 	private IntoWarehouseRecordDetailService intoWarehouseRecordDetailService;
 	@Resource
 	AllianceBusinessService allianceBusinessService;
-<<<<<<< HEAD
 
-=======
-	@Resource
-	ProductWarehouseService productWarehouseService;
-	@Resource
-	ProductInfoService productInfoService;
-	
-	
->>>>>>> merge project
 	// 查询类型的表格，包括分页、搜索和排序
 	@RequestMapping(value = "/getIntoWarehouseRecordList", method = { RequestMethod.POST, RequestMethod.GET })
 	public void getIntoWarehouseRecordList(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -157,7 +117,6 @@ public class IntoWarehouseRecordController extends JavaEEFrameworkBaseController
 	}
 
 	// 保存实体Bean
-<<<<<<< HEAD
 //	@RequestMapping(value = "/saveIntoWarehouse", method = { RequestMethod.POST, RequestMethod.GET })
 //	public void doSave(ProductInfo entity, HttpServletRequest request, HttpServletResponse response) throws IOException {
 //		ExtJSBaseParameter parameter = ((ExtJSBaseParameter) entity);
@@ -263,89 +222,6 @@ public class IntoWarehouseRecordController extends JavaEEFrameworkBaseController
 	// 删除
 	@RequestMapping("/deleteIntoWarehouseRecord")
 	public void deleteProductInfo(HttpServletRequest request, HttpServletResponse response, @RequestParam("ids") Long[] ids) throws IOException {
-=======
-	@RequestMapping(value = "/saveIntoWarehouse", method = { RequestMethod.POST, RequestMethod.GET })
-	public void saveIntoWarehouse(String detail, String intoWarehouseRecord, HttpServletRequest request, HttpServletResponse response) throws IOException {
-		JSONArray jsonarrayDetail = JSONArray.fromObject(detail);
-		List<IntoWarehouseRecordDatail> listDetail = (List<IntoWarehouseRecordDatail>) JSONArray.toCollection(jsonarrayDetail, IntoWarehouseRecordDatail.class);
-		
-		JSONObject jsonObject = JSONObject.fromObject(intoWarehouseRecord);
-		IntoWarehouseRecord intoWarehouseRecord2 = (IntoWarehouseRecord)JSONObject.toBean(jsonObject, IntoWarehouseRecord.class);
-		
-		SysUser sysUser = getCurrentSysUser();
-		intoWarehouseRecord2.setCreater(sysUser.getUserName());
-		intoWarehouseRecord2.setCreaterNo(sysUser.getNo());
-		intoWarehouseRecord2.setCreatetime(new Date());
-		intoWarehouseRecordService.persist(intoWarehouseRecord2);
-
-		//保存入库单详情
-		for (IntoWarehouseRecordDatail datail : listDetail) {
-			datail.setAllianceId(intoWarehouseRecord2.getAllianceId());
-			datail.setIntoWarehouseRecordNo(intoWarehouseRecord2.getNo());
-			//添加订单详情
-			intoWarehouseRecordDetailService.persist(datail);
-			//添加库存
-			saveProductWarehouse(datail);
-		}
-		writeJSON(response, "{success:true}");
-		//return "redirect:/sysuser/intoWarehouseRecord";
-	}
-	
-	// 保存实体Bean
-	@RequestMapping(value = "/updateIntoWarehouse", method = { RequestMethod.POST, RequestMethod.GET })
-	public void updateIntoWarehouse(String detail, String intoWarehouseRecord, HttpServletRequest request, HttpServletResponse response) throws IOException {
-		JSONArray jsonarrayDetail = JSONArray.fromObject(detail);
-		List<IntoWarehouseRecordDatail> listDetail = (List<IntoWarehouseRecordDatail>) JSONArray.toCollection(jsonarrayDetail, IntoWarehouseRecordDatail.class);
-		
-		JSONObject jsonObject = JSONObject.fromObject(intoWarehouseRecord);
-		IntoWarehouseRecord intoWarehouseRecord2 = (IntoWarehouseRecord)JSONObject.toBean(jsonObject, IntoWarehouseRecord.class);
-		
-		SysUser sysUser = getCurrentSysUser();
-		intoWarehouseRecord2.setCreater(sysUser.getUserName());
-		intoWarehouseRecord2.setCreaterNo(sysUser.getNo());
-		intoWarehouseRecord2.setCreatetime(new Date());
-		intoWarehouseRecordService.merge(intoWarehouseRecord2);
-
-		//先删除
-		intoWarehouseRecordDetailService.deleteByProperties("intoWarehouseRecordNo",intoWarehouseRecord2.getNo());
-		//保存入库单详情
-		for (IntoWarehouseRecordDatail datail : listDetail) {
-			//再添加订单详情
-			datail.setIntoWarehouseRecordNo(intoWarehouseRecord2.getNo());
-			intoWarehouseRecordDetailService.persist(datail);
-//			//添加库存
-//			productWarehouseService.p
-		}
-		writeJSON(response, "{success:true}");
-		//return "redirect:/sysuser/intoWarehouseRecord";
-	}
-
-	// 操作类型的删除、导出Excel、字段判断和保存
-	@RequestMapping(value = "/operateIntoWarehouse", method = { RequestMethod.POST, RequestMethod.GET })
-	public void operateIntoWarehouse(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		String oper = request.getParameter("oper");
-		String id = request.getParameter("id");
-		if (oper.equals("del")) {
-			String[] ids = id.split(",");
-			deleteIntoWarehouseRecord(request, response, (Long[]) ConvertUtils.convert(ids, Long.class));
-		} else if (oper.equals("excel")) {
-			response.setContentType("application/msexcel;charset=UTF-8");
-			try {
-				response.addHeader("Content-Disposition", "attachment;filename=file.xls");
-				OutputStream out = response.getOutputStream();
-				out.write(URLDecoder.decode(request.getParameter("csvBuffer"), "UTF-8").getBytes());
-				out.flush();
-				out.close();
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
-	}
-
-	// 删除
-	@RequestMapping("/deleteIntoWarehouseRecord")
-	public void deleteIntoWarehouseRecord(HttpServletRequest request, HttpServletResponse response, @RequestParam("ids") Long[] ids) throws IOException {
->>>>>>> merge project
 		boolean flag = false;
 		//先删除入库单详情
 		for (Long id : ids) {
@@ -477,7 +353,6 @@ public class IntoWarehouseRecordController extends JavaEEFrameworkBaseController
 // 			writeJSON(response, htmlString);
 //	//		} 
 //		}
-<<<<<<< HEAD
 //	
 //		/**条形码页面
 //		 * @param
@@ -541,49 +416,4 @@ public class IntoWarehouseRecordController extends JavaEEFrameworkBaseController
 		request.setAttribute("title", title);
 		return "back/warehouse/intowarehouserecord_add";
 	}
-=======
-	
-	//商品入库--库存
-	public void saveProductWarehouse(IntoWarehouseRecordDatail datail){
-//		List<ProductWarehouse> productWarehouseList = productWarehouseService.queryByProerties("productNo", datail.getProductNo());
-//		for (ProductWarehouse productWh : productWarehouseList) {//当满足商品信息一致时候，库存商品数量叠加
-//			if(productWh.getAllianceId().equals(datail.getAllianceId())
-//					&& DateHelper.equal(productWh.getProductionDate(), datail.getProductionDate())
-//					&& productWh.getSalePrice() == datail.getSalePrice()
-//					&& productWh.getAdvicePrice() == datail.getAdvicePrice()
-//					&& productWh.getStorageLocation().equals(datail.getStorageLocation())){
-//				productWh.setNum(productWh.getNum() + datail.getNum());
-//				//更新数量
-//				
-//			}
-//		}
-		
-		ProductInfo productInfo = productInfoService.getByProerties("no", datail.getProductNo());
-		ProductWarehouse productWarehouse = new ProductWarehouse();
-		productWarehouse.setIntoWarehouseRecordNo(datail.getIntoWarehouseRecordNo());
-		productWarehouse.setProductNo(datail.getProductNo());
-		productWarehouse.setProductName(datail.getProductName());
-		productWarehouse.setProductBarCode(datail.getProductBarCode());
-		productWarehouse.setNum(datail.getNum());
-		productWarehouse.setSalePrice(datail.getSalePrice());
-		productWarehouse.setAdvicePrice(datail.getAdvicePrice());
-		productWarehouse.setBigCategoryName(productInfo.getBigCategoryName());
-		productWarehouse.setBigCategoryNo(productInfo.getBigCategoryNo());
-		productWarehouse.setSmallCategoryName(productInfo.getSmallCategoryName());
-		productWarehouse.setSmallCategoryNo(productInfo.getSmallCategoryNo());
-		productWarehouse.setProductPropertyTempNo(productInfo.getProductPropertyTempNo());
-		productWarehouse.setImage(productInfo.getImage());
-		productWarehouse.setImage1(productInfo.getImage1());
-		productWarehouse.setImage2(productInfo.getImage2());
-		productWarehouse.setImage3(productInfo.getImage3());
-		productWarehouse.setContent(productInfo.getContent());
-		productWarehouse.setBrand(productInfo.getBrand());
-		productWarehouse.setStorageLocation(datail.getStorageLocation());
-		productWarehouse.setProductionDate(datail.getProductionDate());
-		productWarehouse.setAllianceId(datail.getAllianceId()+"");
-		
-		productWarehouseService.persist(productWarehouse);
-	}
-
->>>>>>> merge project
 }

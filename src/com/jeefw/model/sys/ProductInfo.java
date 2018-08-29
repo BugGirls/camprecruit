@@ -20,11 +20,7 @@ import com.jeefw.model.sys.param.ProductInfoParameter;
  *
  */
 @Entity
-<<<<<<< HEAD
 @Table(name = "productInfo")
-=======
-@Table(name = "productinfo")
->>>>>>> merge project
 @Cache(region = "all", usage = CacheConcurrencyStrategy.READ_WRITE)
 @JsonIgnoreProperties(value = { "maxResults", "firstResult", "topCount", "sortColumns", "cmd", "queryDynamicConditions", "sortedConditions", "dynamicProperties", "success", "message", "sortColumnsString", "flag" })
 public class ProductInfo extends ProductInfoParameter {
@@ -69,11 +65,7 @@ public class ProductInfo extends ProductInfoParameter {
 	@Column(name = "image3", length = 255 )
 	private String image3;
 	@Column(name = "content", length = 500)
-<<<<<<< HEAD
-	private String content;//备注
-=======
 	private String content;//备注--简介
->>>>>>> merge project
 	@Column(name = "brand", length = 255)
 	private String brand;//品牌
 	public Long getId() {

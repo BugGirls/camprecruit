@@ -50,47 +50,6 @@ public final class DateHelper {
 
     private static SimpleDateFormat m_dtFormater = null;
 
-<<<<<<< HEAD
-=======
-    
-    /**
-     * 比较2个格式为yyyy-MM-dd的日期<br>
-     * 若d1小于d2返回true<br>
-     * d1=2007-10-01,d2=2007-10-15,则返回true
-     * 
-     * @return
-     */
-    public static boolean equal(String d1, String d2) {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        try {
-            Date dt1 = sdf.parse(d1);
-            Date dt2 = sdf.parse(d2);
-            return dt1.getTime() == dt2.getTime();
-        } catch (Exception e) {
-            return false;
-        }
-    }
-    
-    /**
-     * 比较2个格式为yyyy-MM-dd的日期<br>
-     * 若d1小于d2返回true<br>
-     * d1=2007-10-01,d2=2007-10-15,则返回true
-     * 
-     * @return
-     */
-    public static boolean equal(Date dt1, Date dt2) {
-//        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        try {
-//            Date dt1 = sdf.parse(d1);
-//            Date dt2 = sdf.parse(d2);
-            return dt1.getTime() == dt2.getTime();
-        } catch (Exception e) {
-            return false;
-        }
-    }
-    
-    
->>>>>>> merge project
     /**
      * 比较2个格式为yyyy-MM-dd的日期<br>
      * 若d1小于d2返回true<br>
@@ -821,22 +780,12 @@ public final class DateHelper {
     }
 
     public static void main(String[] args) {
-<<<<<<< HEAD
         String timestr = DateHelper.getCurDateTimeStr();
         Date date = new Date();
         date.getTime();
         long datetime = date.getTime();
         Timestamp timestamp = new Timestamp(datetime);
         timestamp.toString();
-=======
-//        String timestr = DateHelper.getCurDateTimeStr();
-//        Date date = new Date();
-//        date.getTime();
-//        long datetime = date.getTime();
-//        Timestamp timestamp = new Timestamp(datetime);
-//        timestamp.toString();
-    	System.out.println(equal(new Date(), new Date()));
->>>>>>> merge project
     }
 
     /**

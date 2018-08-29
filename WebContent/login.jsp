@@ -6,15 +6,9 @@
 	<head>
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 		<meta charset="utf-8" />
-<<<<<<< HEAD
 		<title> 无人超市云服务管理平台</title>
 
 		<meta name="description" content="无人超市云服务平台后台管理|登录页面" />
-=======
-		<title> 云尚互联后台管理平台  </title>
-
-		<meta name="description" content="云尚互联后台管理平台|登录页面" />
->>>>>>> merge project
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
 
 		<!-- bootstrap & fontawesome -->
@@ -54,11 +48,7 @@
 									<div class="widget-body">
 										<div class="widget-main">
 											<h4 class="header  lighter bigger">
-<<<<<<< HEAD
 												无人超市云服务管理平台
-=======
-												云尚互联后台管理平台
->>>>>>> merge project
 											</h4>
 
 
@@ -168,19 +158,11 @@
                     <!-- #section:basics/footer -->
                     <div class="footer-content-nobordertop">
                         <span class="bigger-120">
-<<<<<<< HEAD
                             <span class="blue bolder">
                                                                                                  无人超市云服务管理平台 
                             </span>
                             &copy; 
                             2018-2019
-=======
-                            <span class="">
-                                                                                                 河南林朋物联信息科技有限公司 
-                            </span>
-                            &copy; 
-                            2018-2019 &nbsp;&nbsp;<span class="red bolder">豫ICP备18030032号</span>
->>>>>>> merge project
                         </span>
                     </div>
                     <!-- /section:basics/footer -->

@@ -482,14 +482,8 @@
                 })
                 // 清空购物车
                 $('#clearCart').on('click', function() {
-                    // 清除购物车数据
                     cartList.html('')
-                    // 删除cookie
                     $.cookie('cartList', null)
-                    // 全局置为空
-                    cookieCartList.length = 0
-                    oldCookieCartList.length = 0
-                    // 更新商品数量
                     quickUpdateCart()
                 })
             }
