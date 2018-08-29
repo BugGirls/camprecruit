@@ -49,11 +49,16 @@ public class WechatController {
                               @RequestParam(value = "state") String returnUrl) {
         JSONObject jsonObject = WechatUtil.getAccessTokenForAuth(code);
         String openid = jsonObject.getString("openid");
+<<<<<<< HEAD
         if (returnUrl.indexOf("?") >= 0) {
             returnUrl = returnUrl + "&openid=" + openid;
         } else {
             returnUrl = returnUrl + "?openid=" + openid;
         }
         return "redirect:" + PropertiesUtil.getProperty("localUrl") + returnUrl;
+=======
+        returnUrl = returnUrl + "?openid=" + openid;
+        return "redirect:" + returnUrl;
+>>>>>>> merge project
     }
 }

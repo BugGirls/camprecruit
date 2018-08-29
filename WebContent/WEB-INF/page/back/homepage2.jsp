@@ -25,7 +25,11 @@ height:auto;
 		</script>
 
 
+<<<<<<< HEAD
 <p style="font-size: 22px;">&nbsp;&nbsp;&nbsp;&nbsp;欢迎登陆无人超市云服务平台</p><br><br>
+=======
+<p style="font-size: 22px;">&nbsp;&nbsp;&nbsp;&nbsp;欢迎登陆云尚互联</p><br><br>
+>>>>>>> merge project
 <div>
 	<script type="text/javascript"src="${contextPath}/static/dist/js/jquery-ui.js"></script> 
 	<div id="user-profile-1" class="user-profile row">

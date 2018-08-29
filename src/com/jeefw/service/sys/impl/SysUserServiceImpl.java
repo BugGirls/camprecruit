@@ -55,6 +55,10 @@ public class SysUserServiceImpl extends BaseService<SysUser> implements SysUserS
 			sysUser.setEmail(entity.getEmail());
 			sysUser.setPhone(entity.getPhone());
 			sysUser.setBirthday(entity.getBirthday());
+<<<<<<< HEAD
+=======
+			sysUser.setNo(entity.getNo());
+>>>>>>> merge project
 			sysUser.setDepartmentKey(entity.getDepartmentKey());
 			if (StringUtils.isNotBlank(sysUser.getDepartmentKey())) {
 //				Department department = departmentDao.getByProerties("departmentKey", sysUser.getDepartmentKey());
@@ -86,6 +90,10 @@ public class SysUserServiceImpl extends BaseService<SysUser> implements SysUserS
 		entity.setBirthday(sysuser.getBirthday());
 		entity.setPassword(sysuser.getPassword());
 		entity.setStatus(sysuser.getStatus());
+<<<<<<< HEAD
+=======
+		entity.setNo(sysuser.getNo());
+>>>>>>> merge project
 		entity.setLastLoginTime(sysuser.getLastLoginTime());
 		Attachment attachment = attachmentDao.getByProerties(new String[] { "type", "typeId" }, new Object[] { (short) 1, sysuser.getId() });
 		if (null != attachment) {

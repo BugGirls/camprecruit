@@ -20,11 +20,20 @@ http://www.springframework.org/schema/task/spring-task-3.1.xsd">
 	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
 		<property name="driverClass" value="com.mysql.jdbc.Driver" />
  			<!-- 192.168.8.134 -->
+<<<<<<< HEAD
 		<property name="jdbcUrl" value="jdbc:mysql://127.0.0.1:3306/camprecruit?useUnicode=true&amp;characterEncoding=utf-8" />
  
 		<property name="user" value="root" />
 		<property name="password" value="root" />
 		
+=======
+		<property name="jdbcUrl" value="jdbc:mysql://47.95.215.34:3306/camprecruit?useUnicode=true&amp;characterEncoding=utf-8" />
+		<property name="user" value="root" />
+		<property name="password" value="123IsYourNewPassword!" />
+		 <!-- 
+		 <property name="password" value="123456" />
+		 -->
+>>>>>>> merge project
 		<property name="acquireIncrement" value="3" />
 		<property name="idleConnectionTestPeriod" value="120" />
 		<property name="initialPoolSize" value="3" />

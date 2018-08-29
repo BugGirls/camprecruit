@@ -18,7 +18,11 @@ import com.jeefw.model.sys.param.ProductPropertyTempParameter;
  * @ 
  */
 @Entity
+<<<<<<< HEAD
 @Table(name = "productInfo_propertyTemp")
+=======
+@Table(name = "productinfo_propertytemp")
+>>>>>>> merge project
 @Cache(region = "all", usage = CacheConcurrencyStrategy.READ_WRITE)
 @JsonIgnoreProperties(value = { "maxResults", "firstResult", "topCount", "sortColumns", "cmd", "queryDynamicConditions", "sortedConditions", "dynamicProperties", "success", "message", "sortColumnsString", "flag" })
 public class ProductPropertyTemp extends ProductPropertyTempParameter {

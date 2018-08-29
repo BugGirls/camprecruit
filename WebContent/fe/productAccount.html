@@ -3,7 +3,11 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
+<<<<<<< HEAD
         <title>结算</title>
+=======
+        <title>智能超市终端</title>
+>>>>>>> merge project
         <meta name="keywords" content="index">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="renderer" content="webkit">
@@ -50,6 +54,7 @@
                 position:fixed;
                 cursor:pointer;
             }
+<<<<<<< HEAD
             .tpl-task-remind li .cosA .cosIco {
                 width: auto;
                 height: auto;
@@ -57,6 +62,8 @@
             .tpl-task-remind li .cosB {
                 font-size: 20px;
             }
+=======
+>>>>>>> merge project
         </style>
     </head>
 
@@ -82,6 +89,7 @@
 
         <div class="tpl-page-container tpl-page-header-fixed">
             <div class="tpl-portlet-components" style="margin-top: -20px;">
+<<<<<<< HEAD
                 <!-- 支付确认 -->
                 <div id="">
                     <div style="margin-left: 20px;">
@@ -97,6 +105,8 @@
                     </div>
                 </div>
 
+=======
+>>>>>>> merge project
                 <!-- 提示 -->
                 <div style="margin-top: 10px;margin-left: 20px;">
                     <h1  style="font-weight: 300">请选择支付方式</h1>
@@ -129,6 +139,7 @@
                                 </div>
                             </div>
                         </div>
+<<<<<<< HEAD
                         <!--<div class="am-u-lg-4" id="unionPayDiv">-->
                             <!--<div class="tpl-table-images-content" style="width: 55%;float: left;">-->
                                 <!--<a href="javascript:;" class="tpl-table-images-content-i" style="margin-left: -3%;">-->
@@ -141,6 +152,20 @@
                                 <!--</div>-->
                             <!--</div>-->
                         <!--</div>-->
+=======
+                        <div class="am-u-lg-4" id="unionPayDiv">
+                            <div class="tpl-table-images-content" style="width: 55%;float: left;">
+                                <a href="javascript:;" class="tpl-table-images-content-i" style="margin-left: -3%;">
+                                    <img src="assets/img/unionpay.jpg" style="width: 105%;margin-right: 10%;">
+                                </a>
+                                <div class="tpl-table-images-content-block">
+                                    <div class="tpl-i-font" style="font-size: 24px;text-align: center;font-weight: 300;">
+                                        银联
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+>>>>>>> merge project
                     </div>
                 </div>
 
@@ -168,6 +193,7 @@
             });
             function init() {
                 $('#payFlow').hide();
+<<<<<<< HEAD
 
                 // 获取订单详情信息
                 $.ajax({
@@ -204,6 +230,8 @@
                         console.log(err);
                     }
                 });
+=======
+>>>>>>> merge project
             }
             function bindEvent() {
                 // 微信支付样式
@@ -221,6 +249,7 @@
                     $('#payFlow').show();
                 });
                 // 银联支付样式
+<<<<<<< HEAD
 //                $('#unionPayDiv').on('click', function() {
 //                    $(this).siblings().children().removeClass('borderStyle');
 //                    $(this).children().addClass('borderStyle');
@@ -235,6 +264,14 @@
                     return unescape(r[2]);
                 }
                 return null;
+=======
+                $('#unionPayDiv').on('click', function() {
+                    $(this).siblings().children().removeClass('borderStyle');               
+                    $(this).children().addClass('borderStyle');
+                    $('#payFlow').find('#flowImg').attr('src', 'assets/img/onionpay_flow.jpg');
+                    $('#payFlow').show();
+                });
+>>>>>>> merge project
             }
         </script>
     </body>

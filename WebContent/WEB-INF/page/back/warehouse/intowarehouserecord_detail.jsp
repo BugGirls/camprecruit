@@ -76,6 +76,7 @@ height:auto;
         			url : "${contextPath}/sys/intoWarehouseRecordDatail/getIntoWarehouseRecordDatailByNo?intoWarehouseRecordNo=${intoWarehouseRecordNo}",
         			datatype : "json",
         			height : 650,
+<<<<<<< HEAD
         			colNames : ['员工姓名','订单号','订单金额','提成比(%)','提成金额','活动名称','活动日期'],
         			colModel : [ {
         				name : 'username',
@@ -119,6 +120,61 @@ height:auto;
         				label : '活动时间',
         				width : 160,
         				search : true
+=======
+        			colNames : ['商品编码','商品名称','数量','建议售价','进价','生产日期','库存位置','备注'],
+        			colModel : [ {
+        				name : 'productNo',
+        				index : 'productNo',
+        				label : '商品编码',
+        				width : 160,
+        				search : true,
+        				searchoptions : {sopt : ['cn']}
+        			}, {
+        				name : 'productName',
+        				index : 'productName',
+        				label : '商品名称',
+        				width : 160,
+        				search : true,
+        				searchoptions : {sopt : ['cn']}
+        			}, {
+        				name : 'num',
+        				index : 'num',
+        				label : '数量',
+        				width : 100,
+        				search : false
+        			}, {
+        				name : 'advicePrice',
+        				index : 'advicePrice',
+        				label : '建议售价',
+        				width : 100,
+        				search : false
+        			}, {
+        				name : 'salePrice',
+        				index : 'salePrice',
+        				label : '进价',
+        				width : 100,
+        				search : false
+        			}, {
+        				name : 'productionDate',
+        				index : 'productionDate',
+        				label : '生产日期',
+        				width : 160,
+        				search : false,
+        				formatter : dateFormatter
+        			}, {
+        				name : 'storageLocation',
+        				index : 'storageLocation',
+        				label : '库存位置',
+        				width : 160,
+        				search : true,
+        				searchoptions : {sopt : ['cn']}
+        			}, {
+        				name : 'content',
+        				index : 'content',
+        				label : '备注',
+        				width : 160,
+        				search : false
+>>>>>>> merge project
         			}
 					],
         			//scroll : 1, // set the scroll property to 1 to enable paging with scrollbar - virtual loading of records
@@ -143,6 +199,7 @@ height:auto;
         					updatePagerIcons(table);
         					enableTooltips(table);
         				}, 0);
+<<<<<<< HEAD
         			}
         			//caption : "用户管理列表",
         			//autowidth : true,
@@ -183,6 +240,25 @@ height:auto;
         		
         		
         		
+=======
+        			},
+        			editurl : "${contextPath}/sys/intoWarehouseRecordDatail/operateDetail"
+        		});
+        		
+        		function dateFormatter(cellvalue, options, cell) {
+       			 var date =  new Date(cell.productionDate);
+       			 var y = 1900+date.getYear();
+       			 var m = "0"+(date.getMonth()+1);
+       			 var d = "0"+date.getDate();
+       			 return y+"-"+m.substring(m.length-2,m.length)+"-"+d.substring(d.length-2,d.length);
+          		}
+        //=====================================================
+        	$('[data-rel=tooltip]').tooltip();
+			$('[data-rel=popover]').popover({html:true});
+
+//===========================================jieshu ================================================
+        		
+>>>>>>> merge project
         		$(window).triggerHandler('resize.jqGrid');// trigger window resize to make the grid get the correct size
         		
         		// enable search/filter toolbar

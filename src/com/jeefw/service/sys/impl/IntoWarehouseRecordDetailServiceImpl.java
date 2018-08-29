@@ -32,6 +32,7 @@ public class IntoWarehouseRecordDetailServiceImpl extends BaseService<IntoWareho
 		List<IntoWarehouseRecordDatail> dictList = new ArrayList<IntoWarehouseRecordDatail>();
 		for (IntoWarehouseRecordDatail entity : resultList) {
 			IntoWarehouseRecordDatail datail = new IntoWarehouseRecordDatail();
+<<<<<<< HEAD
 //			intoWarehouseRecord.setId(entity.getId());
 //			intoWarehouseRecord.setNo(entity.getNo());
 //			intoWarehouseRecord.setCreater(entity.getCreater());
@@ -44,6 +45,21 @@ public class IntoWarehouseRecordDetailServiceImpl extends BaseService<IntoWareho
 //			intoWarehouseRecord.setContent(entity.getContent());
 //			intoWarehouseRecord.setSupplier(entity.getSupplier());
 //			intoWarehouseRecord.setAllianceId(entity.getAllianceId());
+=======
+			datail.setId(entity.getId());
+			datail.setIntoWarehouseRecordNo(entity.getIntoWarehouseRecordNo());
+			datail.setProductNo(entity.getProductNo());
+			datail.setProductName(entity.getProductName());
+			datail.setProductBarCode(entity.getProductBarCode());
+			datail.setSeqence(entity.getSeqence());
+			datail.setNum(entity.getNum());
+			datail.setSalePrice(entity.getSalePrice());
+			datail.setAdvicePrice(entity.getAdvicePrice());
+			datail.setContent(entity.getContent());
+			datail.setStorageLocation(entity.getStorageLocation());
+			datail.setProductionDate(entity.getProductionDate());
+			datail.setAllianceId(entity.getAllianceId());
+>>>>>>> merge project
 			dictList.add(datail);
 		}
 		return dictList;

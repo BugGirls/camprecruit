@@ -69,6 +69,12 @@ public class ProductInfoController extends JavaEEFrameworkBaseController<Product
 			JSONArray jsonArray = (JSONArray) jsonObject.get("rules");
 			for (int i = 0; i < jsonArray.size(); i++) {
 				JSONObject result = (JSONObject) jsonArray.get(i);
+<<<<<<< HEAD
+=======
+				if (result.getString("field").equals("no") && result.getString("op").equals("cn")) {
+					productInfo.set$like_no(result.getString("data"));
+				}
+>>>>>>> merge project
 				if (result.getString("field").equals("name") && result.getString("op").equals("cn")) {
 					productInfo.set$like_name(result.getString("data"));
 				}

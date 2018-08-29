@@ -6,7 +6,11 @@
     <head>
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
         <meta charset="utf-8" />
+<<<<<<< HEAD
         <title>无人超市云服务平台后台管理</title>
+=======
+        <title>云尚互联后台管理平台</title>
+>>>>>>> merge project
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
         <!-- bootstrap & fontawesome -->
         <link rel="stylesheet" href="${contextPath}/static/assets/css/bootstrap.css" />
@@ -58,7 +62,11 @@
 						<img class="" alt="Alex's Avatar" src="${contextPath}/jsp/images/logo_top.jpg" style="float: left; margin-top: 6px; max-width: 40px;"></img>
                     <a href="#" class="navbar-brand">
                         <small>
+<<<<<<< HEAD
 							无人超市云服务平台后台管理
+=======
+							云尚互联后台管理平台
+>>>>>>> merge project
                         </small>
                     </a>
                     <!-- /section:basics/navbar.layout.brand -->
@@ -242,7 +250,11 @@
                     <div class="footer-content" style="border-top: 0px;">
                         <span class="bigger-120">
                             <span class="blue bolder">
+<<<<<<< HEAD
                                                                                                 无人超市云服务平台后台管理
+=======
+                                                                                                云尚互联后台管理平台
+>>>>>>> merge project
                             </span>
                             &copy; 
                             2018-2019

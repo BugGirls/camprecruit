@@ -187,10 +187,17 @@
         				width : 100,
         				editable : true,
         				edittype : "select",
+<<<<<<< HEAD
         				editoptions : {value : "ROLE_RESTRICTED_ADMIN:普通管理员;ROLE_USER:普通用户"},
         				//editoptions : {
         				//	dataUrl : "${contextPath}/sys/role/getRoleSelectList"
         				//},
+=======
+        				//editoptions : {value : "ROLE_RESTRICTED_ADMIN:普通管理员;ROLE_USER:普通用户"},
+        				editoptions : {
+        					dataUrl : "${contextPath}/sys/role/getRoleSelectList"
+        				},
+>>>>>>> merge project
         				search : false
         			}, {
         				name : 'statusCn',
@@ -280,6 +287,7 @@
         		
         		// navButtons
         		jQuery(grid_selector).jqGrid('navGrid', pager_selector, { // navbar options
+<<<<<<< HEAD
         			edit : <shiro:hasPermission name="ROLE_RESTRICTED_ADMIN:edit">true</shiro:hasPermission><shiro:lacksPermission name="ROLE_RESTRICTED_ADMIN:edit">false</shiro:lacksPermission>,
         			editicon : 'ace-icon fa fa-pencil blue',
         			add : <shiro:hasPermission name="ROLE_RESTRICTED_ADMIN:add">true</shiro:hasPermission><shiro:lacksPermission name="ROLE_RESTRICTED_ADMIN:add">false</shiro:lacksPermission>,
@@ -291,6 +299,19 @@
         			refresh : true,
         			refreshicon : 'ace-icon fa fa-refresh blue',
         			view : <shiro:hasPermission name="ROLE_RESTRICTED_ADMIN:view">true</shiro:hasPermission><shiro:lacksPermission name="ROLE_RESTRICTED_ADMIN:view">false</shiro:lacksPermission>,
+=======
+        			edit : true,
+        			editicon : 'ace-icon fa fa-pencil blue',
+        			add : true,
+        			addicon : 'ace-icon fa fa-plus-circle purple',
+        			del : true,
+        			delicon : 'ace-icon fa fa-trash-o red',
+        			search : true,
+        			searchicon : 'ace-icon fa fa-search orange',
+        			refresh : true,
+        			refreshicon : 'ace-icon fa fa-refresh blue',
+        			view : true,
+>>>>>>> merge project
         			viewicon : 'ace-icon fa fa-search-plus grey'
         		}, {
         			// edit record form

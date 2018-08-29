@@ -8,8 +8,11 @@ import com.jeefw.model.sys.bo.AccessTokenBo;
 import core.enums.CardTypeEnum;
 import core.enums.DateInfoType;
 import net.sf.json.JSONObject;
+<<<<<<< HEAD
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.collections.CollectionUtils;
+=======
+>>>>>>> merge project
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,7 +21,10 @@ import org.springframework.stereotype.Component;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+<<<<<<< HEAD
 import java.security.MessageDigest;
+=======
+>>>>>>> merge project
 import java.util.*;
 
 /**
@@ -33,8 +39,11 @@ public class WechatUtil {
     private static final Logger logger = LoggerFactory.getLogger(WechatUtil.class);
 
     public static AccessTokenBo accessTokenBo = null;
+<<<<<<< HEAD
     public static String js_api_ticket = null;
     public static String card_ticket = null;
+=======
+>>>>>>> merge project
 
     /**
      * 验证消息是否来自微信服务器
@@ -85,12 +94,16 @@ public class WechatUtil {
     @Scheduled(fixedRate = 1000 * 7000)
     public void tokenScheduled() throws InterruptedException {
         accessTokenBo = getAccessToken();
+<<<<<<< HEAD
         js_api_ticket = getJSAPITicket();
         card_ticket = getCardTicket();
+=======
+>>>>>>> merge project
         logger.info("accessToken={}", GSON.toJson(accessTokenBo));
     }
 
     /**
+<<<<<<< HEAD
      * 获取jsapi_ticket
      *
      * @return
@@ -157,6 +170,8 @@ public class WechatUtil {
     }
 
     /**
+=======
+>>>>>>> merge project
      * 生成用于获取access_token的Code的Url
      *
      * @param redirectUrl 跳转回调的URL

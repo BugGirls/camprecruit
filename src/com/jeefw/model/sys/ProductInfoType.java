@@ -18,7 +18,11 @@ import com.jeefw.model.sys.param.ProductInfoTypeParameter;
  * @ 
  */
 @Entity
+<<<<<<< HEAD
 @Table(name = "productInfo_type")
+=======
+@Table(name = "productinfo_type")
+>>>>>>> merge project
 @Cache(region = "all", usage = CacheConcurrencyStrategy.READ_WRITE)
 @JsonIgnoreProperties(value = { "maxResults", "firstResult", "topCount", "sortColumns", "cmd", "queryDynamicConditions", "sortedConditions", "dynamicProperties", "success", "message", "sortColumnsString", "flag" })
 public class ProductInfoType extends ProductInfoTypeParameter {

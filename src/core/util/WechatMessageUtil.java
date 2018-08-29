@@ -11,7 +11,14 @@ import java.io.InputStream;
 import java.text.DateFormat;
 import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
+<<<<<<< HEAD
 import java.util.*;
+=======
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+>>>>>>> merge project
 
 /**
  * 微信消息处理工具
@@ -186,6 +193,7 @@ public class WechatMessageUtil {
         Date strtodate = formatter.parse(strDate, pos);
         return strtodate;
     }
+<<<<<<< HEAD
 
     /**
      * 所有map集合中的参数按照字段名的 ascii 码值从小到大排序(升序)
@@ -223,4 +231,6 @@ public class WechatMessageUtil {
         return stringBuffer;
     }
 
+=======
+>>>>>>> merge project
 }

@@ -200,9 +200,15 @@ Main Components
 .cd-cart {
   /* cart content */
   z-index: 2;
+<<<<<<< HEAD
   width: 40%;
   /*max-width: 440px;*/
   height: 58%;
+=======
+  width: 90%;
+  max-width: 440px;
+  height: 50%;
+>>>>>>> merge project
   max-height: 90%;
   pointer-events: none;
 }
@@ -329,7 +335,11 @@ Main Components
   z-index: 1;
   height: calc(100% - 40px);
   padding: 20px 0 10px;
+<<<<<<< HEAD
   margin: 70px 0 10px;
+=======
+  margin: 40px 0 10px;
+>>>>>>> merge project
   overflow: auto;
   -webkit-overflow-scrolling: touch;
   -webkit-transition: opacity .2s;

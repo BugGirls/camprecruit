@@ -487,14 +487,24 @@ $(function(){
         			url : "${contextPath}/sys/productInfo/getProductInfo",
         			datatype : "json",
         			height : 650,
+<<<<<<< HEAD
         			colNames : ['编码', ' 商品名称', '信息', '品牌', '分类', '类型', '图片', '建议零售价（￥）'],
+=======
+        			colNames : ['编码', '商品名称', '信息', '品牌', '分类', '类型', '图片', '建议零售价（￥）'],
+>>>>>>> merge project
         			colModel : [ {
         				name : 'no',
         				index : 'no',
         				label : '编码',
         				width : 120,
         				editable : false,
+<<<<<<< HEAD
         				search : false 
+=======
+        				editoptions : {size : "20", maxlength : "64"},
+        				searchoptions : {sopt : ['cn']},
+        				editrules : {required : true}
+>>>>>>> merge project
         			}, {
         				name : 'name',
         				index : 'name',

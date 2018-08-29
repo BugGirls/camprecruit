@@ -62,9 +62,13 @@ public class AuthorityServiceImpl extends BaseService<Authority> implements Auth
 				}
 			}
 			authority.setSubAuthorityList(resultSubAuthorityList);
+<<<<<<< HEAD
 			if (subAuthorityList.size() == 0) {
 				authorityList.add(null);
 			} else {
+=======
+			if (subAuthorityList.size() > 0 && resultSubAuthorityList.size() > 0) {
+>>>>>>> merge project
 				authorityList.add(authority);
 			}
 		}

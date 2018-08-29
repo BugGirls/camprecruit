@@ -5,7 +5,14 @@ import com.jeefw.service.sys.*;
 import core.enums.AvailableStatusEnum;
 import core.enums.PoiUpdateStatusEnum;
 import core.enums.UserCardStatusEnum;
+<<<<<<< HEAD
 import core.util.*;
+=======
+import core.util.GSON;
+import core.util.KeyUtil;
+import core.util.WechatMessageUtil;
+import core.util.WechatUtil;
+>>>>>>> merge project
 import net.sf.json.JSONObject;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Service;
@@ -208,7 +215,10 @@ public class WechatService {
 
                     wechatMemberStores = new WechatMemberStores();
                     wechatMemberStores.setMemberId(KeyUtil.generatorUniqueKey());
+<<<<<<< HEAD
                     wechatMemberStores.setAppId(Const.APP_ID);
+=======
+>>>>>>> merge project
                     wechatMemberStores.setSubscribe(jsonObject.getInt("subscribe"));
                     wechatMemberStores.setOpenid(jsonObject.getString("openid"));
                     wechatMemberStores.setNickname(jsonObject.getString("nickname"));
@@ -233,10 +243,15 @@ public class WechatService {
                 // 取消关注公众号事件推送
 
                 WechatMemberStores wechatMemberStores = wechatMemberStoresService.getByProerties("openid", fromUserName);
+<<<<<<< HEAD
                 if (wechatMemberStores != null) {
                     wechatMemberStores.setSubscribe(0);
                     wechatMemberStoresService.update(wechatMemberStores);
                 }
+=======
+                wechatMemberStores.setSubscribe(0);
+                wechatMemberStoresService.update(wechatMemberStores);
+>>>>>>> merge project
             }
             System.out.println(event);
         }

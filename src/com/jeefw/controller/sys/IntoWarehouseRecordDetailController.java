@@ -72,6 +72,7 @@ public class IntoWarehouseRecordDetailController extends JavaEEFrameworkBaseCont
 			JSONArray jsonArray = (JSONArray) jsonObject.get("rules");
 			for (int i = 0; i < jsonArray.size(); i++) {
 				JSONObject result = (JSONObject) jsonArray.get(i);
+<<<<<<< HEAD
 //				if (result.getString("field").equals("no") && result.getString("op").equals("cn")) {
 //					intoWarehouseRecord.set$like_no(result.getString("data"));
 //				}
@@ -87,6 +88,17 @@ public class IntoWarehouseRecordDetailController extends JavaEEFrameworkBaseCont
 //				if (result.getString("field").equals("createtime") && result.getString("op").equals("cn")) {
 //					intoWarehouseRecord.set$like_createtime(result.getString("data"));
 //				}
+=======
+				if (result.getString("field").equals("productNo") && result.getString("op").equals("cn")) {
+					deDatail.set$like_productNo(result.getString("data"));
+				}
+				if (result.getString("field").equals("productName") && result.getString("op").equals("cn")) {
+					deDatail.set$like_productName(result.getString("data"));
+				}
+				if (result.getString("field").equals("storageLocation") && result.getString("op").equals("cn")) {
+					deDatail.set$like_storageLocation(result.getString("data"));
+				}
+>>>>>>> merge project
 			}
 			if (((String) jsonObject.get("groupOp")).equalsIgnoreCase("OR")) {
 				deDatail.setFlag("OR");
@@ -107,6 +119,55 @@ public class IntoWarehouseRecordDetailController extends JavaEEFrameworkBaseCont
 		dictListView.setRecords(queryResult.getTotalCount());
 		writeJSON(response, dictListView);
 	}
+<<<<<<< HEAD
+=======
+	
+	// 库存查询盘点
+	@RequestMapping(value = "/getIntoWarehouseCheckList", method = { RequestMethod.POST, RequestMethod.GET })
+	public void getIntoWarehouseCheckList(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		Integer firstResult = Integer.valueOf(request.getParameter("page"));
+		Integer maxResults = Integer.valueOf(request.getParameter("rows"));
+		String sortedObject = request.getParameter("sidx");
+		String sortedValue = request.getParameter("sord");
+		String filters = request.getParameter("filters");
+		IntoWarehouseRecordDatail deDatail = new IntoWarehouseRecordDatail();
+		Integer allianceId = getCurrentAllianceId();
+		if (StringUtils.isNotBlank(filters)) {
+			JSONObject jsonObject = JSONObject.fromObject(filters);
+			JSONArray jsonArray = (JSONArray) jsonObject.get("rules");
+			for (int i = 0; i < jsonArray.size(); i++) {
+				JSONObject result = (JSONObject) jsonArray.get(i);
+				if (result.getString("field").equals("productNo") && result.getString("op").equals("cn")) {
+					deDatail.set$like_productNo(result.getString("data"));
+				}
+				if (result.getString("field").equals("productName") && result.getString("op").equals("cn")) {
+					deDatail.set$like_productName(result.getString("data"));
+				}
+				if (result.getString("field").equals("storageLocation") && result.getString("op").equals("cn")) {
+					deDatail.set$like_storageLocation(result.getString("data"));
+				}
+			}
+			if (((String) jsonObject.get("groupOp")).equalsIgnoreCase("OR")) {
+				deDatail.setFlag("OR");
+			} else {
+				deDatail.setFlag("AND");
+			}
+		}
+		deDatail.setAllianceId(allianceId);
+		deDatail.setFirstResult((firstResult - 1) * maxResults);
+		deDatail.setMaxResults(maxResults);
+		Map<String, String> sortedCondition = new HashMap<String, String>();
+		sortedCondition.put(sortedObject, sortedValue);
+		deDatail.setSortedConditions(sortedCondition);
+		QueryResult<IntoWarehouseRecordDatail> queryResult = intoWarehouseRecordDetailService.doPaginationQuery(deDatail);
+		JqGridPageView<IntoWarehouseRecordDatail> dictListView = new JqGridPageView<IntoWarehouseRecordDatail>();
+		dictListView.setMaxResults(maxResults);
+		List<IntoWarehouseRecordDatail> dictWithSubList = intoWarehouseRecordDetailService.queryIntoWarehouseRecordDatailWithSubList(queryResult.getResultList());
+		dictListView.setRows(dictWithSubList);
+		dictListView.setRecords(queryResult.getTotalCount());
+		writeJSON(response, dictListView);
+	}
+>>>>>>> merge project
 //
 //	// 保存实体Bean
 //	@RequestMapping(value = "/saveProductInfo", method = { RequestMethod.POST, RequestMethod.GET })
@@ -120,6 +181,7 @@ public class IntoWarehouseRecordDetailController extends JavaEEFrameworkBaseCont
 //		parameter.setSuccess(true);
 //		writeJSON(response, parameter);
 //	}
+<<<<<<< HEAD
 //
 //	// 操作类型的删除、导出Excel、字段判断和保存
 //	@RequestMapping(value = "/operateProductInfo", method = { RequestMethod.POST, RequestMethod.GET })
@@ -222,6 +284,42 @@ public class IntoWarehouseRecordDetailController extends JavaEEFrameworkBaseCont
 //		}
 //	}
 //
+=======
+
+	// 操作类型的删除、导出Excel、字段判断和保存
+	@RequestMapping(value = "/operateDetail", method = { RequestMethod.POST, RequestMethod.GET })
+	public void operateDetail(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		String oper = request.getParameter("oper");
+		String id = request.getParameter("id");
+		if (oper.equals("del")) {
+			String[] ids = id.split(",");
+			deleteDetail(request, response, (Long[]) ConvertUtils.convert(ids, Long.class));
+		} else if (oper.equals("excel")) {
+			response.setContentType("application/msexcel;charset=UTF-8");
+			try {
+				response.addHeader("Content-Disposition", "attachment;filename=file.xls");
+				OutputStream out = response.getOutputStream();
+				out.write(URLDecoder.decode(request.getParameter("csvBuffer"), "UTF-8").getBytes());
+				out.flush();
+				out.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
+	// 删除
+	@RequestMapping("/deleteDetail")
+	public void deleteDetail(HttpServletRequest request, HttpServletResponse response, @RequestParam("ids") Long[] ids) throws IOException {
+		boolean flag = intoWarehouseRecordDetailService.deleteByPK(ids);
+		if (flag) {
+			writeJSON(response, "{success:true}");
+		} else {
+			writeJSON(response, "{success:false}");
+		}
+	}
+
+>>>>>>> merge project
 //	private static SimpleDateFormat sdfa = new SimpleDateFormat("yyyyMMddHHmmssSSS");
 //	/**
 //	 *  上传图片

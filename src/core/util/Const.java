@@ -51,17 +51,26 @@ public class Const {
     /**
      * 需要和微信后台配置的token一致
      */
+<<<<<<< HEAD
     public static final String TOKEN = "empress";
+=======
+    public static final String TOKEN = "test";
+>>>>>>> merge project
 
     public static final String ORDER_NAME = "云尚互联订单";
 
     /**
      * AppId 和 AppSecret
      */
+<<<<<<< HEAD
 //    public static final String APP_ID = "wx9760b6876d5e339f";
 //    public static final String APP_SECRET = "7920140c08c03ad5a348cb0c77c3e222";
     public static final String APP_ID = "wx329df211e75cb653";
     public static final String APP_SECRET = "69b7af61b3c492c59814e7c4c992d413";
+=======
+    public static final String APP_ID = "wx9760b6876d5e339f";
+    public static final String APP_SECRET = "7920140c08c03ad5a348cb0c77c3e222";
+>>>>>>> merge project
 
     /**
      * 应用授权作用域
@@ -87,6 +96,7 @@ public class Const {
     public static final String ACCESS_TOKEN_URL = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=APPID&secret=APPSECRET";
 
     /**
+<<<<<<< HEAD
      * 获取jsapi_ticket
      */
     public static final String JS_API_TICKET_URL = "https://api.weixin.qq.com/cgi-bin/ticket/getticket?access_token=ACCESS_TOKEN&type=jsapi";
@@ -97,6 +107,8 @@ public class Const {
     public static final String CARD_TICKET_URL = "https://api.weixin.qq.com/cgi-bin/ticket/getticket?access_token=ACCESS_TOKEN&type=wx_card";
 
     /**
+=======
+>>>>>>> merge project
      * 新增永久素材URL
      */
     public static final String ADD_EVER_MATERIAL_URL = "https://api.weixin.qq.com/cgi-bin/material/add_material?access_token=ACCESS_TOKEN&type=TYPE";

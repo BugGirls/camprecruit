@@ -13,7 +13,10 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+<<<<<<< HEAD
 import java.util.UUID;
+=======
+>>>>>>> merge project
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -249,7 +252,11 @@ public class SysUserController extends JavaEEFrameworkBaseController<SysUser> im
     @RequestMapping("/logout")
     public void logout(HttpServletRequest request, HttpServletResponse response) throws IOException {
         SecurityUtils.getSubject().logout();
+<<<<<<< HEAD
         response.sendRedirect("/jeefw/login.jsp");
+=======
+        response.sendRedirect("/login.jsp");
+>>>>>>> merge project
     }
 
     // 发送邮件找回密码
@@ -1252,6 +1259,21 @@ public class SysUserController extends JavaEEFrameworkBaseController<SysUser> im
     public String intoWarehouseRecord(HttpServletRequest request, HttpServletResponse response) throws IOException {
         return "back/warehouse/intowarehouserecord";
     }
+<<<<<<< HEAD
+=======
+    
+    /**
+	 * 库存盘点
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws IOException
+	 */
+	@RequestMapping("/warehouseCheck")
+	public String warehouseCheck(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		return "back/warehouse/warehouseProductCheck";
+	}
+>>>>>>> merge project
 
     /**
      * 入库单详情
@@ -1307,6 +1329,7 @@ public class SysUserController extends JavaEEFrameworkBaseController<SysUser> im
         request.setAttribute("datails", datails);
         return "back/warehouse/intowarehouserecord_edit";
     }
+<<<<<<< HEAD
 
     /**
      * 添加页面
@@ -1330,4 +1353,120 @@ public class SysUserController extends JavaEEFrameworkBaseController<SysUser> im
         request.setAttribute("title", title);
         return "back/warehouse/intowarehouserecord_add";
     }
+=======
+    
+    /**
+	 * 添加入库页面
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping(value="/addIntoWarehouseUI")
+	public String addIntoWarehouseUI(HttpServletRequest request, HttpServletResponse response){
+		SysUser sysUser = getCurrentSysUser();
+		Integer allianceId = sysUser.getAllianceId();
+		//编码
+		String no = DateHelper.getCurDateTime().replace("-", "").replace(":", "").replace(" ", "") + (int)((Math.random()*9+1)*10000);
+		//标题
+		AllianceBusiness business = allianceBusinessService.get(allianceId);
+		String title = business.getName() + "入库单";
+		request.setAttribute("sysUser", sysUser);
+		request.setAttribute("no", no);
+		request.setAttribute("title", title);
+		return "back/warehouse/intowarehouserecord_add";
+	}
+
+	/**
+	 * 上架
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws IOException
+	 */
+	@RequestMapping("/goShelves")
+	public String goShelves(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		SysUser sysUser = getCurrentSysUser();
+		Integer allianceId = sysUser.getAllianceId();
+		//编码
+		String no = DateHelper.getCurDateTime().replace("-", "").replace(":", "").replace(" ", "") + (int)((Math.random()*9+1)*10000);
+		//标题
+		AllianceBusiness business = allianceBusinessService.get(allianceId);
+		String title = business.getName() + "上架";
+		request.setAttribute("sysUser", sysUser);
+		request.setAttribute("no", no);
+		request.setAttribute("title", title);
+		return "back/shelf/shelf_add";
+	}
+	
+	/**
+	 * 下架
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws IOException
+	 */
+	@RequestMapping("/offShelf")
+	public String offShelf(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		SysUser sysUser = getCurrentSysUser();
+		Integer allianceId = sysUser.getAllianceId();
+		//编码
+		String no = DateHelper.getCurDateTime().replace("-", "").replace(":", "").replace(" ", "") + (int)((Math.random()*9+1)*10000);
+		//标题
+		AllianceBusiness business = allianceBusinessService.get(allianceId);
+		String title = business.getName() + "下架";
+		request.setAttribute("sysUser", sysUser);
+		request.setAttribute("no", no);
+		request.setAttribute("title", title);
+		return "back/shelf/offShelf";
+	}
+	
+	
+	 /**
+		 * 货架盘点
+		 * @param request
+		 * @param response
+		 * @return
+		 * @throws IOException
+		 */
+		@RequestMapping("/checkShelves")
+		public String checkShelves(HttpServletRequest request, HttpServletResponse response) throws IOException {
+			return "back/shelf/shelfProductCheck";
+		}
+		
+		/**
+		 * 报表----商品数据统计
+		 * @param request
+		 * @param response
+		 * @return
+		 * @throws IOException
+		 */
+		@RequestMapping("/productInfoReport")
+		public String productInfoReport(HttpServletRequest request, HttpServletResponse response) throws IOException {
+			return "back/report/productInfoReport";
+		}
+		
+		/**
+		 * 报表----商品销售报表
+		 * @param request
+		 * @param response
+		 * @return
+		 * @throws IOException
+		 */
+		@RequestMapping("/productSaleReport")
+		public String productSaleReport(HttpServletRequest request, HttpServletResponse response) throws IOException {
+			return "back/report/productSaleReport";
+		}
+		
+		/**
+		 * 报表----消费报表
+		 * @param request
+		 * @param response
+		 * @return
+		 * @throws IOException
+		 */
+		@RequestMapping("/consumerReport")
+		public String consumerReport(HttpServletRequest request, HttpServletResponse response) throws IOException {
+			return "back/report/consumerReport";
+		}
+>>>>>>> merge project
 }
