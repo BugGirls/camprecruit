@@ -18,6 +18,7 @@
         <link rel="stylesheet" href="assets/css/centermenu.css">
         <link rel="stylesheet" href="assets/css/loading.css"/>
 		<link rel="stylesheet" href="assets/css/my_cart.css">
+        <link rel="stylesheet" href="assets/css/loading.css">
         <script src="assets/js/echarts.min.js"></script>
         <style>
             body {
@@ -62,6 +63,9 @@
                 padding-left:20px;
                 font-size: 22px;
             }
+            [class*=am-u-]+[class*=am-u-]:last-child {
+                float: left;
+            }
         </style>
     </head>
 
@@ -87,16 +91,13 @@
 
         <div class="tpl-page-container tpl-page-header-fixed">
             <div class="tpl-portlet-components" style="margin-top: -20px;">
-                <!--<div class="am-u-sm-12 am-u-md-3">-->
-                    <!--<div class="am-form-group">-->
-                        <!--<button id="firstCategoryBtn" class="am-btn am-btn-default selectBtn" onclick="firstCategoryMenu()">选择大类</button>-->
-                    <!--</div>-->
-                <!--</div>-->
                 <div id="city" class="am-u-sm-12 am-u-md-3">
-                    <select class="prov selectType">
-                        <option>商品分类</option>
+                    <select id="firstType" class="prov selectType">
+
                     </select>
-                    <select class="city selectType" style="display: none;margin-top: 20px;margin-bottom: 20px;"></select>
+                    <select id="secondType" class="city selectType" style="display: none;margin-top: 20px;margin-bottom: 20px;">
+
+                    </select>
                 </div>
                 <div class="am-u-sm-12 am-u-md-3">
                     <div class="am-form-group">
@@ -105,7 +106,7 @@
                 </div>
                 <div class="am-u-sm-12 am-u-md-3">
                     <div class="am-form-group">
-                        <button id="priceOrderBtn" class="am-btn am-btn-default selectBtn">
+                        <button id="priceOrderBtn" onclick="loading()" class="am-btn am-btn-default selectBtn">
                             价格
                             <span class="am-icon-sort-alpha-asc"></span>
                         </button>
@@ -113,163 +114,26 @@
                 </div>
                 <div class="am-u-sm-12 am-u-md-3">
                     <div class="am-form-group">
-                        <button id="salesOrderBtn" class="am-btn am-btn-default selectBtn">
+                        <button id="salesOrderBtn" onclick="loading()" class="am-btn am-btn-default selectBtn">
                             销量
                             <span class="am-icon-sort-amount-desc"></span>
                         </button>
                     </div>
                 </div>
-                <!--<div class="am-u-sm-12 am-u-md-3" style="float: left;">-->
-                    <!--<div class="am-form-group">-->
-                        <!--<button id="secondCategoryBtn" class="am-btn am-btn-default selectBtn" onclick="scecondCategoryMenu()">选择小类</button>-->
-                    <!--</div>-->
-                <!--</div>-->
 
                 <hr data-am-widget="divider" style="" class="am-divider am-divider-dotted" />
-                <div class="am-u-sm-12 am-u-md-6">
-                    <div class="tpl-table-images-content">
-                        <a href="javascript:;" class="tpl-table-images-content-i" style="float: left;width: 100px;margin-right: 10px;margin-bottom: 10px;">
-                            <img src="assets/img/product01-1.jpeg" style="width: 100px">
-                        </a>
-                        <div class="tpl-table-images-content-block">
-                            <div id="productTitle" class="tpl-i-font" style="margin-top: -12px; font-size: 18px;">
-                                1
-                            </div>
-                            <div id="productSubTitle" class="tpl-i-font" style="padding-left: 10px;font-size: 14px;height: 50px;width: 430px;">
-                                夏装圆领韩版修身T恤短袖衫，包邮，白色
-                                夏装圆领韩版修身T恤短袖衫，包邮，白色
-                                
-                            </div>
-                            <div id="productPrice" class="tpl-i-font" style="padding-left: 10px;font-size: 18px;color: red;">
-                                ￥1
-                            </div>
-                            <hr style="width: 100%; padding: 0px;" />
-                            <div class="tpl-i-more" style="">
-                                    <span class="am-text-warning">累计销量：</span>
-                                    <span class="am-text-warning"> 100+</span>
-                                    <a href="productDetail.html" class="am-btn am-btn-secondary am-round" style="height: 40px;float: right;width: 140px;margin-left: 10px;">
-                                        <span class="am-icon-yelp"></span>
-                                        查看详情
-                                    </a>
-                                    <a href="#0" data-id="2" data-price="2" data-img="assets/img/product01-1.jpeg" data-name="1" class="am-btn am-btn-success am-round cd-add-to-cart" style="height: 40px;float: right;width: 140px;">
-                                        <span class="am-icon-shopping-cart"></span>
-                                        购买
-                                    </a>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
+                <div id="productItemDiv">
+
                 </div>
-                <div class="am-u-sm-12 am-u-md-6">
-                    <div class="tpl-table-images-content">
-                        <a href="javascript:;" class="tpl-table-images-content-i" style="float: left;width: 100px;margin-right: 10px;margin-bottom: 10px;">
-                            <img src="assets/img/product01-2.jpg" style="width: 100px">
-                        </a>
-                        <div class="tpl-table-images-content-block">
-                            <div id="productTitle" class="tpl-i-font" style="margin-top: -12px; font-size: 18px;">
-                                2
-                            </div>
-                            <div id="productSubTitle" class="tpl-i-font" style="padding-left: 10px;font-size: 14px;height: 50px;width: 430px;">
-                                夏装圆领韩版修身T恤短袖衫，包邮，白色
-                                夏装圆领韩版修身T恤短袖衫，包邮，白色
-                                
-                            </div>
-                            <div id="productPrice" class="tpl-i-font" style="padding-left: 10px;font-size: 18px;color: red;">
-                                ￥2
-                            </div>
-                            <hr style="width: 100%; padding: 0px;" />
-                            <div class="tpl-i-more" style="">
-                                    <span class="am-text-warning">累计销量：</span>
-                                    <span class="am-text-warning"> 100+</span>
-                                    <a class="am-btn am-btn-secondary am-round" style="height: 40px;float: right;width: 140px;margin-left: 10px;">
-                                        <span class="am-icon-yelp"></span>
-                                        查看详情
-                                    </a>
-                                    <a href="#0" data-id="3" data-price="3" data-img="assets/img/product01-2.jpg" data-name="2" class="am-btn am-btn-success am-round cd-add-to-cart" style="height: 40px;float: right;width: 140px;">
-                                        <span class="am-icon-shopping-cart"></span>
-                                        购买
-                                    </a>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="am-u-sm-12 am-u-md-6">
-                    <div class="tpl-table-images-content">
-                        <a href="javascript:;" class="tpl-table-images-content-i" style="float: left;width: 100px;margin-right: 10px;margin-bottom: 10px;">
-                            <img src="assets/img/product01-3.jpg" style="width: 100px">
-                        </a>
-                        <div class="tpl-table-images-content-block">
-                            <div id="productTitle" class="tpl-i-font" style="margin-top: -12px; font-size: 18px;">
-                                3
-                            </div>
-                            <div id="productSubTitle" class="tpl-i-font" style="padding-left: 10px;font-size: 14px;height: 50px;width: 430px;">
-                                夏装圆领韩版修身T恤短袖衫，包邮，白色
-                                夏装圆领韩版修身T恤短袖衫，包邮，白色
-                                
-                            </div>
-                            <div id="productPrice" class="tpl-i-font" style="padding-left: 10px;font-size: 18px;color: red;">
-                                ￥3
-                            </div>
-                            <hr style="width: 100%; padding: 0px;" />
-                            <div class="tpl-i-more" style="">
-                                    <span class="am-text-warning">累计销量：</span>
-                                    <span class="am-text-warning"> 100+</span>
-                                    <a class="am-btn am-btn-secondary am-round" style="height: 40px;float: right;width: 140px;margin-left: 10px;">
-                                        <span class="am-icon-yelp"></span>
-                                        查看详情
-                                    </a>
-                                    <a href="#0" data-id="6" data-price="6" data-img="assets/img/product01-3.jpg" data-name="3" class="am-btn am-btn-success am-round cd-add-to-cart" style="height: 40px;float: right;width: 140px;">
-                                        <span class="am-icon-shopping-cart"></span>
-                                        购买
-                                    </a>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="am-u-sm-12 am-u-md-6">
-                    <div class="tpl-table-images-content">
-                        <a href="javascript:;" class="tpl-table-images-content-i" style="float: left;width: 100px;margin-right: 10px;margin-bottom: 10px;">
-                            <img src="assets/img/product01-4.jpg" style="width: 100px">
-                        </a>
-                        <div class="tpl-table-images-content-block">
-                            <div id="productTitle" class="tpl-i-font" style="margin-top: -12px; font-size: 18px;">
-                                4
-                            </div>
-                            <div id="productSubTitle" class="tpl-i-font" style="padding-left: 10px;font-size: 14px;height: 50px;width: 430px;">
-                                夏装圆领韩版修身T恤短袖衫，包邮，白色
-                                夏装圆领韩版修身T恤短袖衫，包邮，白色
-                                
-                            </div>
-                            <div id="productPrice" class="tpl-i-font" style="padding-left: 10px;font-size: 18px;color: red;">
-                                ￥4
-                            </div>
-                            <hr style="width: 100%; padding: 0px;" />
-                            <div class="tpl-i-more" style="">
-                                    <span class="am-text-warning">累计销量：</span>
-                                    <span class="am-text-warning"> 100+</span>
-                                    <a class="am-btn am-btn-secondary am-round" style="height: 40px;float: right;width: 140px;margin-left: 10px;">
-                                        <span class="am-icon-yelp"></span>
-                                        查看详情
-                                    </a>
-                                    <a href="#0" data-id="7" data-price="7" data-img="assets/img/product01-4.jpg" data-name="4" class="am-btn am-btn-success am-round cd-add-to-cart" style="height: 40px;float: right;width: 140px;">
-                                        <span class="am-icon-shopping-cart"></span>
-                                        购买
-                                    </a>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+
                 <!--购物车-->
 				<div class="cd-cart-container empty">
-					<a href="#0" class="cd-cart-trigger">
+					<a href="#0" class="cd-cart-trigger" style="background: #fff">
 						Cart
-						<ul class="count"> <!-- cart items count -->
+						<ul class="count">
 							<li>0</li>
 							<li>0</li>
-						</ul> <!-- .count -->
+						</ul>
 					</a>
 					
 					<div class="cd-cart">
@@ -285,28 +149,18 @@
 								</ul>
 							</div>
 
-                            <footer style="width:100%">
-                                <a id="clearCart" style="line-height: 72px; height: 72px;float: left;text-align: center;display: block;width: 20%;
-    background-color: red;" href="#0" class="btn">清空购物车</a>
-                                <a style=" width: 85%;
-    display: block;" href="#0" class="checkout btn settle-account"><em>结算 - ￥<span>0</span></em></a>
+                            <footer style="width:100%;display: -webkit-box;display: -webkit-flex;display: -ms-flexbox;display: flex;align-items: center">
+                                <a id="clearCart" href="#0" class="btn" style="padding: 0 20px;font-size: 2.4rem;background-color: #eee;height: 72px;line-height: 72px;">清空购物车</a>
+                                <a href="#0" class="checkout btn settle-account" style="-webkit-box-flex: 1;-webkit-flex: 1;-ms-flex: 1;flex: 1;"><em>结算 - ￥<span>0</span></em></a>
                             </footer>
 						</div>
-					</div> <!-- .cd-cart -->
-				</div> <!-- cd-cart-container -->
+					</div>
+				</div>
                 <!--分页-->
                 <div class="am-u-lg-12">
                     <div class="am-cf">
-                        <div class="am-fr">
-                            <ul class="am-pagination tpl-pagination">
-                                <li class="am-disabled"><a href="#">«</a></li>
-                                <li class="am-active"><a href="#">1</a></li>
-                                <li><a href="#">2</a></li>
-                                <li><a href="#">3</a></li>
-                                <li><a href="#">4</a></li>
-                                <li><a href="#">5</a></li>
-                                <li><a href="#">»</a></li>
-                            </ul>
+                        <div class="am-fl" style="font-size: 18px;">
+                            <ul class="am-pagination tpl-pagination" id="pagination"></ul>
                         </div>
                     </div>
                     <hr>
@@ -320,9 +174,18 @@
         <script src="assets/js/toTop.js"></script>
         <script src="assets/js/jquery.cityselect.js"></script>
         <script src="assets/js/jquery.cookie.js"></script>
-		<!--<script src="assets/js/my_cart.js"></script>-->
+        <script src="assets/js/jqPaginator.min.js"></script>
+        <script src="assets/js/loading.js"></script>
         <script>
-            var progress = $.AMUI.progress;
+            var page = {
+                pageNum : 1,// 当前页
+                pageSize : 10,// 每页显示多少数据
+                moneyInterval : '',// 价格区间
+                price : '',// 价格排序
+                sales : '',// 销量排序
+                firstType : '',// 商品一级分类
+                secondType : ''// 商品二级分类
+            }
 
             // 购物车相关变量
             var cartWrapper = $('.cd-cart-container');
@@ -346,27 +209,31 @@
             });
             function onLoad() {
                 initPage();
+                addItems(page.pageNum, page.pageSize)
             }
             function initPage() {
-                progress.start();
+                // 添加加载特效
+                loading()
                 // 请求后台获取商品类别
                 $.ajax({
                     url : '/sys/productType/getProductTypeFe',
                     type : 'POST',
                     dataType:'json',
                     success : function(res) {
-                        progress.done();
-
                         // 数据组装
-                        var keyList = Object.keys(res)
                         var citylist = []
                         for(key in res){
                             var item = res[key]
-                            citylist.push({
-                                "p":key,
-                                "c":valueList(item)
+                            $.each(item, function(key1, value1) {
+                                citylist.push({
+                                    "p":key,
+                                    "p_v":key1,
+                                    "c":valueList(value1)
+                                })
                             })
+
                         }
+
                         // 初始化二级联动
                         $("#city").citySelect({
                             data:{
@@ -391,31 +258,119 @@
                         console.log(err);
                     }
                 });
+            }
+            function addItems(pageNum, pageSize) {
+                var formData = new FormData();
+                formData.append("pageNum", pageNum);
+                formData.append("pageSize", pageSize);
+                if (page.moneyInterval != '') {
+                    formData.append('moneyInterval', page.moneyInterval)
+                }
+                if (page.firstType != '') {
+                    formData.append('firstType', page.firstType)
+                }
+                if (page.secondType != '') {
+                    formData.append('secondType', page.secondType)
+                }
+                if (page.price != '') {
+                    formData.append('price', page.price)
+                } else if (page.sales != '') {
+                    formData.append('sales', page.sales)
+                }
 
+                $.ajax({
+                    url : '/sys/productShelf/get_product_shelf_fe',
+                    data : formData,
+                    type : 'POST',
+                    dataType:'json',
+                    contentType : false,
+                    processData : false,
+                    cache : false,
+                    success : function(res) {
+                        var productItemHtml = ''
+                        if (res.totalCount > 0) {
+                            var data = res.data
+                            $.each(res.data, function(index, item) {
+                                productItemHtml += '<div class="am-u-sm-12 am-u-md-6">' +
+                                        '<div class="tpl-table-images-content">' +
+                                            '<a href="javascript:;" class="tpl-table-images-content-i" style="float: left;width: 100px;margin-right: 10px;margin-bottom: 10px;">' +
+                                                '<img src="' + item.productImage + '" style="width: 100px">' +
+                                            '</a>' +
+                                            '<div class="tpl-table-images-content-block">' +
+                                                '<div id="productTitle" class="tpl-i-font" style="margin-top: -12px; font-size: 18px;"> ' + item.productName + ' </div>' +
+                                                '<div id="productSubTitle" class="tpl-i-font" style="padding-left: 10px;font-size: 14px;height: 50px;width: 430px;"> ' + item.productSubTitle + ' </div>' +
+                                                '<div id="productPrice" class="tpl-i-font" style="padding-left: 10px;font-size: 18px;color: red;"> ￥' + item.productPrice + ' </div>' +
+                                                '<hr style="width: 100%; padding: 0px;" />' +
+                                                '<div class="tpl-i-more">' +
+                                                    '<span class="am-text-warning">累计销量：</span>' +
+                                                    '<span class="am-text-warning"> ' + item.productSalesVolume + ' </span>' +
+                                                    '<a href="productDetail.html" class="am-btn am-btn-secondary am-round" style="height: 40px;float: right;width: 140px;margin-left: 10px;">' +
+                                                        '<span class="am-icon-yelp"></span> 查看详情' +
+                                                    '</a>' +
+                                                    '<a href="#0" data-no="' + item.productNo + '" data-price="' + item.productPrice + '" data-img="' + item.productImage + '" data-name="' + item.productName + '" class="am-btn am-btn-success am-round cd-add-to-cart" style="height: 40px;float: right;width: 140px;">' +
+                                                        '<span class="am-icon-shopping-cart"></span> 加入购物车' +
+                                                    '</a>' +
+                                                '</ul>' +
+                                            '</div>' +
+                                        '</div>' +
+                                    '</div>' +
+                                '</div>';
+                            })
+                        }
+                        $('#productItemDiv').html(productItemHtml)
+
+                        setTimeout(function () {
+                            loaded()
+                        }, 2000)
+
+                        loadPage(res.totalPage, res.pageNum, res.totalCount)
+                    },
+                    error : function(err) {
+                        console.log(err);
+                    }
+                })
             }
             function bindEvent() {
                 // 价格筛选
                 $('#priceOrderBtn').on('click', function() {
+                    page.sales = ''
                     var spanClass = $(this).children('span');
                     if (spanClass.attr('class') === 'am-icon-sort-alpha-desc') {
                         spanClass.attr('class', 'am-icon-sort-alpha-asc')
+                        page.price = 'asc'
                     } else {
                         spanClass.attr('class', 'am-icon-sort-alpha-desc')
+                        page.price = 'desc'
                     }
+                    addItems(page.pageNum, page.pageSize)
                 });
                 // 销量筛选
                 $('#salesOrderBtn').on('click', function() {
+                    page.price = ''
                     var spanClass = $(this).children('span');
                     if (spanClass.attr('class') === 'am-icon-sort-amount-desc') {
                         spanClass.attr('class', 'am-icon-sort-amount-asc')
+                        page.sales = 'asc'
                     } else {
                         spanClass.attr('class', 'am-icon-sort-amount-desc')
+                        page.sales = 'desc'
                     }
+                    addItems(page.pageNum, page.pageSize)
                 });
+                // 商品分类筛选
+                $('#firstType').on('change', function() {
+                    page.firstType = ($(this).val())
+                    page.secondType = ''
+                    addItems(page.pageNum, page.pageSize)
+                })
+                $('#secondType').on('change', function() {
+                    page.secondType = $(this).val()
+                    addItems(page.pageNum, page.pageSize)
+                })
 
                 // 购物车相关事件
                 // 添加商品到购物车
-                $('.cd-add-to-cart').on('click', function(event){
+                $('body').on('click','.cd-add-to-cart',function(event) {
                     event.preventDefault();
                     addToCart($(this));
                 });
@@ -451,17 +406,17 @@
                     $.cookie('cartList', JSON.stringify(oldCookieCartList), {expires: 1})
                 });
                 // 结算
-                $('.settle-account').on('click', function() {
+                $('body').on('click','.settle-account',function() {
                     var list = new Array()
                     $.each(cookieCartList, function(index, item) {
-                        list.push(item.id)
+                        list.push(item.no)
                     })
 
                     // 创建订单
                     $.ajax({
                         url : '/order/manager/create_order',
                         data : {
-                            productIdList : JSON.stringify(list)
+                            productNoList : JSON.stringify(list)
                         },
                         type : 'POST',
                         dataType:'json',
@@ -481,9 +436,11 @@
                     });
                 })
                 // 清空购物车
-                $('#clearCart').on('click', function() {
+                $('body').on('click','#clearCart',function() {
                     cartList.html('')
                     $.cookie('cartList', null)
+                    cookieCartList.length = 0
+                    oldCookieCartList.length = 0
                     quickUpdateCart()
                 })
             }
@@ -494,23 +451,16 @@
                     animateOut:'fadeOutDownBig-hastrans',
                     hasLineBorder:true,
                     duration:600,
-                    source:['不限', '1-100','100-500','500-1000','1000-5000','5000元以上'],
+                    source:['不限', '低于100','100-500','500-1000','1000-5000','5000元以上'],
                     liWidth:300,
                     liHeight:50,
                     click:function(ret){
                         $('#moneyIntervalBtn').html(ret.text);
-                        showMessage(ret.text);
+                        loading()
+                        page.moneyInterval = ret.text
+                        addItems(page.pageNum, page.pageSize)
                     }
                 });
-            }
-            function valueList(list) {
-                var arr = []
-                for(var i=0;i<list.length;i++){
-                    arr.push({
-                        'n':list[i].typeValue
-                    })
-                }
-                return arr
             }
 
             // 购物车相关方法
@@ -553,7 +503,7 @@
                 cartList.append(productAdded);
 
                 var data = {
-                    id : trigger.data('id'),
+                    no : trigger.data('no'),
                     imgUrl : imgUrl,
                     productName : productName,
                     productPrice : productPrice
@@ -677,40 +627,62 @@
                 $.cookie('cartList', JSON.stringify(list), {expires: time})
             }
 
-            // 创建大类（与小类创建成二级联动）
-            //            function firstCategoryMenu(){
-            //                // 显示弹窗
-            //                $('body').centermenu({
-            //                    animateIn:'fadeInDownBig-hastrans',
-            //                    animateOut:'fadeOutDownBig-hastrans',
-            //                    hasLineBorder:true,
-            //                    duration:600,
-            //                    source:global.parentType,
-            //                    liWidth:300,
-            //                    liHeight:50,
-            //                    click:function(ret){
-            //                        $('#firstCategoryBtn').html(ret.text);
-            //                        $('#secondCategoryBtn').html('所有');
-            //                    }
-            //                });
-            //            }
-            //            // 创建小类
-            //            function scecondCategoryMenu(){
-            //                $('body').centermenu({
-            //                    animateIn:'fadeInDownBig-hastrans',
-            //                    animateOut:'fadeOutDownBig-hastrans',
-            //                    hasLineBorder:true,
-            //                    duration:600,
-            //                    source:['所有', '面膜','洗面奶','卸妆水','口红','补水仪','洁面仪'],
-            //                    liWidth:300,
-            //                    liHeight:50,
-            //                    click:function(ret){
-            //                        $('#secondCategoryBtn').html(ret.text);
-            //                        showMessage(ret.text);
-            //                    }
-            //                });
-            //            }
+            // 加载分页信息（使用分页插件）
+            function loadPage(pages, pageNum, total) {
+                $.jqPaginator('#pagination', {
+                    totalPages: pages,
+                    visiblePages: 5,
+                    currentPage: pageNum,
+                    first: '<li class="first"><a href="javascript:;">首页</a></li>',
+                    prev: '<li class="prev"><a href="javascript:;">上一页</a></li>',
+                    next: '<li class="next"><a href="javascript:;">下一页</a></li>',
+                    last: '<li class="last"><a href="javascript:;">末页</a></li>',
+                    page: '<li class="page"><a href="javascript:;">{{page}}</a></li>',
+                    onPageChange: function (num, type) {
+                        $('#pagination').prepend('<li style="margin-right:20px;margin-left:20px;">总页数：' + pages + ' 页</li>');
+                        $('#pagination').prepend('<li>总条数：' + total + ' 条</li>');
+                        if (type == "change") {
+                            data.pageNum = num;
+                            addItems(num, data.pageSize);
+                            loadPage(pages);
+                        }
+                    }
+                });
+            }
 
+            // 加载进度提示
+            function loading() {
+                $('body').loading({
+                    loadingWidth:240,
+                    title:'请稍等!',
+                    name:'test',
+                    discription:'正在加载...',
+                    direction:'column',
+                    type:'origin',
+                    originBg:'#71EA71',
+                    originDivWidth:40,
+                    originDivHeight:40,
+                    originWidth:6,
+                    originHeight:6,
+                    smallLoading:false,
+                    loadingBg:'#389A81',
+                    loadingMaskBg:'rgba(123,122,222,0.2)'
+                });
+            }
+            function loaded() {
+                removeLoading('test');
+            }
+
+            function valueList(list) {
+                var arr = []
+                for(var i=0; i < list.length; i++){
+                    arr.push({
+                        'v':list[i].typeKey,
+                        'n':list[i].typeValue
+                    })
+                }
+                return arr
+            }
         </script>
     </body>
 </html>

@@ -7,6 +7,10 @@ import com.jeefw.dao.sys.ProductShelfDao;
 import com.jeefw.model.sys.ProductShelf;
 
 import core.dao.BaseDao;
+import org.springframework.util.StringUtils;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * 货架商品信息的数据持久层的实现类
@@ -58,6 +62,42 @@ public class ProductShelfDaoImpl extends BaseDao<ProductShelf> implements Produc
 		query.setParameter(0, num);
 		query.setParameter(1, onShelfId);
 		query.executeUpdate();
+	}
+
+	@Override
+	public List<ProductShelf> selectProductShelfByParam(ProductShelf productShelf) {
+		StringBuffer hql = new StringBuffer("from ProductShelf where 1=1 ");
+		if (!StringUtils.isEmpty(productShelf.get$eq_allianceId())) {
+			hql.append(" and allianceId = " + productShelf.get$eq_allianceId());
+		}
+		if (!StringUtils.isEmpty(productShelf.get$eq_bigCategoryNo())) {
+			hql.append(" and bigCategoryNo = '" + productShelf.get$eq_bigCategoryNo() + "'");
+		}
+		if (!StringUtils.isEmpty(productShelf.get$eq_smallCategoryNo())) {
+			hql.append(" and smallCategoryNo = '" + productShelf.get$eq_smallCategoryNo() + "'");
+		}
+		if (!StringUtils.isEmpty(productShelf.get$eq_minPrice()) && StringUtils.isEmpty(productShelf.get$eq_maxPrice())) {
+			hql.append(" and salePrice < " + productShelf.get$eq_minPrice());
+		}
+		if (!StringUtils.isEmpty(productShelf.get$eq_maxPrice()) && StringUtils.isEmpty(productShelf.get$eq_minPrice())) {
+			hql.append(" and salePrice > " + productShelf.get$eq_maxPrice());
+		}
+		if (!StringUtils.isEmpty(productShelf.get$eq_minPrice()) && !StringUtils.isEmpty(productShelf.get$eq_maxPrice())) {
+			hql.append(" and salePrice between " + productShelf.get$eq_minPrice() + " and " + productShelf.get$eq_maxPrice());
+		}
+		if (!StringUtils.isEmpty(productShelf.getSortedConditions())) {
+			hql.append(" order by ");
+			Map<String, String> sortMap = productShelf.getSortedConditions();
+			for (Map.Entry<String, String> entry : sortMap.entrySet()) {
+				hql.append(entry.getKey() + " " + entry.getValue() + ",");
+			}
+			hql = new StringBuffer(hql.substring(0, hql.length() - 1));
+		}
+
+		System.out.println(hql.toString());
+		Query query = this.getSession().createQuery(hql.toString());
+		List<ProductShelf> productShelfList = query.list();
+		return productShelfList;
 	}
 
 }

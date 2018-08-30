@@ -62,7 +62,7 @@ public class OrderMasterServiceImpl extends BaseService<OrderMaster> implements 
 
         // 1、查询商品（数量、价格）
         for (OrderDetail orderDetail : orderMasterDTO.getOrderDetailList()) {
-            ProductInfo productInfo = productInfoDao.getByProerties("id", orderDetail.getProductId());
+            ProductInfo productInfo = productInfoDao.getByProerties("no", orderDetail.getProductNo());
             if (productInfo == null) {
                 throw new Exception("商品不存在");
             }

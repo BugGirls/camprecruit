@@ -5,6 +5,8 @@ import com.jeefw.model.sys.ProductShelf;
 
 import core.dao.Dao;
 
+import java.util.List;
+
 /**
  * 货架商品信息的数据持久层的接口
  * @ 
@@ -21,4 +23,5 @@ public interface ProductShelfDao extends Dao<ProductShelf> {
 
 	void updateProductOnShelfNum(String onShelfId, Long num);
 
+	List<ProductShelf> selectProductShelfByParam(ProductShelf productShelf);
 }

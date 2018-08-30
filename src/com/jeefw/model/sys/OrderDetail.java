@@ -40,6 +40,9 @@ public class OrderDetail extends OrderDetailParameter {
     @Column(name = "product_id")
     private Long productId;
 
+    @Column(name = "product_no")
+    private String productNo;
+
     @Column(name = "product_name", length = 64)
     private String productName;
 
@@ -64,6 +67,14 @@ public class OrderDetail extends OrderDetailParameter {
     private Date updateTime;
 
     public OrderDetail() {
+    }
+
+    public String getProductNo() {
+        return productNo;
+    }
+
+    public void setProductNo(String productNo) {
+        this.productNo = productNo;
     }
 
     public String getDetailId() {

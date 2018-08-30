@@ -6,11 +6,13 @@ import com.jeefw.model.sys.WechatCard;
 import com.jeefw.model.sys.WechatMemberStores;
 import com.jeefw.service.sys.WechatCardService;
 import com.jeefw.service.sys.WechatMemberStoresService;
+import com.jeefw.service.sys.WechatQrcodePuttingCardService;
 import core.enums.CardColorEnum;
 import core.enums.CardShelfStatusEnum;
 import core.enums.CardTypeEnum;
 import core.util.*;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -27,7 +29,10 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 会员活动scan
+ * 会员活动
+ *
+ * 扫描识别（扫码识货）
+ * scan discern
  *
  * @author Hystar
  * @date 2018/8/14

@@ -9,11 +9,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <head>
     <base href="<%=basePath%>">
     
-<<<<<<< HEAD
     <title>无人超市云服务管理平台</title>
-=======
-    <title>云尚互联管理平台</title>
->>>>>>> merge project
     
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">

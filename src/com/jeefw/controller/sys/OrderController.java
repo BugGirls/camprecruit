@@ -36,30 +36,30 @@ public class OrderController extends JavaEEFrameworkBaseController implements Co
     /**
      * 创建订单
      *
-     * @param idLIst
+     * @param productNoList
      * @throws Exception
      */
     @RequestMapping(value = "/create_order", method = RequestMethod.POST)
     @ResponseBody
-    public Map<String, Object> createOrder(@RequestParam(value = "productIdList") String idLIst) throws Exception {
+    public Map<String, Object> createOrder(@RequestParam(value = "productNoList") String productNoList) throws Exception {
         Map<String, Object> resultMap = new HashMap<>(16);
         resultMap.put("success", false);
         Integer allianceId = getCurrentAllianceId();
 
-        if (StringUtils.isEmpty(idLIst)) {
+        if (StringUtils.isEmpty(productNoList)) {
             resultMap.put("msg", "购物车为空");
             return resultMap;
         }
 
-        List<Long> productIdList = GSON.toObject(idLIst, new TypeToken<List<Long>>() {
+        List<String> productIdList = GSON.toObject(productNoList, new TypeToken<List<String>>() {
         }.getType());
 
         OrderMasterDTO orderMasterDTO = new OrderMasterDTO();
         List<OrderDetail> orderDetailList = new ArrayList<>();
-        for (Long id : productIdList) {
+        for (String productNo : productIdList) {
             OrderDetail orderDetail = new OrderDetail();
             orderDetail.setProductQuantity(1);
-            orderDetail.setProductId(id);
+            orderDetail.setProductNo(productNo);
             orderDetailList.add(orderDetail);
         }
         orderMasterDTO.setOrderDetailList(orderDetailList);
@@ -71,7 +71,16 @@ public class OrderController extends JavaEEFrameworkBaseController implements Co
         return resultMap;
     }
 
-    public Map<String, Object> getOrderDetail(@RequestParam(value = "orderId") String orderId) {
+    /**
+     * 获取订单和订单详情信息
+     *
+     * @param orderId
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping(value = "get_order_detail", method = RequestMethod.POST)
+    @ResponseBody
+    public Map<String, Object> getOrderDetail(@RequestParam(value = "orderId") String orderId) throws Exception {
         Map<String, Object> resultMap = new HashMap<>();
         resultMap.put("success", false);
 
@@ -80,8 +89,10 @@ public class OrderController extends JavaEEFrameworkBaseController implements Co
             return resultMap;
         }
 
+        OrderMasterDTO orderMasterDTO = orderMasterService.getOrderDetail(orderId);
+        resultMap.put("success", true);
+        resultMap.put("orderMaster", orderMasterDTO);
 
-
-        return null;
+        return resultMap;
     }
 }

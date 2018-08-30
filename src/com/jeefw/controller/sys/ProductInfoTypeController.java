@@ -92,7 +92,9 @@ public class ProductInfoTypeController extends JavaEEFrameworkBaseController<Pro
             ProductInfoType type = (ProductInfoType) iterator.next();
             if (StringUtils.isBlank(type.getParentTypekey())) {
                 List<ProductInfoType> typeList = productInfoTypeService.queryByProerties("parentTypekey", type.getTypeKey());
-                resultMap.put(type.getTypeValue(), typeList);
+                Map<String, Object> map = new HashMap<>();
+                map.put(type.getTypeKey(), typeList);
+                resultMap.put(type.getTypeValue(), map);
             }
         }
 
@@ -100,6 +102,7 @@ public class ProductInfoTypeController extends JavaEEFrameworkBaseController<Pro
     }
 
     // 保存实体Bean
+    @Override
     @RequestMapping(value = "/saveProductType", method = {RequestMethod.POST, RequestMethod.GET})
     public void doSave(ProductInfoType entity, HttpServletRequest request, HttpServletResponse response) throws IOException {
         ExtJSBaseParameter parameter = ((ExtJSBaseParameter) entity);

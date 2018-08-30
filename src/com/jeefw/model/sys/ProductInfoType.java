@@ -17,6 +17,7 @@ import com.jeefw.model.sys.param.ProductInfoTypeParameter;
  * 商品分类实体类（大类、小类）
  * @ 
  */
+@Entity
 @Table(name = "productinfo_type")
 @Cache(region = "all", usage = CacheConcurrencyStrategy.READ_WRITE)
 @JsonIgnoreProperties(value = { "maxResults", "firstResult", "topCount", "sortColumns", "cmd", "queryDynamicConditions", "sortedConditions", "dynamicProperties", "success", "message", "sortColumnsString", "flag" })

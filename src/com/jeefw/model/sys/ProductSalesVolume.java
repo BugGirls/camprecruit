@@ -29,8 +29,14 @@ public class ProductSalesVolume extends ProductSalesVolumeParameter {
     /**
      * 商品ID
      */
-    @Column(name = "product_id", nullable = false)
+    @Column(name = "product_id")
     private Long productId;
+
+    /**
+     * 商品编号
+     */
+    @Column(name = "product_no", nullable = false)
+    private String productNo;
 
     /**
      * 所属加盟商
@@ -74,5 +80,13 @@ public class ProductSalesVolume extends ProductSalesVolumeParameter {
 
     public void setSalesQuantity(Integer salesQuantity) {
         this.salesQuantity = salesQuantity;
+    }
+
+    public String getProductNo() {
+        return productNo;
+    }
+
+    public void setProductNo(String productNo) {
+        this.productNo = productNo;
     }
 }

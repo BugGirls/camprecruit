@@ -29,6 +29,7 @@ public class ProductShelfServiceImpl extends BaseService<ProductShelf> implement
 		this.dao = productShelfDao;
 	}
 
+	@Override
 	public List<ProductShelf> queryProductShelfWithSubList(List<ProductShelf> resultList) {
 		List<ProductShelf> dictList = new ArrayList<ProductShelf>();
 		for (ProductShelf entity : resultList) {
@@ -83,6 +84,15 @@ public class ProductShelfServiceImpl extends BaseService<ProductShelf> implement
 	@Override
 	public void updateProductOnShelfNum(String onShelfId, Long num) {
 		productShelfDao.updateProductOnShelfNum(onShelfId,num);
+	}
+
+	@Override
+	public List<ProductShelf> selectProductShelfByParam(ProductShelf productShelf) {
+		if (productShelf == null) {
+			return null;
+		}
+
+		return productShelfDao.selectProductShelfByParam(productShelf);
 	}
 
 }

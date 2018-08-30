@@ -18,5 +18,7 @@ public interface ProductShelfService extends Service<ProductShelf> {
 	ProductWarehouseCount doCountProductWarehouse(Integer allianceId);
 
 	void updateProductOnShelfNum(String onShelfId, Long num);
+
+	List<ProductShelf> selectProductShelfByParam(ProductShelf productShelf);
  
 }

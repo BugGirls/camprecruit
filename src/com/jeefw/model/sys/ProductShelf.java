@@ -36,6 +36,9 @@ public class ProductShelf extends ProductShelfParameter {
 	@GeneratedValue
 	@Column(name = "id")
 	private Long id;//ID
+
+	@Column(name = "alliance_id")
+	private String allianceId;//所属加盟商公司
 	
 	// 各个字段的含义请查阅文档的数据库结构部分
 	@Column(name = "intoWarehouseRecord_no", length = 50)
@@ -52,6 +55,12 @@ public class ProductShelf extends ProductShelfParameter {
 	
 	@Column(name = "product_name", length = 50)
 	private String productName;//商品名称
+
+	/**
+	 * 商品副标题
+	 */
+	@Column(name = "product_sub_title", length = 255)
+	private String productSubTitle;
 	
 	@Column(name = "product_barCode", length = 50)
 	private String productBarCode;//商品条形码编码
@@ -102,9 +111,6 @@ public class ProductShelf extends ProductShelfParameter {
 	@Temporal(TemporalType.TIMESTAMP) 
 	private Date productionDate;//生产日期
 	
-	@Column(name = "alliance_id")
-	private String allianceId;//所属加盟商公司
-	
 	@Column(name = "groundDate")
 	@Temporal(TemporalType.TIMESTAMP) 
 	private Date groundDate;//上架日期
@@ -114,8 +120,22 @@ public class ProductShelf extends ProductShelfParameter {
 	
 	@Column(name = "createrNo", length = 255 )
 	private String createrNo;//操作人员工号
-	
+
+	/**
+	 * 商品销量
+	 */
+	@Column(name = "sales_volume")
+	private Integer salesVolume;
+
 	private ProductInfo productInfo;
+
+	public Integer getSalesVolume() {
+		return salesVolume;
+	}
+
+	public void setSalesVolume(Integer salesVolume) {
+		this.salesVolume = salesVolume;
+	}
 
 	public Long getId() {
 		return id;
@@ -131,6 +151,14 @@ public class ProductShelf extends ProductShelfParameter {
 
 	public void setIntoWarehouseRecordNo(String intoWarehouseRecordNo) {
 		this.intoWarehouseRecordNo = intoWarehouseRecordNo;
+	}
+
+	public String getProductSubTitle() {
+		return productSubTitle;
+	}
+
+	public void setProductSubTitle(String productSubTitle) {
+		this.productSubTitle = productSubTitle;
 	}
 
 	public String getProductNo() {

@@ -291,8 +291,6 @@ Main Components
   text-align: center;
   font-size: 1.8rem;
   font-weight: 600;
-  -webkit-transition: all .2s 0s;
-  transition: all .2s 0s;
 }
 .cd-cart .checkout:hover {
   background: #399ee0;
@@ -300,29 +298,15 @@ Main Components
 .cd-cart .checkout em {
   position: relative;
   display: inline-block;
-  -webkit-transform: translateX(40px);
-      -ms-transform: translateX(40px);
-          transform: translateX(40px);
-  -webkit-transition: -webkit-transform 0s .2s;
-  transition: -webkit-transform 0s .2s;
-  transition: transform 0s .2s;
-  transition: transform 0s .2s, -webkit-transform 0s .2s;
 }
 .cd-cart .checkout em::after {
   position: absolute;
   top: 50%;
   bottom: auto;
-  -webkit-transform: translateY(-50%);
-      -ms-transform: translateY(-50%);
-          transform: translateY(-50%);
   right: 0;
   content: '';
   height: 24px;
   width: 24px;
-  background: url(../img/cd-icon-arrow-next.svg) no-repeat center center;
-  opacity: 0;
-  -webkit-transition: opacity .2s;
-  transition: opacity .2s;
 }
 .cd-cart .body {
   position: relative;
@@ -548,9 +532,6 @@ Main Components
   transition: padding .2s 0s, -webkit-transform .2s .3s;
   transition: transform .2s .3s, padding .2s 0s;
   transition: transform .2s .3s, padding .2s 0s, -webkit-transform .2s .3s;
-}
-.cart-open .cd-cart .checkout:hover em {
-  padding-right: 30px;
 }
 .cart-open .cd-cart .checkout:hover em::after {
   opacity: 1;

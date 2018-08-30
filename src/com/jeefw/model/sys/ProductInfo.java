@@ -20,7 +20,7 @@ import com.jeefw.model.sys.param.ProductInfoParameter;
  *
  */
 @Entity
-@Table(name = "productInfo")
+@Table(name = "productinfo")
 @Cache(region = "all", usage = CacheConcurrencyStrategy.READ_WRITE)
 @JsonIgnoreProperties(value = { "maxResults", "firstResult", "topCount", "sortColumns", "cmd", "queryDynamicConditions", "sortedConditions", "dynamicProperties", "success", "message", "sortColumnsString", "flag" })
 public class ProductInfo extends ProductInfoParameter {
