@@ -17,6 +17,7 @@
         <link rel="stylesheet" href="assets/css/app.css">
         <link rel="stylesheet" href="assets/css/swiper.min.css">
         <link rel="stylesheet" href="assets/css/my_cart.css">
+        <link rel="stylesheet" href="assets/css/loading.css">
         <script src="assets/js/echarts.min.js"></script>
         <style>
             body {
@@ -133,7 +134,7 @@
 
                 <!--购物车-->
                 <div class="cd-cart-container empty">
-                    <a href="#0" class="cd-cart-trigger">
+                    <a href="#0" class="cd-cart-trigger" style="background: #fff">
                         Cart
                         <ul class="count">
                             <li>0</li>
@@ -148,15 +149,15 @@
                                 <span class="undo" style="font-size: 22px;"><a href="#0">撤回</a></span>
                             </header>
 
-                            <div class="body">
+                            <div class="body" style="margin: 48px 8px 29px;">
                                 <ul>
                                     <!-- products added to the cart will be inserted here using JavaScript -->
                                 </ul>
                             </div>
 
-                            <footer style="width:100%">
-                                <a id="clearCart" href="#0" class="btn">清空购物车</a>
-                                <a href="#0" class="checkout btn settle-account"><em>结算 - ￥<span>0</span></em></a>
+                            <footer style="width:100%;display: -webkit-box;display: -webkit-flex;display: -ms-flexbox;display: flex;align-items: center">
+                                <a id="clearCart" href="#0" class="btn" style="padding: 0 20px;font-size: 2.4rem;background-color: #eee;height: 72px;line-height: 72px;">清空购物车</a>
+                                <a href="#0" class="checkout btn settle-account" style="-webkit-box-flex: 1;-webkit-flex: 1;-ms-flex: 1;flex: 1;"><em>结算 - ￥<span>0</span></em></a>
                             </footer>
                         </div>
                     </div>
@@ -169,6 +170,7 @@
         <script src="assets/js/jquery.cookie.js"></script>
         <script src="assets/js/swiper.min.js"></script>
         <script src="assets/js/toast.js"></script>
+        <script src="assets/js/loading.js"></script>
         <script>
             // swiper
             var swiper = new Swiper('.swiper-container');
@@ -208,7 +210,7 @@
             function bindEvent() {
                 // 购物车相关事件
                 // 添加商品到购物车
-                $('.cd-add-to-cart').on('click', function(event){
+                $('body').on('click','.cd-add-to-cart',function(event) {
                     event.preventDefault();
                     addToCart($(this));
                 });
@@ -244,7 +246,7 @@
                     $.cookie('cartList', JSON.stringify(oldCookieCartList), {expires: 1})
                 });
                 // 结算
-                $('.settle-account').on('click', function() {
+                $('body').on('click','.settle-account',function() {
                     var list = new Array()
                     $.each(cookieCartList, function(index, item) {
                         list.push(item.id)
@@ -445,6 +447,29 @@
                 oldCookieCartList = cookieCartList
                 cookieCartList = list
                 $.cookie('cartList', JSON.stringify(list), {expires: time})
+            }
+
+            // 加载进度提示
+            function loading() {
+                $('body').loading({
+                    loadingWidth:240,
+                    title:'请稍等!',
+                    name:'test',
+                    discription:'正在加载...',
+                    direction:'column',
+                    type:'origin',
+                    originBg:'#71EA71',
+                    originDivWidth:40,
+                    originDivHeight:40,
+                    originWidth:6,
+                    originHeight:6,
+                    smallLoading:false,
+                    loadingBg:'#389A81',
+                    loadingMaskBg:'rgba(123,122,222,0.2)'
+                });
+            }
+            function loaded() {
+                removeLoading('test');
             }
         </script>
     </body>

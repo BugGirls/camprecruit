@@ -56,7 +56,7 @@ public class PayServiceImpl implements PayService {
         paramMap.put("nonce_str", WechatPayUtil.getRandomStr());
         paramMap.put("body", Const.ORDER_NAME + orderMasterDTO.getOrderId());
         paramMap.put("out_trade_no", orderMasterDTO.getOrderId());
-        paramMap.put("total_fee", String.valueOf(BigDecimalUtil.mul(orderMasterDTO.getAmount().doubleValue(), new Double(100).doubleValue())));
+        paramMap.put("total_fee", String.valueOf(BigDecimalUtil.mul(orderMasterDTO.getAmount().doubleValue(), new Double(100).doubleValue()).intValue()));
         paramMap.put("spbill_create_ip", "1.1.1.1");
         paramMap.put("auth_code", orderMasterDTO.getAuthCode());
 

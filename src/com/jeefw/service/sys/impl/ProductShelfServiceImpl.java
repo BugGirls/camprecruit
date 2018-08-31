@@ -5,6 +5,8 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import core.support.QueryResult;
+import org.hibernate.Query;
 import org.springframework.stereotype.Service;
 
 import com.jeefw.dao.sys.ProductShelfDao;
@@ -13,6 +15,7 @@ import com.jeefw.model.sys.ProductWarehouseCount;
 import com.jeefw.service.sys.ProductShelfService;
 
 import core.service.BaseService;
+import org.springframework.util.StringUtils;
 
 /**
  * 货架商品类型的业务逻辑层的实现
@@ -87,12 +90,13 @@ public class ProductShelfServiceImpl extends BaseService<ProductShelf> implement
 	}
 
 	@Override
-	public List<ProductShelf> selectProductShelfByParam(ProductShelf productShelf) {
+	public QueryResult selectProductShelfByParam(ProductShelf productShelf) {
 		if (productShelf == null) {
 			return null;
 		}
 
 		return productShelfDao.selectProductShelfByParam(productShelf);
 	}
+
 
 }

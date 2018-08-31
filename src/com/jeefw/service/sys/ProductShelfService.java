@@ -6,6 +6,7 @@ import com.jeefw.model.sys.ProductShelf;
 import com.jeefw.model.sys.ProductWarehouseCount;
 
 import core.service.Service;
+import core.support.QueryResult;
 
 /**
  * 货架商品信息的业务逻辑层的接口
@@ -19,6 +20,7 @@ public interface ProductShelfService extends Service<ProductShelf> {
 
 	void updateProductOnShelfNum(String onShelfId, Long num);
 
-	List<ProductShelf> selectProductShelfByParam(ProductShelf productShelf);
- 
+	QueryResult selectProductShelfByParam(ProductShelf productShelf);
+
+
 }

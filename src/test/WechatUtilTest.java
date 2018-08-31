@@ -1,6 +1,7 @@
 package test;
 
 import com.jeefw.model.sys.WechatCard;
+import com.jeefw.model.sys.WechatPoi;
 import com.jeefw.model.sys.bo.CardMessage;
 import core.enums.*;
 import core.util.GSON;
@@ -199,5 +200,32 @@ public class WechatUtilTest {
 
         Map<String, String> resultMap = WechatUtil.createMemberCard(wechatMemberCard);
         System.out.println(GSON.toJson(resultMap));
+    }
+
+    @Test
+    public void createPoiTest() throws Exception {
+        WechatUtil.getAccessToken();
+
+        WechatPoi wechatPoi = new WechatPoi();
+        wechatPoi.setBusinessName("林鹏互联门店");
+        wechatPoi.setBranchName("dianxia");
+        wechatPoi.setProvince("河南省");
+        wechatPoi.setCity("郑州市");
+        wechatPoi.setDistrict("金水区");
+        wechatPoi.setAddress("纬一路2号");
+        wechatPoi.setTelephone("123456");
+        wechatPoi.setCategories("美食");
+        wechatPoi.setOffsetType(1);
+        wechatPoi.setLongitude(new Double(1));
+        wechatPoi.setLatitude(new Double(2));
+        wechatPoi.setPhotoUrls("http://mmbiz.qpic.cn/mmbiz_png/aSkJWiaqY35TXXx4e7njVnbMqnsaTdvjt8iaCHnfm2COQNwWJCsJlib6dnMdRKL3StnvzLyT9sEfNmYOZ776ibouHA/0");
+        wechatPoi.setRecommend("景点为推荐游玩景点");
+        wechatPoi.setSpecial("免费wifi");
+        wechatPoi.setIntroduction("商户简介");
+        wechatPoi.setOpenTime("8:00-20:00");
+        wechatPoi.setAvgPrice(50);
+
+        Map<String, String> map = WechatUtil.createPoi(wechatPoi);
+        System.out.println(GSON.toJson(map));
     }
 }

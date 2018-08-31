@@ -15,9 +15,9 @@
         <link rel="stylesheet" href="assets/css/amazeui.min.css" />
         <link rel="stylesheet" href="assets/css/admin.css">
         <link rel="stylesheet" href="assets/css/app.css">
-        <link href="assets/css/topStyle.css" rel="stylesheet" type="text/css"/>
-        <link href="assets/css/simplegrid.css" rel="stylesheet" type="text/css"/>
-        <script src="assets/js/echarts.min.js"></script>
+        <link rel="stylesheet" href="assets/css/topStyle.css"/>
+        <link rel="stylesheet" href="assets/css/simplegrid.css"/>
+        <link rel="stylesheet" href="assets/css/loading.css">
         <style>
             body {
                 background-color: #eee
@@ -93,79 +93,8 @@
                                 </svg>
                             </div>
                             <div class="ques-card-title ques-card-title-top">服装销售排行榜</div>
-                            <ul class="ques-card-list">
-                                <li class="ques-card-list-noe">
-                                    <a href="productDetail.html">
-                                        <div class="ques-list-box clearfix">
-                                            <div class="ques-list-head">
-                                                <div class="ques-list-image">
-                                                    <img src="assets/img/product01-1.jpeg">
-                                                </div>
-                                            </div>
-                                            <div class="ques-list-name">
-                                                <div class="ques-list-name-head" style="color: #ec7600; line-height: 27px;font-size: 20px;font-style: italic;"> NO1：2018夏季新款女装时尚长裙学生条纹</div>
-                                                <div class="ques-list-name-text"> 累计销量：100+</div>
-                                            </div>
-                                            <span class="ques-list-name-icon item-icon001">1</span>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li class="ques-card-list-two">
-                                    <div class="ques-list-box clearfix">
-                                        <div class="ques-list-head">
-                                            <div class="ques-list-image">
-                                                <img src="assets/img/product01-2.jpg" alt="">
-                                            </div>
-                                        </div>
-                                        <div class="ques-list-name">
-                                            <div class="ques-list-name-head" style="color: #f0bd0f; line-height: 27px;font-size: 20px;font-style: italic;"> NO2：2018夏季新款女装时尚长裙学生条纹</div>
-                                            <div class="ques-list-name-text"> 累计销量：465</div>
-                                        </div>
-                                        <span class="ques-list-name-icon item-icon002">2</span>
-                                    </div>
-                                </li>
-                                <li class="ques-card-list-three">
-                                    <div class="ques-list-box clearfix">
-                                        <div class="ques-list-head">
-                                            <div class="ques-list-image">
-                                                <img src="assets/img/product02.jpg" alt="">
-                                            </div>
-                                        </div>
-                                        <div class="ques-list-name">
-                                            <div class="ques-list-name-head" style="color: #1e8eff; line-height: 27px;font-size: 20px;font-style: italic;">NO3：夏装圆领韩版修身T恤短袖衫</div>
-                                            <div class="ques-list-name-text"> 累计销量：5984</div>
-                                        </div>
-                                        <span class="ques-list-name-icon item-icon003">3</span>
-                                    </div>
-                                </li>
-                                <li class="">
-                                    <div class="ques-list-box clearfix">
-                                        <div class="ques-list-head">
-                                            <div class="ques-list-image">
-                                                <img src="assets/img/product01-3.jpg" alt="">
-                                            </div>
-                                        </div>
-                                        <div class="ques-list-name">
-                                            <div class="ques-list-name-head" style="line-height: 27px;font-size: 18px;">夏装女连衣裙</div>
-                                            <div class="ques-list-name-text"> 累计销量：4787</div>
-                                        </div>
-                                        <span class="ques-list-name-icon item-icon004">4</span>
-                                    </div>
-                                </li>
-                                <li class="">
-                                    <div class="ques-list-box clearfix">
-                                        <div class="ques-list-head">
-                                            <div class="ques-list-image">
-                                                <img src="assets/img/product03.jpg" alt="">
-                                            </div>
-                                        </div>
-                                        <div class="ques-list-name">
-                                            <div class="ques-list-name-head" style="line-height: 27px;font-size: 18px;">斑马裙</div>
-                                            <div class="ques-list-name-text"> 累计销量：8789</div>
-                                        </div>
-                                        <span class="ques-list-name-icon item-icon004">5</span>
-                                    </div>
-                                </li>
+                            <ul class="ques-card-list" id="top1UL">
+
                             </ul>
                         </div>
                     </div>
@@ -193,85 +122,225 @@
                                     <use xlink:href="#eff" opacity="1" style="mix-blend-mode:normal;"></use>
                                 </svg>
                             </div>
-                            <div class="ques-card-title ques-card-title-top">化妆品销售排行</div>
-                            <ul class="ques-card-list">
-                                <li class="ques-card-list-noe">
-                                    <div class="ques-list-box clearfix">
-                                        <div class="ques-list-head">
-                                            <div class="ques-list-image">
-                                                <img src="assets/img/cosmetics1.jpg" alt="">
-                                            </div>
-                                        </div>
-                                        <div class="ques-list-name">
-                                            <div class="ques-list-name-head" style="color: #ec7600; line-height: 27px;font-size: 20px;font-style: italic;"> NO1：化妆品背景</div>
-                                            <div class="ques-list-name-text"> 累计销量：7841</div>
-                                        </div>
-                                        <span class="ques-list-name-icon item-icon001">1</span>
-                                    </div>
-                                </li>
-                                <li class="ques-card-list-two">
-                                    <div class="ques-list-box clearfix">
-                                        <div class="ques-list-head">
-                                            <div class="ques-list-image">
-                                                <img src="assets/img/cosmetics2.jpg" alt="">
-                                            </div>
-                                        </div>
-                                        <div class="ques-list-name">
-                                            <div class="ques-list-name-head" style="color: #f0bd0f; line-height: 27px;font-size: 20px;font-style: italic;"> NO2：淘宝化妆品薰衣草纯露</div>
-                                            <div class="ques-list-name-text"> 累计销量：4234</div>
-                                        </div>
-                                        <span class="ques-list-name-icon item-icon002">2</span>
-                                    </div>
-                                </li>
-                                <li class="ques-card-list-three">
-                                    <div class="ques-list-box clearfix">
-                                        <div class="ques-list-head">
-                                            <div class="ques-list-image">
-                                                <img src="assets/img/cosmetics3.jpg" alt="">
-                                            </div>
-                                        </div>
-                                        <div class="ques-list-name">
-                                            <div class="ques-list-name-head" style="color: #1e8eff; line-height: 27px;font-size: 20px;font-style: italic;"> NO3：法国化妆品清关代理</div>
-                                            <div class="ques-list-name-text"> 累计销量：1223</div>
-                                        </div>
-                                        <span class="ques-list-name-icon item-icon003">3</span>
-                                    </div>
-                                </li>
-                                <li class="">
-                                    <div class="ques-list-box clearfix">
-                                        <div class="ques-list-head">
-                                            <div class="ques-list-image">
-                                                <img src="assets/img/cosmetics4.jpg" alt="">
-                                            </div>
-                                        </div>
-                                        <div class="ques-list-name">
-                                            <div class="ques-list-name-head" style="line-height: 27px;font-size: 18px;"> 创意化妆品广告图片psd素材</div>
-                                            <div class="ques-list-name-text"> 累计销量：452</div>
-                                        </div>
-                                        <span class="ques-list-name-icon item-icon004">4</span>
-                                    </div>
-                                </li>
-                                <li class="">
-                                    <div class="ques-list-box clearfix">
-                                        <div class="ques-list-head">
-                                            <div class="ques-list-image">
-                                                <img src="assets/img/cosmetics5.jpg" alt="">
-                                            </div>
-                                        </div>
-                                        <div class="ques-list-name">
-                                            <div class="ques-list-name-head" style="line-height: 27px;font-size: 18px;"> 一款蓝色系时尚女士化妆品海报设计素材</div>
-                                            <div class="ques-list-name-text"> 累计销量：145</div>
-                                        </div>
-                                        <span class="ques-list-name-icon item-icon005">5</span>
-                                    </div>
-                                </li>
+                            <div class="ques-card-title ques-card-title-top">奶类销售排行</div>
+                            <ul class="ques-card-list" id="top2UL">
+
                             </ul>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+        <script src="assets/js/jquery.min.js"></script>
+        <script src="assets/js/amazeui.min.js"></script>
+        <script src="assets/js/toast.js"></script>
+        <script src="assets/js/centermenu.js"></script>
+        <script src="assets/js/toTop.js"></script>
+        <script src="assets/js/loading.js"></script>
+        <script>
+            $(function() {
+                // top榜配置：top数量、top类型
+                initPage()
+            });
+            function initPage() {
+                loading()
+                var productTypeList = []
+                productTypeList.push('YIZHUANG')
+                productTypeList.push('NAILEI')
+
+                $.ajax({
+                    url : '/sys/productShelf/get_product_shelf_top_fe',
+                    data : {
+                        productTypeList : JSON.stringify(productTypeList)
+                    },
+                    type : 'POST',
+                    dataType:'json',
+                    success : function(res) {
+                        console.log(res.YIZHUANG)
+
+                        if (res.success) {
+                            var top1Html = ''
+                            var top2Html = ''
+
+                            $.each(res.YIZHUANG, function(index, item) {
+                                if (index == 0) {
+                                    top1Html += '<li class="ques-card-list-noe">' +
+                                            '<a href="productDetail.html?productNo=' + item.productNo + '">' +
+                                            '<div class="ques-list-box clearfix">' +
+                                            '<div class="ques-list-head">' +
+                                            '<div class="ques-list-image">' +
+                                            '<img src="' + item.image + '">' +
+                                            '</div>' +
+                                            '</div>' +
+                                            '<div class="ques-list-name">' +
+                                            '<div class="ques-list-name-head" style="color: #ec7600; line-height: 27px;font-size: 20px;font-style: italic;"> NO1：' + item.productName + '</div>' +
+                                            '<div class="ques-list-name-text"> 累计销量：' + item.salesVolume + '</div>' +
+                                            '</div>' +
+                                            '<span class="ques-list-name-icon item-icon00' + (index + 1) + '">' + (index + 1) + '</span>' +
+                                            '</div>' +
+                                            '</a>' +
+                                            '</li>'
+                                } else if (index == 1) {
+                                    top1Html += '<li class="ques-card-list-two">' +
+                                            '<a href="productDetail.html?productNo=' + item.productNo + '">' +
+                                            '<div class="ques-list-box clearfix">' +
+                                            '<div class="ques-list-head">' +
+                                            '<div class="ques-list-image">' +
+                                            '<img src="' + item.image + '">' +
+                                            '</div>' +
+                                            '</div>' +
+                                            '<div class="ques-list-name">' +
+                                            '<div class="ques-list-name-head" style="color: #f0bd0f; line-height: 27px;font-size: 20px;font-style: italic;"> NO2：' + item.productName + '</div>' +
+                                            '<div class="ques-list-name-text"> 累计销量：' + item.salesVolume + '</div>' +
+                                            '</div>' +
+                                            '<span class="ques-list-name-icon item-icon00' + (index + 1) + '">' + (index + 1) + '</span>' +
+                                            '</div>' +
+                                            '</a>' +
+                                            '</li>'
+                                } else if (index == 2) {
+                                    top1Html += '<li class="ques-card-list-three">' +
+                                            '<a href="productDetail.html?productNo=' + item.productNo + '">' +
+                                            '<div class="ques-list-box clearfix">' +
+                                            '<div class="ques-list-head">' +
+                                            '<div class="ques-list-image">' +
+                                            '<img src="' + item.image + '">' +
+                                            '</div>' +
+                                            '</div>' +
+                                            '<div class="ques-list-name">' +
+                                            '<div class="ques-list-name-head" style="color: #1e8eff; line-height: 27px;font-size: 20px;font-style: italic;">NO3：' + item.productName + '</div>' +
+                                            '<div class="ques-list-name-text"> 累计销量：' + item.salesVolume + '</div>' +
+                                            '</div>' +
+                                            '<span class="ques-list-name-icon item-icon00' + (index + 1) + '">' + (index + 1) + '</span>' +
+                                            '</div>' +
+                                            '</a>' +
+                                            '</li>'
+                                } else {
+                                    top1Html += '<li class="">' +
+                                            '<a href="productDetail.html?productNo=' + item.productNo + '">' +
+                                            '<div class="ques-list-box clearfix">' +
+                                            '<div class="ques-list-head">' +
+                                            '<div class="ques-list-image">' +
+                                            '<img src="' + item.image + '" alt="">' +
+                                            '</div>' +
+                                            '</div>' +
+                                            '<div class="ques-list-name">' +
+                                            '<div class="ques-list-name-head" style="line-height: 27px;font-size: 18px;">' + item.productName +' </div>' +
+                                            '<div class="ques-list-name-text"> 累计销量：' + item.salesVolume + '</div>' +
+                                            '</div>' +
+                                            '<span class="ques-list-name-icon item-icon00' + (index + 1) + '">' + (index + 1) + '</span>' +
+                                            '</div>' +
+                                            '</a>' +
+                                            '</li>'
+                                }
+                                $('#top1UL').html(top1Html)
+                            })
+
+                            $.each(res.NAILEI, function(index, item) {
+                                if (index == 0) {
+                                    top2Html += '<li class="ques-card-list-noe">' +
+                                            '<a href="productDetail.html?productNo=' + item.productNo + '">' +
+                                            '<div class="ques-list-box clearfix">' +
+                                            '<div class="ques-list-head">' +
+                                            '<div class="ques-list-image">' +
+                                            '<img src="' + item.image + '">' +
+                                            '</div>' +
+                                            '</div>' +
+                                            '<div class="ques-list-name">' +
+                                            '<div class="ques-list-name-head" style="color: #ec7600; line-height: 27px;font-size: 20px;font-style: italic;"> NO1：' + item.productName + '</div>' +
+                                            '<div class="ques-list-name-text"> 累计销量：' + item.salesVolume + '</div>' +
+                                            '</div>' +
+                                            '<span class="ques-list-name-icon item-icon00' + (index + 1) + '">' + (index + 1) + '</span>' +
+                                            '</div>' +
+                                            '</a>' +
+                                            '</li>'
+                                } else if (index == 1) {
+                                    top2Html += '<li class="ques-card-list-two">' +
+                                            '<a href="productDetail.html?productNo=' + item.productNo + '">' +
+                                            '<div class="ques-list-box clearfix">' +
+                                            '<div class="ques-list-head">' +
+                                            '<div class="ques-list-image">' +
+                                            '<img src="' + item.image + '">' +
+                                            '</div>' +
+                                            '</div>' +
+                                            '<div class="ques-list-name">' +
+                                            '<div class="ques-list-name-head" style="color: #f0bd0f; line-height: 27px;font-size: 20px;font-style: italic;"> NO2：' + item.productName + '</div>' +
+                                            '<div class="ques-list-name-text"> 累计销量：' + item.salesVolume + '</div>' +
+                                            '</div>' +
+                                            '<span class="ques-list-name-icon item-icon00' + (index + 1) + '">' + (index + 1) + '</span>' +
+                                            '</div>' +
+                                            '</a>' +
+                                            '</li>'
+                                } else if (index == 2) {
+                                    top2Html += '<li class="ques-card-list-three">' +
+                                            '<a href="productDetail.html?productNo=' + item.productNo + '">' +
+                                            '<div class="ques-list-box clearfix">' +
+                                            '<div class="ques-list-head">' +
+                                            '<div class="ques-list-image">' +
+                                            '<img src="' + item.image + '">' +
+                                            '</div>' +
+                                            '</div>' +
+                                            '<div class="ques-list-name">' +
+                                            '<div class="ques-list-name-head" style="color: #1e8eff; line-height: 27px;font-size: 20px;font-style: italic;">NO3：' + item.productName + '</div>' +
+                                            '<div class="ques-list-name-text"> 累计销量：' + item.salesVolume + '</div>' +
+                                            '</div>' +
+                                            '<span class="ques-list-name-icon item-icon00' + (index + 1) + '">' + (index + 1) + '</span>' +
+                                            '</div>' +
+                                            '</a>' +
+                                            '</li>'
+                                } else {
+                                    top2Html += '<li class="">' +
+                                            '<a href="productDetail.html?productNo=' + item.productNo + '">' +
+                                            '<div class="ques-list-box clearfix">' +
+                                            '<div class="ques-list-head">' +
+                                            '<div class="ques-list-image">' +
+                                            '<img src="' + item.image + '" alt="">' +
+                                            '</div>' +
+                                            '</div>' +
+                                            '<div class="ques-list-name">' +
+                                            '<div class="ques-list-name-head" style="line-height: 27px;font-size: 18px;">' + item.productName +' </div>' +
+                                            '<div class="ques-list-name-text"> 累计销量：' + item.salesVolume + '</div>' +
+                                            '</div>' +
+                                            '<span class="ques-list-name-icon item-icon00' + (index + 1) + '">' + (index + 1) + '</span>' +
+                                            '</div>' +
+                                            '</a>' +
+                                            '</li>'
+                                }
+                                $('#top2UL').html(top2Html)
+                            })
+
+                            loaded()
+                        } else {
+                            showMessage(res.msg)
+                        }
+                    },
+                    error : function(err) {
+                        showMessage("系统正在升级，请稍后重试")
+                        console.log(err)
+                    }
+                })
+            }
+            // 加载进度提示
+            function loading() {
+                $('body').loading({
+                    loadingWidth:240,
+                    title:'请稍等!',
+                    name:'test',
+                    discription:'正在加载...',
+                    direction:'column',
+                    type:'origin',
+                    originBg:'#71EA71',
+                    originDivWidth:40,
+                    originDivHeight:40,
+                    originWidth:6,
+                    originHeight:6,
+                    smallLoading:false,
+                    loadingBg:'#389A81',
+                    loadingMaskBg:'rgba(123,122,222,0.2)'
+                });
+            }
+            function loaded() {
+                removeLoading('test');
+            }
+        </script>
     </body>
-
-
 </html>

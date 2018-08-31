@@ -4,6 +4,7 @@ package com.jeefw.dao.sys;
 import com.jeefw.model.sys.ProductShelf;
 
 import core.dao.Dao;
+import core.support.QueryResult;
 
 import java.util.List;
 
@@ -23,5 +24,6 @@ public interface ProductShelfDao extends Dao<ProductShelf> {
 
 	void updateProductOnShelfNum(String onShelfId, Long num);
 
-	List<ProductShelf> selectProductShelfByParam(ProductShelf productShelf);
+	QueryResult selectProductShelfByParam(ProductShelf productShelf);
+
 }

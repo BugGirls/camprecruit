@@ -143,7 +143,7 @@
                                 <span class="undo" style="font-size: 22px;"><a href="#0">撤回</a></span>
                             </header>
 							
-							<div class="body">
+							<div class="body" style="margin: 48px 8px 29px;">
 								<ul>
 									<!-- products added to the cart will be inserted here using JavaScript -->
 								</ul>
@@ -231,7 +231,6 @@
                                     "c":valueList(value1)
                                 })
                             })
-
                         }
 
                         // 初始化二级联动
@@ -279,7 +278,7 @@
                 }
 
                 $.ajax({
-                    url : '/sys/productShelf/get_product_shelf_fe',
+                    url : '/sys/productShelf/get_product_shelf_list_fe',
                     data : formData,
                     type : 'POST',
                     dataType:'json',
@@ -304,7 +303,7 @@
                                                 '<div class="tpl-i-more">' +
                                                     '<span class="am-text-warning">累计销量：</span>' +
                                                     '<span class="am-text-warning"> ' + item.productSalesVolume + ' </span>' +
-                                                    '<a href="productDetail.html" class="am-btn am-btn-secondary am-round" style="height: 40px;float: right;width: 140px;margin-left: 10px;">' +
+                                                    '<a href="productDetail.html?productNo=' + item.productNo + '" class="am-btn am-btn-secondary am-round" style="height: 40px;float: right;width: 140px;margin-left: 10px;">' +
                                                         '<span class="am-icon-yelp"></span> 查看详情' +
                                                     '</a>' +
                                                     '<a href="#0" data-no="' + item.productNo + '" data-price="' + item.productPrice + '" data-img="' + item.productImage + '" data-name="' + item.productName + '" class="am-btn am-btn-success am-round cd-add-to-cart" style="height: 40px;float: right;width: 140px;">' +
@@ -319,9 +318,7 @@
                         }
                         $('#productItemDiv').html(productItemHtml)
 
-                        setTimeout(function () {
-                            loaded()
-                        }, 2000)
+                        loaded()
 
                         loadPage(res.totalPage, res.pageNum, res.totalCount)
                     },
@@ -359,11 +356,13 @@
                 });
                 // 商品分类筛选
                 $('#firstType').on('change', function() {
+                    loading()
                     page.firstType = ($(this).val())
                     page.secondType = ''
                     addItems(page.pageNum, page.pageSize)
                 })
                 $('#secondType').on('change', function() {
+                    loading()
                     page.secondType = $(this).val()
                     addItems(page.pageNum, page.pageSize)
                 })
@@ -642,8 +641,9 @@
                         $('#pagination').prepend('<li style="margin-right:20px;margin-left:20px;">总页数：' + pages + ' 页</li>');
                         $('#pagination').prepend('<li>总条数：' + total + ' 条</li>');
                         if (type == "change") {
-                            data.pageNum = num;
-                            addItems(num, data.pageSize);
+                            loading()
+                            page.pageNum = num;
+                            addItems(num, page.pageSize);
                             loadPage(pages);
                         }
                     }

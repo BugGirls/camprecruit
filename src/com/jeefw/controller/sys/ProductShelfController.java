@@ -1,10 +1,14 @@
 package com.jeefw.controller.sys;
 
+import com.google.gson.reflect.TypeToken;
 import com.jeefw.core.Constant;
 import com.jeefw.core.JavaEEFrameworkBaseController;
 import com.jeefw.model.sys.*;
 import com.jeefw.model.sys.vo.ResultPageVo;
-import com.jeefw.service.sys.*;
+import com.jeefw.service.sys.ProductInfoService;
+import com.jeefw.service.sys.ProductOffShelfService;
+import com.jeefw.service.sys.ProductShelfService;
+import com.jeefw.service.sys.ProductWarehouseService;
 import core.dto.ProductShelfDTO;
 import core.support.JqGridPageView;
 import core.support.QueryResult;
@@ -16,6 +20,7 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
@@ -25,10 +30,6 @@ import java.io.OutputStream;
 import java.math.BigDecimal;
 import java.net.URLDecoder;
 import java.util.*;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-import static java.util.regex.Pattern.*;
 
 /**
  * 商品上架控制层
@@ -254,17 +255,14 @@ public class ProductShelfController extends JavaEEFrameworkBaseController<IntoWa
         return productShelf;
     }
 
-    @Resource
-    private ProductSalesVolumeService productSalesVolumeService;
-
     /**
      * 前台 - 获取商家商品分页信息
      *
      * @param request
      */
-    @RequestMapping(value = "get_product_shelf_fe", method = RequestMethod.POST)
+    @RequestMapping(value = "get_product_shelf_list_fe", method = RequestMethod.POST)
     @ResponseBody
-    public ResultPageVo getProductShelfFe(HttpServletRequest request) {
+    public ResultPageVo getProductShelfListFe(HttpServletRequest request) {
         ProductShelf productShelf = new ProductShelf();
 
         Integer pageNum = Integer.valueOf(request.getParameter("pageNum"));
@@ -312,14 +310,13 @@ public class ProductShelfController extends JavaEEFrameworkBaseController<IntoWa
         // 获取上架商品分页列表
         productShelf.setFirstResult((pageNum - 1) * pageSize);
         productShelf.setMaxResults(pageSize);
-        List<ProductShelf> queryResult = productShelfService.selectProductShelfByParam(productShelf);
-        System.out.println(GSON.toJson(queryResult));
+        QueryResult queryResult = productShelfService.selectProductShelfByParam(productShelf);
         ResultPageVo resultPageVo = new ResultPageVo();
-        resultPageVo.setData(assemblyProductShelfDTO(queryResult));
+        resultPageVo.setData(assemblyProductShelfDTO(queryResult.getResultList()));
         resultPageVo.setPageNum(pageNum);
         resultPageVo.setPageSize(pageSize);
-        resultPageVo.setTotalCount(Long.valueOf(queryResult.size()));
-        resultPageVo.setTotalPage((Long.valueOf(queryResult.size()) + pageSize - 1) / pageSize);
+        resultPageVo.setTotalCount(queryResult.getTotalCount());
+        resultPageVo.setTotalPage((queryResult.getTotalCount() + pageSize - 1) / pageSize);
 
         return resultPageVo;
     }
@@ -340,4 +337,73 @@ public class ProductShelfController extends JavaEEFrameworkBaseController<IntoWa
 
         return productShelfDTOList;
     }
+
+    /**
+     * 前台 - 获取商家商品详情信息
+     *
+     * @param productNo
+     */
+    @RequestMapping(value = "get_product_shelf_detail_fe", method = RequestMethod.POST)
+    @ResponseBody
+    public Map<String, Object> getProductShelfDetailFe(@RequestParam(value = "productNo") String productNo) {
+        Map<String, Object> resultMap = new HashMap<>();
+        resultMap.put("success", false);
+
+        if (StringUtils.isBlank(productNo)) {
+            resultMap.put("msg", "参数错误");
+            return resultMap;
+        }
+
+        ProductShelf productShelf = productShelfService.getByProerties("productNo", productNo);
+        if (productShelf == null) {
+            resultMap.put("msg", "该商品已下架");
+            return resultMap;
+        } else {
+            resultMap.put("success", true);
+            resultMap.put("productShelf", productShelf);
+        }
+
+        return resultMap;
+
+    }
+
+    /**
+     *
+     * @param productTypeList
+     * @return
+     */
+    @RequestMapping(value = "get_product_shelf_top_fe", method = RequestMethod.POST)
+    @ResponseBody
+    public Map<String, Object> getProductShelfTopFe(@RequestParam(value = "productTypeList") String productTypeList) {
+        Map<String, Object> resultMap = new HashMap<>();
+        resultMap.put("success", false);
+        Integer allianceId = getCurrentAllianceId();
+
+        if (StringUtils.isBlank(productTypeList)) {
+            resultMap.put("msg", "参数错误");
+            return resultMap;
+        }
+
+        List<String> typeList = GSON.toList(productTypeList, new TypeToken<List<String>>() {
+        }.getType());
+        for (String type : typeList) {
+            ProductShelf productShelf = new ProductShelf();
+            productShelf.set$eq_allianceId(allianceId.toString());
+            productShelf.set$eq_bigCategoryNo(type);
+            productShelf.setFirstResult(0);
+            productShelf.setMaxResults(10);
+            Map<String, String> sortedCondition = new HashMap<>();
+            sortedCondition.put("salesVolume", "desc");
+            productShelf.setSortedConditions(sortedCondition);
+            QueryResult<ProductShelf> queryResult = productShelfService.doPaginationQuery(productShelf);
+            resultMap.put(type, queryResult.getResultList());
+        }
+
+        resultMap.put("success", true);
+
+        return resultMap;
+
+    }
+
+
 }

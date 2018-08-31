@@ -15,8 +15,8 @@
         <link rel="stylesheet" href="assets/css/amazeui.min.css" />
         <link rel="stylesheet" href="assets/css/admin.css">
         <link rel="stylesheet" href="assets/css/app.css">
-        <link href="assets/css/simplegrid.css" rel="stylesheet" type="text/css"/>
-        <script src="assets/js/echarts.min.js"></script>
+        <link rel="stylesheet" href="assets/css/simplegrid.css"/>
+        <link rel="stylesheet" href="assets/css/loading.css">
         <style>
             header {
                 font-family: 'YouYuan';
@@ -79,12 +79,14 @@
         <script src="assets/js/toast.js"></script>
         <script src="assets/js/mytime.js"></script>
         <script src="assets/js/layer.js"></script>
+        <script src="assets/js/loading.js"></script>
         <script>
             $(function() {
                 initPage()
                 bindEvent()
             })
             function initPage() {
+                loading()
                 $.ajax({
                     url : '/member/activity/get_card_list',
                     type : 'POST',
@@ -121,6 +123,8 @@
                         })
 
                         $('#showCard').html(cardHtml)
+
+                        loaded()
                     },
                     error : function(err) {
                         console.log(err);
@@ -130,6 +134,7 @@
             function bindEvent() {
                 $(document).on('click', '#cardDetail', function() {
                     var cardId = $(this).data('id')
+                    loading()
 
                     $.ajax({
                         url : '/member/activity/get_card_detail',
@@ -185,6 +190,8 @@
                                 console.log(res.msg)
                                 showMessage('系统正在升级，请等候')
                             }
+
+                            loaded()
                         },
                         error : function(err) {
                             console.log(err);
@@ -194,6 +201,29 @@
             }
             function PrefixInteger(num, length) {
                 return (Array(length).join('0') + num).slice(-length);
+            }
+
+            // 加载进度提示
+            function loading() {
+                $('body').loading({
+                    loadingWidth:240,
+                    title:'请稍等!',
+                    name:'test',
+                    discription:'正在加载...',
+                    direction:'column',
+                    type:'origin',
+                    originBg:'#71EA71',
+                    originDivWidth:40,
+                    originDivHeight:40,
+                    originWidth:6,
+                    originHeight:6,
+                    smallLoading:false,
+                    loadingBg:'#389A81',
+                    loadingMaskBg:'rgba(123,122,222,0.2)'
+                });
+            }
+            function loaded() {
+                removeLoading('test');
             }
         </script>
     </body>

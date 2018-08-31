@@ -1,5 +1,6 @@
 package com.jeefw.dao.sys.impl;
 
+import core.support.QueryResult;
 import org.hibernate.Query;
 import org.springframework.stereotype.Repository;
 
@@ -65,7 +66,7 @@ public class ProductShelfDaoImpl extends BaseDao<ProductShelf> implements Produc
 	}
 
 	@Override
-	public List<ProductShelf> selectProductShelfByParam(ProductShelf productShelf) {
+	public QueryResult selectProductShelfByParam(ProductShelf productShelf) {
 		StringBuffer hql = new StringBuffer("from ProductShelf where 1=1 ");
 		if (!StringUtils.isEmpty(productShelf.get$eq_allianceId())) {
 			hql.append(" and allianceId = " + productShelf.get$eq_allianceId());
@@ -95,9 +96,19 @@ public class ProductShelfDaoImpl extends BaseDao<ProductShelf> implements Produc
 		}
 
 		System.out.println(hql.toString());
+		QueryResult queryResult = new QueryResult();
+		Query count = this.getSession().createQuery(hql.toString());
+		queryResult.setTotalCount(Long.valueOf(count.list().size()));
+
 		Query query = this.getSession().createQuery(hql.toString());
-		List<ProductShelf> productShelfList = query.list();
-		return productShelfList;
+		if (!StringUtils.isEmpty(productShelf.getFirstResult())) {
+			query.setFirstResult(productShelf.getFirstResult());
+		}
+		if (!StringUtils.isEmpty(productShelf.getMaxResults())) {
+			query.setMaxResults(productShelf.getMaxResults());
+		}
+		queryResult.setResultList(query.list());
+		return queryResult;
 	}
 
 }
