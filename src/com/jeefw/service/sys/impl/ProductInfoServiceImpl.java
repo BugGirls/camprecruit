@@ -28,6 +28,7 @@ public class ProductInfoServiceImpl extends BaseService<ProductInfo> implements 
 		this.dao = productInfoDao;
 	}
 
+	@Override
 	public List<ProductInfo> queryProductInfoWithSubList(List<ProductInfo> resultList) {
 		List<ProductInfo> dictList = new ArrayList<ProductInfo>();
 		for (ProductInfo entity : resultList) {
@@ -51,6 +52,11 @@ public class ProductInfoServiceImpl extends BaseService<ProductInfo> implements 
 			dictList.add(dict);
 		}
 		return dictList;
+	}
+
+	@Override
+	public List<ProductInfo> queryProductListByIdIn(List<Long> productIds) {
+		return productInfoDao.queryProductListByIdIn(productIds);
 	}
 
 }

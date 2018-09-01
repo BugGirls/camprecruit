@@ -72,6 +72,27 @@ public class OrderController extends JavaEEFrameworkBaseController implements Co
     }
 
     /**
+     * 创建智能搭配订单
+     *
+     * @param smartCollocationId
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping(value = "/create_order_by_smart", method = RequestMethod.POST)
+    @ResponseBody
+    public Map<String, Object> createOrderBySmart(@RequestParam(value = "smartCollocationId") String smartCollocationId) throws Exception {
+        Map<String, Object> resultMap = new HashMap<>(16);
+        resultMap.put("success", false);
+        Integer allianceId = getCurrentAllianceId();
+
+        String orderId = orderMasterService.createBySmart(allianceId, smartCollocationId);
+        resultMap.put("orderId", orderId);
+        resultMap.put("success", true);
+
+        return resultMap;
+    }
+
+    /**
      * 获取订单和订单详情信息
      *
      * @param orderId

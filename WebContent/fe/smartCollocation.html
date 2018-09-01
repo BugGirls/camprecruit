@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>智能搭配</title>
+        <meta name="keywords" content="index">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="renderer" content="webkit">
+        <meta http-equiv="Cache-Control" content="no-siteapp" />
+        <meta name="toTop" content="true">
+        <link rel="icon" type="image/png" href="assets/i/favicon.png">
+        <link rel="apple-touch-icon-precomposed" href="assets/i/app-icon72x72@2x.png">
+        <meta name="apple-mobile-web-app-title" content="Amaze UI" />
+        <link rel="stylesheet" href="assets/css/amazeui.min.css" />
+        <link rel="stylesheet" href="assets/css/admin.css">
+        <link rel="stylesheet" href="assets/css/app.css">
+        <link rel="stylesheet" href="assets/css/loading.css">
+        <script src="assets/js/echarts.min.js"></script>
+        <style>
+            body {
+                font-family: 'YouYuan';
+            }
+            .tpl-page-header-fixed {
+                margin-top: 150px;
+            }
+            .titleBox {
+                float:left;
+                position:relative;
+                left:35%;
+                height: 130px;
+                line-height: 130px;
+            }
+            .titleBox p {
+                float:left;
+                position:relative;
+                right:50%;
+                color: black;
+            }
+            .selectBtn {
+                background-color: #fff;
+                border-radius: 5px;
+                width: 250px;
+                height: 50px;
+                font-size: 22px;
+            }
+            .returnDiv {
+                font-family: Arial,'Times New Roman','Microsoft YaHei',SimHei;
+                width: 120px;
+                top:20px;
+                right:50px;
+                position:fixed;
+                cursor:pointer;
+            }
+            .product-name {
+                width: 50%;
+                max-width: 600px;
+                display: inline-block;
+                margin-left: 20px;
+            }
+            .product-count {
+                width: 20%;
+                position: absolute;
+                right: 10px;
+                height: 100%;
+                top: 0px;
+                border-left: 1px solid #eee;
+                font-size: 20px;
+                color: black;
+                text-align: center;
+                display: flex;
+            }
+            .product-count div {
+                margin: auto;
+            }
+            .product-price {
+                font-size: 24px;
+                color: black;
+                margin-left: 50px;
+                display: inline-block;
+                width: 20%;
+            }
+            .product-image {
+                border: 1px solid #eee;
+                height: 152px;
+                display: inline-block;
+                width: 152px;
+                margin: 10px;
+            }
+        </style>
+    </head>
+
+    <body data-type="index">
+        <header class="am-topbar am-topbar-inverse admin-header">
+            <div class="am-topbar-brand" style="height: 130px;line-height: 130px;">
+                <a href="index.html" class="tpl-logo">
+                    <img src="assets/img/logo.png">
+                </a>
+            </div>
+
+            <div class="titleBox">
+                <p class="am-text-xxxl">智能超市终端</p>
+            </div>
+
+            <div class="returnDiv">
+                <a style="color: black;" href="javascript:history.back(-1)">
+                    <span class="am-icon-arrow-left" style="font-size: 30px; margin-top: 10px;"></span>
+                    <span style="font-size: 28px;">Return</span>
+                </a>
+            </div>
+        </header>
+
+        <div id="collocationDiv" class="tpl-page-container tpl-page-header-fixed">
+
+        </div>
+
+        <script src="assets/js/jquery.min.js"></script>
+        <script src="assets/js/toast.js"></script>
+        <script src="assets/js/loading.js"></script>
+        <script>
+            $(function() {
+                onLoad();
+                bindEvent();
+            });
+            function onLoad() {
+                initPage();
+            }
+            function initPage() {
+                loading()
+                $.ajax({
+                    url : '/smart/collocation/get_smart_collocation_list_fe',
+                    type : 'POST',
+                    dataType:'json',
+                    success : function(res) {
+                        var collocationDivHtml = ''
+
+                        if (res.success) {
+                            $.each(res.list, function(index, item) {
+                                collocationDivHtml += '<div  class="tpl-portlet-components" style="margin-top: -20px;position: relative; margin-bottom: 40px;"><ul class="tpl-task-list" style="color: #eee"><li>'
+                                $.each(item.productInfoList, function(index1, item1) {
+                                    collocationDivHtml += '<a href="productDetail.html?productNo=' + item1.no + '">' +
+                                            '<div class="cosA">' +
+                                            '<span class="product-image">' +
+                                            '<img src="' + item1.image + '" style="width: 150px;"/>' +
+                                            '</span>' +
+                                            '<span class="product-name">' +
+                                            '<div style="font-size: 22px;color: black">' + item1.name + '</div>' +
+                                            '<div style="font-size: 18px;margin-top: 20px;">' + item1.content + '</div>' +
+                                            '</span>' +
+                                            '<span class="product-price"> ￥' + item1.advicePrice + '</span>' +
+                                            '</div>' +
+                                            '</a>'
+                                })
+
+                                collocationDivHtml += '<div class="product-count">' +
+                                        '<div>' +
+                                        '<p style="text-decoration:line-through">原价：￥' + item.originalPrice + '</p>' +
+                                        '<p style="color: red;">折扣价：￥' + item.discountPrice + '</p>' +
+                                        '<a href="#0" id="settleAccount" data-id="' + item.id + '" class="am-btn am-btn-success am-round cd-add-to-cart" style="height: 40px;width: 140px;">' +
+                                        '<span class="am-icon-shopping-cart"></span> 去结算' +
+                                        '</a>' +
+                                        '</div>' +
+                                        '</div>'
+
+                                collocationDivHtml += '</li></ul></div>'
+                            })
+
+                            $('#collocationDiv').html(collocationDivHtml)
+
+                            loaded()
+                        } else {
+                            showMessage(res.msg)
+                        }
+                    },
+                    error : function(err) {
+                        showMessage("系统正在升级，请稍后重试");
+                        console.log(err);
+                    }
+                });
+            }
+            function bindEvent() {
+                // 结算
+                $('body').on('click','#settleAccount',function() {
+                    // 创建订单
+                    $.ajax({
+                        url : '/order/manager/create_order_by_smart',
+                        data : {
+                            smartCollocationId : $(this).data('id')
+                        },
+                        type : 'POST',
+                        dataType:'json',
+                        success : function(res) {
+                            console.log(res)
+                            if (res.success) {
+                                var orderId = res.orderId
+                                window.location.href = '/fe/productAccount.html?orderId=' + orderId
+                            } else {
+                                showMessage(res.msg);
+                            }
+                        },
+                        error : function(err) {
+                            showMessage("系统正在升级，请稍后重试");
+                            console.log(err);
+                        }
+                    });
+                })
+            }
+
+            // 加载进度提示
+            function loading() {
+                $('body').loading({
+                    loadingWidth:240,
+                    title:'请稍等!',
+                    name:'test',
+                    discription:'正在加载...',
+                    direction:'column',
+                    type:'origin',
+                    originBg:'#71EA71',
+                    originDivWidth:40,
+                    originDivHeight:40,
+                    originWidth:6,
+                    originHeight:6,
+                    smallLoading:false,
+                    loadingBg:'#389A81',
+                    loadingMaskBg:'rgba(123,122,222,0.2)'
+                });
+            }
+            function loaded() {
+                removeLoading('test');
+            }
+        </script>
+    </body>
+</html>

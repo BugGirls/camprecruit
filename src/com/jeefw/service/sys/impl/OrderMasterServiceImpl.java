@@ -6,12 +6,15 @@ import com.jeefw.dao.sys.ProductInfoDao;
 import com.jeefw.model.sys.OrderDetail;
 import com.jeefw.model.sys.OrderMaster;
 import com.jeefw.model.sys.ProductInfo;
+import com.jeefw.model.sys.SmartCollocation;
 import com.jeefw.service.sys.OrderMasterService;
+import com.jeefw.service.sys.SmartCollocationService;
 import core.dto.OrderMasterDTO;
 import core.enums.OrderStatusEnum;
 import core.enums.PayStatusEnum;
 import core.enums.TradeTypeEnum;
 import core.service.BaseService;
+import core.util.GSON;
 import core.util.KeyUtil;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.BeanUtils;
@@ -38,6 +41,9 @@ public class OrderMasterServiceImpl extends BaseService<OrderMaster> implements 
 
     @Resource
     private ProductInfoDao productInfoDao;
+
+    @Resource
+    private SmartCollocationService smartCollocationService;
 
     @Resource
     public void setOrderMasterDao(OrderMasterDao orderMasterDao) {
@@ -101,6 +107,62 @@ public class OrderMasterServiceImpl extends BaseService<OrderMaster> implements 
         // 5、减少商品库存
 
         return orderMasterDTO;
+    }
+
+    /**
+     * 创建智能搭配订单
+     *
+     * @param allianceId
+     * @param smartCollocationId
+     * @return
+     * @throws Exception
+     */
+    @Override
+    public String createBySmart(Integer allianceId, String smartCollocationId) throws Exception {
+        if (StringUtils.isBlank(smartCollocationId) || allianceId == 0) {
+            throw new Exception("参数错误");
+        }
+
+        // 生成订单编号
+        String orderId = KeyUtil.generatorUniqueKey();
+
+        SmartCollocation smartCollocation = smartCollocationService.getByProerties("id", smartCollocationId);
+        if (smartCollocation != null && StringUtils.isNotBlank(smartCollocation.getProductIds())) {
+            List<Long> productIdList = GSON.toList(smartCollocation.getProductIds(), Long.class);
+            List<ProductInfo> productInfoList = productInfoDao.queryProductListByIdIn(productIdList);
+            for (ProductInfo productInfo : productInfoList) {
+                OrderDetail orderDetail = new OrderDetail();
+                orderDetail.setOrderId(orderId);
+                orderDetail.setDetailId(KeyUtil.generatorUniqueKey());
+                orderDetail.setProductId(productInfo.getId());
+                orderDetail.setProductName(productInfo.getName());
+                orderDetail.setProductIcon(productInfo.getImage());
+                orderDetail.setTotalPrice(productInfo.getAdvicePrice().multiply(new BigDecimal(1)));
+                orderDetail.setProductQuantity(1);
+                orderDetail.setCreateTime(new Date());
+                orderDetail.setUpdateTime(new Date());
+                orderDetail.setProductPrice(productInfo.getAdvicePrice());
+                orderDetail.setAllianceId(allianceId);
+                orderDetailDao.persist(orderDetail);
+            }
+
+            OrderMaster orderMaster = new OrderMaster();
+            orderMaster.setOrderId(orderId);
+            orderMaster.setAmount(smartCollocation.getDiscountPrice());
+            orderMaster.setCreateTime(new Date());
+            orderMaster.setUpdateTime(new Date());
+            orderMaster.setPayStatus(PayStatusEnum.NOT_PAY.getCode());
+            orderMaster.setOrderStatus(OrderStatusEnum.NEW.getCode());
+            orderMaster.setAllianceId(allianceId);
+            orderMaster.setTradeType(TradeTypeEnum.WECHAT.getCode());
+            orderMasterDao.persist(orderMaster);
+
+            // todo 减少商品库存
+        } else {
+            throw new Exception("智能搭配数据不存在");
+        }
+
+        return orderId;
     }
 
     /**

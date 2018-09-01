@@ -15,4 +15,6 @@ public interface OrderMasterService extends Service<OrderMaster> {
     OrderMasterDTO getOrderById(String orderId) throws Exception;
 
     OrderMasterDTO getOrderDetail(String orderId) throws Exception;
+
+    String createBySmart(Integer allianceId, String smartCollocationId) throws Exception;
 }
