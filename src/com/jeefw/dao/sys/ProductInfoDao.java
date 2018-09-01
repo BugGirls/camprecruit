@@ -13,5 +13,5 @@ import java.util.List;
  */
 public interface ProductInfoDao extends Dao<ProductInfo> {
 
-    List<ProductInfo> queryProductListByIdIn(List<Long> productIds);
+    List<ProductInfo> queryProductListByNoIn(List<String> productNoList);
 }

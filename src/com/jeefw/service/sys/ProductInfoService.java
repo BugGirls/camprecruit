@@ -14,6 +14,4 @@ public interface ProductInfoService extends Service<ProductInfo> {
 
 	List<ProductInfo> queryProductInfoWithSubList(List<ProductInfo> resultList);
 
-	List<ProductInfo> queryProductListByIdIn(List<Long> productIds);
- 
 }

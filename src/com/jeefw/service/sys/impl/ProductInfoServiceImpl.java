@@ -54,9 +54,4 @@ public class ProductInfoServiceImpl extends BaseService<ProductInfo> implements 
 		return dictList;
 	}
 
-	@Override
-	public List<ProductInfo> queryProductListByIdIn(List<Long> productIds) {
-		return productInfoDao.queryProductListByIdIn(productIds);
-	}
-
 }

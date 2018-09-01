@@ -35,8 +35,8 @@ public class SmartCollocation extends SmartCollocationParameter {
     /**
      * 搭配商品id，用逗号分隔
      */
-    @Column(name = "product_ids")
-    private String productIds;
+    @Column(name = "shelf_ids")
+    private String shelfIds;
 
     /**
      * 原价
@@ -70,12 +70,12 @@ public class SmartCollocation extends SmartCollocationParameter {
         this.allianceId = allianceId;
     }
 
-    public String getProductIds() {
-        return productIds;
+    public String getShelfIds() {
+        return shelfIds;
     }
 
-    public void setProductIds(String productIds) {
-        this.productIds = productIds;
+    public void setShelfIds(String shelfIds) {
+        this.shelfIds = shelfIds;
     }
 
     public BigDecimal getOriginalPrice() {

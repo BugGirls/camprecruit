@@ -1,6 +1,7 @@
 package core.dto;
 
 import com.jeefw.model.sys.ProductInfo;
+import com.jeefw.model.sys.ProductShelf;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -17,7 +18,7 @@ public class SmartCollocationDTO {
 
     private BigDecimal discountPrice;
 
-    private List<ProductInfo> productInfoList;
+    private List<ProductShelf> productShelfList;
 
     public BigDecimal getOriginalPrice() {
         return originalPrice;
@@ -35,12 +36,12 @@ public class SmartCollocationDTO {
         this.discountPrice = discountPrice;
     }
 
-    public List<ProductInfo> getProductInfoList() {
-        return productInfoList;
+    public List<ProductShelf> getProductShelfList() {
+        return productShelfList;
     }
 
-    public void setProductInfoList(List<ProductInfo> productInfoList) {
-        this.productInfoList = productInfoList;
+    public void setProductShelfList(List<ProductShelf> productShelfList) {
+        this.productShelfList = productShelfList;
     }
 
     public String getId() {

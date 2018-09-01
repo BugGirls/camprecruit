@@ -132,20 +132,22 @@
                     type : 'POST',
                     dataType:'json',
                     success : function(res) {
+                        console.log(res)
+
                         var collocationDivHtml = ''
 
                         if (res.success) {
                             $.each(res.list, function(index, item) {
                                 collocationDivHtml += '<div  class="tpl-portlet-components" style="margin-top: -20px;position: relative; margin-bottom: 40px;"><ul class="tpl-task-list" style="color: #eee"><li>'
-                                $.each(item.productInfoList, function(index1, item1) {
-                                    collocationDivHtml += '<a href="productDetail.html?productNo=' + item1.no + '">' +
+                                $.each(item.productShelfList, function(index1, item1) {
+                                    collocationDivHtml += '<a href="productDetail.html?productNo=' + item1.productNo + '">' +
                                             '<div class="cosA">' +
                                             '<span class="product-image">' +
                                             '<img src="' + item1.image + '" style="width: 150px;"/>' +
                                             '</span>' +
                                             '<span class="product-name">' +
-                                            '<div style="font-size: 22px;color: black">' + item1.name + '</div>' +
-                                            '<div style="font-size: 18px;margin-top: 20px;">' + item1.content + '</div>' +
+                                            '<div style="font-size: 22px;color: black">' + item1.productName + '</div>' +
+                                            '<div style="font-size: 18px;margin-top: 20px;">' + item1.productSubTitle + '</div>' +
                                             '</span>' +
                                             '<span class="product-price"> ￥' + item1.advicePrice + '</span>' +
                                             '</div>' +

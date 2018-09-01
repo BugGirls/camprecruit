@@ -1,5 +1,6 @@
 package com.jeefw.dao.sys.impl;
 
+import com.jeefw.model.sys.ProductInfo;
 import core.support.QueryResult;
 import org.hibernate.Query;
 import org.springframework.stereotype.Repository;
@@ -110,5 +111,23 @@ public class ProductShelfDaoImpl extends BaseDao<ProductShelf> implements Produc
 		queryResult.setResultList(query.list());
 		return queryResult;
 	}
+
+	@Override
+	public List<ProductShelf> queryProductShelfListByIdIn(List<Long> productShelfIds) {
+		String str = "";
+		if (productShelfIds.size() > 0) {
+			StringBuffer ids = new StringBuffer();
+			for (int i = 0; i < productShelfIds.size(); i++) {
+				ids.append(productShelfIds.get(i) + ",");
+			}
+			str = ids.substring(0, ids.length() - 1);
+		}
+
+		String hql = "from ProductShelf where id in (" + str + ")";
+		System.out.println(hql);
+		Query query = this.getSession().createQuery(hql);
+		return query.list();
+	}
+
 
 }

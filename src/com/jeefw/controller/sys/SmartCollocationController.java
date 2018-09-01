@@ -3,8 +3,10 @@ package com.jeefw.controller.sys;
 import com.jeefw.core.Constant;
 import com.jeefw.core.JavaEEFrameworkBaseController;
 import com.jeefw.model.sys.ProductInfo;
+import com.jeefw.model.sys.ProductShelf;
 import com.jeefw.model.sys.SmartCollocation;
 import com.jeefw.service.sys.ProductInfoService;
+import com.jeefw.service.sys.ProductShelfService;
 import com.jeefw.service.sys.SmartCollocationService;
 import core.dto.SmartCollocationDTO;
 import core.util.GSON;
@@ -34,7 +36,7 @@ public class SmartCollocationController extends JavaEEFrameworkBaseController im
     private SmartCollocationService smartCollocationService;
 
     @Resource
-    private ProductInfoService productInfoService;
+    private ProductShelfService productShelfService;
 
     /**
      * 前台 - 获取智能搭配列表
@@ -65,15 +67,22 @@ public class SmartCollocationController extends JavaEEFrameworkBaseController im
                 smartCollocationDTO.setId(smartCollocation.getId());
                 smartCollocationDTO.setDiscountPrice(smartCollocation.getDiscountPrice());
                 smartCollocationDTO.setOriginalPrice(smartCollocation.getOriginalPrice());
-                List<Long> productIdList = new ArrayList<>();
-                if (!StringUtils.isEmpty(smartCollocation.getProductIds())) {
-                    productIdList = GSON.toList(smartCollocation.getProductIds(), Long.class);
+                List<Long> productShelfIdList = new ArrayList<>();
+                if (!StringUtils.isEmpty(smartCollocation.getShelfIds())) {
+                    productShelfIdList = GSON.toList(smartCollocation.getShelfIds(), Long.class);
                 }
-                if (productIdList.size() > 0) {
-                    List<ProductInfo> productInfos = productInfoService.queryProductListByIdIn(productIdList);
-                    smartCollocationDTO.setProductInfoList(productInfos);
+                boolean ok = true;
+                List<ProductShelf> productShelfs = productShelfService.queryProductShelfListByIdIn(productShelfIdList);
+                for (ProductShelf productShelf : productShelfs) {
+                    // 如果货架商品数量为0，则不进行展示
+                    if (productShelf.getNum() <= 0) {
+                        ok = false;
+                    }
                 }
-                smartCollocationDTOList.add(smartCollocationDTO);
+                if (ok) {
+                    smartCollocationDTO.setProductShelfList(productShelfs);
+                    smartCollocationDTOList.add(smartCollocationDTO);
+                }
             }
         }
 

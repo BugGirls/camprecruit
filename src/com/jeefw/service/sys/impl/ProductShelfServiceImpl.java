@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import com.jeefw.model.sys.ProductInfo;
 import core.support.QueryResult;
 import org.hibernate.Query;
 import org.springframework.stereotype.Service;
@@ -98,5 +99,9 @@ public class ProductShelfServiceImpl extends BaseService<ProductShelf> implement
 		return productShelfDao.selectProductShelfByParam(productShelf);
 	}
 
+	@Override
+	public List<ProductShelf> queryProductShelfListByIdIn(List<Long> productIds) {
+		return productShelfDao.queryProductShelfListByIdIn(productIds);
+	}
 
 }

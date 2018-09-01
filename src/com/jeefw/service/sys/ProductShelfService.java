@@ -22,5 +22,6 @@ public interface ProductShelfService extends Service<ProductShelf> {
 
 	QueryResult selectProductShelfByParam(ProductShelf productShelf);
 
+	List<ProductShelf> queryProductShelfListByIdIn(List<Long> productIds);
 
 }

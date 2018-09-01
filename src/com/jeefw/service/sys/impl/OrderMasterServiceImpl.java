@@ -3,10 +3,8 @@ package com.jeefw.service.sys.impl;
 import com.jeefw.dao.sys.OrderDetailDao;
 import com.jeefw.dao.sys.OrderMasterDao;
 import com.jeefw.dao.sys.ProductInfoDao;
-import com.jeefw.model.sys.OrderDetail;
-import com.jeefw.model.sys.OrderMaster;
-import com.jeefw.model.sys.ProductInfo;
-import com.jeefw.model.sys.SmartCollocation;
+import com.jeefw.dao.sys.ProductShelfDao;
+import com.jeefw.model.sys.*;
 import com.jeefw.service.sys.OrderMasterService;
 import com.jeefw.service.sys.SmartCollocationService;
 import core.dto.OrderMasterDTO;
@@ -24,6 +22,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.annotation.Resource;
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -41,6 +40,9 @@ public class OrderMasterServiceImpl extends BaseService<OrderMaster> implements 
 
     @Resource
     private ProductInfoDao productInfoDao;
+
+    @Resource
+    private ProductShelfDao productShelfDao;
 
     @Resource
     private SmartCollocationService smartCollocationService;
@@ -127,23 +129,41 @@ public class OrderMasterServiceImpl extends BaseService<OrderMaster> implements 
         String orderId = KeyUtil.generatorUniqueKey();
 
         SmartCollocation smartCollocation = smartCollocationService.getByProerties("id", smartCollocationId);
-        if (smartCollocation != null && StringUtils.isNotBlank(smartCollocation.getProductIds())) {
-            List<Long> productIdList = GSON.toList(smartCollocation.getProductIds(), Long.class);
-            List<ProductInfo> productInfoList = productInfoDao.queryProductListByIdIn(productIdList);
+        if (smartCollocation != null && StringUtils.isNotBlank(smartCollocation.getShelfIds())) {
+            List<Long> productShelfIdList = GSON.toList(smartCollocation.getShelfIds(), Long.class);
+            List<ProductShelf> productShelfList = productShelfDao.queryProductShelfListByIdIn(productShelfIdList);
+            List<String> productNoList = new ArrayList<>();
+            for (ProductShelf productShelf : productShelfList) {
+                if (productShelf != null) {
+                    if (productShelf.getNum() > 0) {
+                        productNoList.add(productShelf.getProductNo());
+                    } else {
+                        throw new Exception("货架上的商品已售完");
+                    }
+                } else {
+                    throw new Exception("货架商品不存在");
+                }
+            }
+
+            List<ProductInfo> productInfoList = productInfoDao.queryProductListByNoIn(productNoList);
             for (ProductInfo productInfo : productInfoList) {
-                OrderDetail orderDetail = new OrderDetail();
-                orderDetail.setOrderId(orderId);
-                orderDetail.setDetailId(KeyUtil.generatorUniqueKey());
-                orderDetail.setProductId(productInfo.getId());
-                orderDetail.setProductName(productInfo.getName());
-                orderDetail.setProductIcon(productInfo.getImage());
-                orderDetail.setTotalPrice(productInfo.getAdvicePrice().multiply(new BigDecimal(1)));
-                orderDetail.setProductQuantity(1);
-                orderDetail.setCreateTime(new Date());
-                orderDetail.setUpdateTime(new Date());
-                orderDetail.setProductPrice(productInfo.getAdvicePrice());
-                orderDetail.setAllianceId(allianceId);
-                orderDetailDao.persist(orderDetail);
+                if (productInfo != null) {
+                    OrderDetail orderDetail = new OrderDetail();
+                    orderDetail.setOrderId(orderId);
+                    orderDetail.setDetailId(KeyUtil.generatorUniqueKey());
+                    orderDetail.setProductId(productInfo.getId());
+                    orderDetail.setProductName(productInfo.getName());
+                    orderDetail.setProductIcon(productInfo.getImage());
+                    orderDetail.setTotalPrice(productInfo.getAdvicePrice().multiply(new BigDecimal(1)));
+                    orderDetail.setProductQuantity(1);
+                    orderDetail.setCreateTime(new Date());
+                    orderDetail.setUpdateTime(new Date());
+                    orderDetail.setProductPrice(productInfo.getAdvicePrice());
+                    orderDetail.setAllianceId(allianceId);
+                    orderDetailDao.persist(orderDetail);
+                } else {
+                    throw new Exception("商品不存在");
+                }
             }
 
             OrderMaster orderMaster = new OrderMaster();

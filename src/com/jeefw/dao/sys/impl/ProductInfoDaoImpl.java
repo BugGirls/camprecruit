@@ -1,5 +1,6 @@
 package com.jeefw.dao.sys.impl;
 
+import com.jeefw.model.sys.ProductShelf;
 import org.hibernate.Query;
 import org.springframework.stereotype.Repository;
 
@@ -22,17 +23,17 @@ public class ProductInfoDaoImpl extends BaseDao<ProductInfo> implements ProductI
 	}
 
 	@Override
-	public List<ProductInfo> queryProductListByIdIn(List<Long> productIds) {
+	public List<ProductInfo> queryProductListByNoIn(List<String> productNoList) {
 		String str = "";
-		if (productIds.size() > 0) {
+		if (productNoList.size() > 0) {
 			StringBuffer ids = new StringBuffer();
-			for (int i = 0; i < productIds.size(); i++) {
-				ids.append(productIds.get(i) + ",");
+			for (int i = 0; i < productNoList.size(); i++) {
+				ids.append("'" + productNoList.get(i) + "',");
 			}
 			str = ids.substring(0, ids.length() - 1);
 		}
 
-		String hql = "from ProductInfo where id in (" + str + ")";
+		String hql = "from ProductInfo where no in (" + str + ")";
 		System.out.println(hql);
 		Query query = this.getSession().createQuery(hql);
 		return query.list();
